@@ -1,0 +1,12 @@
+﻿  dynamic.cpp
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(41,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(42,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(52,206): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(57,229): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(113,19): warning C4018: '<': signed/unsigned mismatch
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(143,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(147,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(155,14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(160,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\dynamic.cpp(104): warning C4172: returning address of local variable or temporary: entity
+  rpg2.vcxproj -> C:\Users\dasa\Desktop\rpg2\rpg2\Debug\rpg2.exe
