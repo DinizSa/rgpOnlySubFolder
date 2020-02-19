@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets.h" />
+    <ClInclude Include="command_MoveTo.h" />
+    <ClInclude Include="commands.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="dynamic.h" />
     <ClInclude Include="entity.h" />
@@ -27,10 +29,13 @@
     <ClInclude Include="interactive.h" />
     <ClInclude Include="landscape.h" />
     <ClInclude Include="maps.h" />
+    <ClInclude Include="scriptProcessor.h" />
+    <ClInclude Include="textDrawer.h" />
     <ClInclude Include="timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assets.cpp" />
+    <ClCompile Include="command_MoveTo.cpp" />
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="dynamic.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -39,6 +44,8 @@
     <ClCompile Include="landscape.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maps.cpp" />
+    <ClCompile Include="scriptProcessor.cpp" />
+    <ClCompile Include="textDrawer.cpp" />
     <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>

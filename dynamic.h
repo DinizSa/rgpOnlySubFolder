@@ -20,9 +20,10 @@ public:
 	Dynamic();
 	Dynamic(string name, float px, float py, float vx, float vy, float width, float height, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, int maxSpeed);
 	~Dynamic();
-	inline void addVelocityX(float deltaVx) { this->vx += deltaVx; }
-	inline void addVelocityY(float deltaVy) { this->vy += deltaVy; }
-	inline void resetVelocity(float deltaVy) { this->vx = 0.f; this->vy = 0.f; }
+	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
+	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
+	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed; }
+	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual void OnInteraction(Dynamic* secondDynamic) = 0;
 	Entity* getCollidingEntity(vector<Entity>* entitys);
 	Entity* getCollidingEntity(vector<Entity>* entitys, int direction);

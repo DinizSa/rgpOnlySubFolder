@@ -2,6 +2,7 @@
 
 Assets::Assets() {
 	mapSizeSprite["EarthBender"] = 34;
+	mapSizeSprite["FireLady"] = 34;
 }
 
 Assets::~Assets() {
@@ -22,7 +23,8 @@ void Assets::LoadTextures() {
 	load("Coelho", "assets/tiles/Coelho.png");
 
 	load("EarthBender", "assets/tiles/tileEarthBender4.png");
-	load("FireLady", "assets/tiles/tileFireLady.png");
+	load("FireLady", "assets/tiles/FireLady4.png");
+	//load("FireLady", "assets/tiles/tileFireLady.png");
 	load("PackMan", "assets/tiles/tilePackMan.png");
 	load("UnpackMan", "assets/tiles/tileUnpackMan.png");
 	load("Rabbit", "assets/tiles/tileRabbit.png");

@@ -5,6 +5,6 @@
 class InputHandler {
 public:
 	InputHandler();
-	~InputHandler();
+	~InputHandler(); 
 	void pollEvents(sf::RenderWindow* window, Dynamic* controlled);
 };

@@ -17,13 +17,13 @@ void InputHandler::pollEvents(sf::RenderWindow* window, Dynamic* controlled) {
         if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             window->close();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            controlled->addVelocityX(-controlled->getMaxSpeed());
+            controlled->addVelocityNormalizedX(-1.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            controlled->addVelocityX(controlled->getMaxSpeed());
+            controlled->addVelocityNormalizedX(1.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            controlled->addVelocityY(-controlled->getMaxSpeed());
+            controlled->addVelocityNormalizedY(-1.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            controlled->addVelocityY(controlled->getMaxSpeed());
+            controlled->addVelocityNormalizedY(1.f);
 
     }
 }

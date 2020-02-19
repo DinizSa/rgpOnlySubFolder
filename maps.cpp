@@ -47,6 +47,7 @@ Maps::~Maps() {
 void Maps::draw(sf::RenderWindow* window) {
 	for (int i = 0; i < nrHorizontal * nrVertical; i++)
 	{
-		landscapes[i].draw(window);
+		//if(solidMap[i])
+			landscapes[i].draw(window);
 	}
 }
