@@ -1,6 +1,8 @@
 #include "assets.h"
 
 Assets::Assets() {
+	mapSizeSprite["MapBlock"] = 34;
+	mapSizeSprite["RespectableDistance"] = mapSizeSprite["MapBlock"] + 20;
 	mapSizeSprite["EarthBender"] = 34;
 	mapSizeSprite["FireLady"] = 34;
 }

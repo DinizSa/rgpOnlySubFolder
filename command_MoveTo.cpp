@@ -1,4 +1,5 @@
 #include "command_MoveTo.h"
+#include "assets.h"
 
 cCommand_MoveTo::cCommand_MoveTo(Dynamic* dynamic, float x, float y) {
 	this->dynamic = dynamic;
@@ -15,7 +16,6 @@ void cCommand_MoveTo::Start() {
 	this->m_fStartPosY = dynamic->getPosY();
 	bStarted = true;
 
-
 }
 
 void cCommand_MoveTo::Update(int iElapsedTime) {
@@ -23,7 +23,7 @@ void cCommand_MoveTo::Update(int iElapsedTime) {
 	float currentPosY = dynamic->getPosY();
 	float m_fTotalDistance = sqrt(powf((m_fTargetPosX - currentPosX), 2) + powf((m_fTargetPosY - currentPosY), 2));
 
-	if (m_fTotalDistance <= dynamic->getMaxSpeed() * 2 ) {
+	if (m_fTotalDistance <= Assets::get().GetSizeSprite("RespectableDistance")) {
 		this->bCompleted = true;
 	}
 	else {

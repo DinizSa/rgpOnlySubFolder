@@ -1,6 +1,4 @@
-﻿  main.cpp
-C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\main.cpp(47,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\dasa\Desktop\rpg2\rpg2\rpg2\main.cpp(54,27): warning C4018: '<': signed/unsigned mismatch
-  textDrawer.cpp
+﻿  assets.cpp
+  command_MoveTo.cpp
   Generating Code...
   rpg2.vcxproj -> C:\Users\dasa\Desktop\rpg2\rpg2\Debug\rpg2.exe
