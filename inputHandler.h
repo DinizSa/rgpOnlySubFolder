@@ -7,4 +7,7 @@ public:
 	InputHandler();
 	~InputHandler(); 
 	void pollEvents(sf::RenderWindow* window, Dynamic* controlled);
+
+private:
+	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
 };
