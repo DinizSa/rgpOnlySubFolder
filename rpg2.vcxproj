@@ -22,6 +22,7 @@
     <ClInclude Include="assets.h" />
     <ClInclude Include="command_MoveTo.h" />
     <ClInclude Include="commands.h" />
+    <ClInclude Include="command_Talk.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="dynamic.h" />
     <ClInclude Include="entity.h" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClCompile Include="assets.cpp" />
     <ClCompile Include="command_MoveTo.cpp" />
+    <ClCompile Include="command_Talk.cpp" />
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="dynamic.cpp" />
     <ClCompile Include="entity.cpp" />
