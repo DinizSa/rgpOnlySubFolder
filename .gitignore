@@ -30,3 +30,9 @@ Debug/vc142.idb
 Debug/vc142.pdb
 rpg2.7z
 rpg2.vcxproj
+*.ipch
+*.obj
+*.obj
+.vs/rpg2/v16/Browse.VC.opendb
+Debug/vc142.pdb
+rpg2.7z
