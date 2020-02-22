@@ -13,7 +13,7 @@ InputHandler::~InputHandler() {
 
 }
 
-void InputHandler::pollEvents(sf::RenderWindow* window, Dynamic* controlled) {
+void InputHandler::pollEvents(sf::RenderWindow* window, vector<Dynamic*>* vDynamic, Dynamic* controlled) {
     sf::Event event;
     while (window->pollEvent(event))
     {
@@ -30,6 +30,11 @@ void InputHandler::pollEvents(sf::RenderWindow* window, Dynamic* controlled) {
                 this->bPressedUp = true;
             if (event.key.code == sf::Keyboard::S)
                 this->bPressedDown = true;
+            if (event.key.code == sf::Keyboard::Space) {
+                if (controlled->getCollidingDynamic(vDynamic) != nullptr) {
+                    controlled->getCollidingDynamic(vDynamic)->OnInteraction(controlled);
+                }
+            }
         }
 
         // Movement released

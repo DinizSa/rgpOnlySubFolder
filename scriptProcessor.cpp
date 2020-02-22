@@ -19,7 +19,6 @@ void cScriptProcessor::ProcessCommands(int iElapsedTime) {
 			if (!m_listCommands.front()->getStarted()) {
 				m_listCommands.front()->setStarted();
 				m_listCommands.front()->Start();
-				cout << "Command started" << endl;
 
 			}
 			else {
@@ -27,7 +26,6 @@ void cScriptProcessor::ProcessCommands(int iElapsedTime) {
 			}
 		}
 		else {
-			cout << "Command stopped" << endl;
 			m_listCommands.pop_front();
 		}
 	}

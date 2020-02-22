@@ -60,3 +60,7 @@ Debug/vc142.pdb
 rpg2.7z
 rpg2.vcxproj
 rpg2.vcxproj.filters
+*.tlog
+*.obj
+*.lastbuildstate
+*.pdb

@@ -12,3 +12,7 @@ Interactive::Interactive(string name, float px, float py, float width, float hei
 Interactive::~Interactive() {
 
 }
+
+void Interactive::OnInteraction(Dynamic* secondDynamic) {
+	cout << this->name << " interacting with " << secondDynamic->getName() << endl;
+}

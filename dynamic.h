@@ -25,8 +25,7 @@ public:
 	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed; }
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual void OnInteraction(Dynamic* secondDynamic) = 0;
-	Entity* getCollidingEntity(vector<Entity>* entitys);
-	Entity* getCollidingEntity(vector<Entity>* entitys, int direction);
+	Dynamic* getCollidingDynamic(vector<Dynamic*>* vDynamic);
 	void update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);
 
 	// Getters

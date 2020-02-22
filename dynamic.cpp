@@ -68,46 +68,54 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 }
 
 void Dynamic::SetGraphics(Timer* timer) {
+	// Creature
+	if (this->maxSpeed > 0) {
+		auto setTimeWalking = [&](FacingDirection direction) {
+			if (facingDirection != direction) {
+				facingDirection = direction;
+				msStartedMoving = timer->getMsSinceStart();
+				msSinceStartedMoving = 0;
+			}
+			else {
+				msSinceStartedMoving = timer->getMsSinceStart() - msStartedMoving;
+			}
+		};
 
-	auto setTimeWalking = [&](FacingDirection direction) {
-		if (facingDirection != direction) {
-			facingDirection = direction;
-			msStartedMoving = timer->getMsSinceStart();
+		if (vx > 0)
+			setTimeWalking(FacingDirection::EAST);
+		else if (vx < 0)
+			setTimeWalking(FacingDirection::WEST);
+		else if (vy > 0)
+			setTimeWalking(FacingDirection::SOUTH);
+		else if (vy < 0)
+			setTimeWalking(FacingDirection::NORTH);
+
+		if (vy == 0 && vx == 0)
 			msSinceStartedMoving = 0;
-		}
-		else {
-			msSinceStartedMoving = timer->getMsSinceStart() - msStartedMoving;
-		}
-	};
 
-	if (vx > 0)
-		setTimeWalking(FacingDirection::EAST);
-	else if (vx < 0)
-		setTimeWalking(FacingDirection::WEST);
-	else if (vy > 0)
-		setTimeWalking(FacingDirection::SOUTH);
-	else if (vy < 0)
-		setTimeWalking(FacingDirection::NORTH);
-
-	if (vy == 0 && vx == 0)
-		msSinceStartedMoving = 0;
-
-	// phaseAnimation represents the collumn of the sprite
-	int phaseAnimation = ((int)(msSinceStartedMoving / ((int)(this->maxSpeed * 50)))) % 3;
-	int sizeSprite = Assets::get().GetSizeSprite(name);
-	// facingDirection represents the line of the sprite
-	setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
+		// phaseAnimation represents the collumn of the sprite
+		int phaseAnimation = ((int)(msSinceStartedMoving / ((int)(this->maxSpeed * 50)))) % 3;
+		int sizeSprite = Assets::get().GetSizeSprite(name);
+		// facingDirection represents the line of the sprite
+		setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
+	}
+	// Interactive
+	/*else {
+		this->setPartialTexture()
+	}*/
 }
 
 
-// Return a pointer to the entity that is colliding or nullptr if not colliding
-Entity* Dynamic::getCollidingEntity(vector<Entity>* entitys) {
-	for (Entity entity : *entitys)
+// Return a pointer to the entity that is colliding or nullptr if not colliding (only if has different names)
+Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
+	for (int i = 0; i < vDynamic->size(); i++)
 	{
-		if (this->getPosX() + this->getWidth() > entity.getPosX() && this->getPosX() < entity.getPosX() + entity.getWidth()) {
-			if (this->getPosY() + this->getWidth() > entity.getPosY() && this->getPosY() < entity.getPosY() + entity.getHeight()) {
-				cout << this->getName() << " colliding with " << entity.getName() << endl;
-				return &entity;
+		if (this->getName() != (*vDynamic)[i]->getName()) {
+			if (this->getPosX() + this->getWidth() > (*vDynamic)[i]->getPosX() && this->getPosX() < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
+				if (this->getPosY() + this->getWidth() > (*vDynamic)[i]->getPosY() && this->getPosY() < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
+					//cout << this->getName() << " colliding with " << (*vDynamic)[i]->getName() << endl;
+					return (*vDynamic)[i];
+				}
 			}
 		}
 	}
@@ -121,7 +129,7 @@ bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, int posX, int posY)
 		if (this->getName() != (*vDynamic)[i]->getName()) {
 			if (posX > (*vDynamic)[i]->getPosX() && posX < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
 				if (posY > (*vDynamic)[i]->getPosY() && posY < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
-					cout << this->getName() << "  colliding with " << (*vDynamic)[i]->getName() << endl;
+					//cout << this->getName() << "  colliding with " << (*vDynamic)[i]->getName() << endl;
 					return true;
 				}
 			}
@@ -130,11 +138,6 @@ bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, int posX, int posY)
 	return false;
 }
 
-// Return a pointer to the entity that is colliding or a nullptr if not colliding, in a chosen direction
-// UP: 1, RIGHT: 2, DOWN:3, LEFT: 4
-Entity* Dynamic::getCollidingEntity(vector<Entity>*, int direction) {
-	return nullptr;
-}
 
 
 void Dynamic::applyFriction() {

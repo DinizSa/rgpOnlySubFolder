@@ -6,7 +6,7 @@ class InputHandler {
 public:
 	InputHandler();
 	~InputHandler(); 
-	void pollEvents(sf::RenderWindow* window, Dynamic* controlled);
+	void pollEvents(sf::RenderWindow* window, vector<Dynamic*>* vDynamic, Dynamic* controlled);
 
 private:
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;

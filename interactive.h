@@ -6,4 +6,5 @@ public:
 	Interactive();
 	Interactive(string name, float px, float py, float width, float height);
 	~Interactive();
+	void OnInteraction(Dynamic* secondDynamic);
 };
