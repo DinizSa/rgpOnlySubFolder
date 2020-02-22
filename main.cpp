@@ -25,8 +25,8 @@ int main()
     Creature coelho("FireLady", 550, 500, 0, 0, 34, 34, 1, 1, 1, 50, 1);
 
     cTextDrawer textDrawer;
-    cCommand_Talk commandTalkConv00(&textDrawer, "hi", "Hey! I am God!", 1000, sf::Color::Red);
-    cCommand_Talk commandTalkConv01(&textDrawer, "coffee", "Hi! I am Satan!", 1000, sf::Color::Blue);
+    cCommand_Talk commandTalkConv00(&textDrawer, "hi", "Hey! My name is Cussy", 1000, sf::Color::Red);
+    cCommand_Talk commandTalkConv01(&textDrawer, "hiBack", "Hi! My name is Piry", 1000, sf::Color::Blue);
 
     // Commands
     cScriptProcessor scriptProcessor;

@@ -52,10 +52,16 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px, (int)(py+height/2) ))))) {
 		px += vx;
 	}
+	else {
+		vx = 0;
+	}
 	// Vertical
 	if ((vy > 0 && py < windowH - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (int)(px + width / 2), (int)(py + height))))) ||
 		(vy < 0 && py > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (int)(px + width / 2), py) )))) {
 		py += vy;
+	}
+	else {
+		vy = 0;
 	}
 
 	this->shape.setPosition(px, py);
