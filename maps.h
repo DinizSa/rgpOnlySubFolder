@@ -16,3 +16,13 @@ private:
 	int nrHorizontal, nrVertical;
 	string spriteAsset;
 };
+
+class Maps_WildOne : public Maps {
+public:
+	Maps_WildOne();
+};
+
+class Maps_WildOneTrip : public Maps {
+public:
+	Maps_WildOneTrip();
+};

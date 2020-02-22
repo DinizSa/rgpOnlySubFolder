@@ -51,3 +51,11 @@ void Maps::draw(sf::RenderWindow* window) {
 			landscapes[i].draw(window);
 	}
 }
+
+
+// <---------------------- MAP WILD ONE ----------------->
+Maps_WildOne::Maps_WildOne(): Maps("MapWildOne.txt", "MapWildOne", 800, 600){ }
+
+
+// <---------------------- MAP WILD TRIP ----------------->
+Maps_WildOneTrip::Maps_WildOneTrip() : Maps("MapWildOneTrip.txt", "MapWildOneTrip", 800, 600) { }
