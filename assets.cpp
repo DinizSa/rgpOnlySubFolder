@@ -24,6 +24,7 @@ void Assets::LoadTextures() {
 	//load("tileCharacters", "assets/tiles/tileCharacters.png");
 	load("Map", "assets/tiles/tileMap.png");
 	load("MapTransp", "assets/tiles/tileMapTransp.png");
+	load("MapTranspFucked", "assets/tiles/tileMapTranspFuked.png");
 	load("Bandido", "assets/tiles/Bandido.png");
 	load("Coelho", "assets/tiles/Coelho.png");
 

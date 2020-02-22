@@ -20,6 +20,8 @@ int main()
     Assets::get().LoadTextures();
     InputHandler inputHandler;
     Maps mapOne("map1.txt", "MapTransp", window.getSize().x, window.getSize().y);
+    Maps mapTwo("map2.txt", "MapTranspFucked", window.getSize().x, window.getSize().y);
+    Maps* pCurrentMap = &mapTwo;
     //Creature player("EarthBender", 50, 50, 0, 0, 34, 34, 1, 1, 1, 100, 2);
     Creature player("PackMan", 400, 450, 0, 0, 34, 34, 1, 1, 1, 100, 1);
     Creature coelho("FireLady", 550, 500, 0, 0, 34, 34, 1, 1, 1, 50, 1);
@@ -56,7 +58,7 @@ int main()
         // Display
         window.clear(sf::Color(0,0,0,255));
         //// Draw map & dynamic objects
-        mapOne.draw(&window);
+        pCurrentMap->draw(&window);
         for (int i = 0; i < vDynamic.size(); i++)
             vDynamic[i]->draw(&window);
         textDrawer.drawText(&window);

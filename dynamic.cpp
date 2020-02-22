@@ -68,41 +68,39 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 }
 
 void Dynamic::SetGraphics(Timer* timer) {
-	// Creature
-	if (this->maxSpeed > 0) {
-		auto setTimeWalking = [&](FacingDirection direction) {
-			if (facingDirection != direction) {
-				facingDirection = direction;
-				msStartedMoving = timer->getMsSinceStart();
-				msSinceStartedMoving = 0;
-			}
-			else {
-				msSinceStartedMoving = timer->getMsSinceStart() - msStartedMoving;
-			}
-		};
 
-		if (vx > 0)
-			setTimeWalking(FacingDirection::EAST);
-		else if (vx < 0)
-			setTimeWalking(FacingDirection::WEST);
-		else if (vy > 0)
-			setTimeWalking(FacingDirection::SOUTH);
-		else if (vy < 0)
-			setTimeWalking(FacingDirection::NORTH);
-
-		if (vy == 0 && vx == 0)
+	auto setTimeWalking = [&](FacingDirection direction) {
+		if (facingDirection != direction) {
+			facingDirection = direction;
+			msStartedMoving = timer->getMsSinceStart();
 			msSinceStartedMoving = 0;
+		}
+		else {
+			msSinceStartedMoving = timer->getMsSinceStart() - msStartedMoving;
+		}
+	};
 
-		// phaseAnimation represents the collumn of the sprite
-		int phaseAnimation = ((int)(msSinceStartedMoving / ((int)(this->maxSpeed * 50)))) % 3;
-		int sizeSprite = Assets::get().GetSizeSprite(name);
-		// facingDirection represents the line of the sprite
-		setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
-	}
-	// Interactive
-	/*else {
-		this->setPartialTexture()
-	}*/
+	if (vx > 0)
+		setTimeWalking(FacingDirection::EAST);
+	else if (vx < 0)
+		setTimeWalking(FacingDirection::WEST);
+	else if (vy > 0)
+		setTimeWalking(FacingDirection::SOUTH);
+	else if (vy < 0)
+		setTimeWalking(FacingDirection::NORTH);
+
+	if (vy == 0 && vx == 0)
+		msSinceStartedMoving = 0;
+
+	// phaseAnimation represents the collumn of the sprite
+	int phaseAnimation = 0;
+	if(this->maxSpeed > 0)
+		phaseAnimation = ((int)(msSinceStartedMoving / ((int)(this->maxSpeed * 50)))) % 3;
+
+	int sizeSprite = Assets::get().GetSizeSprite(name);
+	// facingDirection represents the line of the sprite
+	setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
+
 }
 
 
