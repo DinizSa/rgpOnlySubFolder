@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 using namespace std;
+#include "maps.h"
 
 class Assets {
 
@@ -19,11 +20,15 @@ public:
 	sf::Texture& GetTexture(string name) {
 		return m_mapsTextures[name];
 	}
+	Maps* GetMaps(string name) {
+		return m_mapsMaps[name];
+	}
 	int GetSizeSprite(string name) {
 		return mapSizeSprite[name];
 	}
 
 	void LoadTextures();
+	void LoadMaps();
 
 
 private:
@@ -31,5 +36,6 @@ private:
 	Assets();
 	~Assets();
 	map<string, sf::Texture> m_mapsTextures;
+	map<string, Maps*> m_mapsMaps;
 	map<string, int> mapSizeSprite;
 };

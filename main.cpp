@@ -18,10 +18,11 @@ int main()
     Timer timer;
 
     Assets::get().LoadTextures();
+    Assets::get().LoadMaps();
     InputHandler inputHandler;
-    Maps_WildOne wildOne;
-    Maps_WildOneTrip wildOneTrip;
-    Maps* pCurrentMap = &wildOne;
+    Maps* wildOne = Assets::get().GetMaps("MapWildOne");
+    Maps* wildTripOne = Assets::get().GetMaps("MapWildTripOne");
+    Maps* pCurrentMap = wildOne;
     //Creature player("EarthBender", 50, 50, 0, 0, 34, 34, 1, 1, 1, 100, 2);
     Creature player("PackMan", 400, 450, 0, 0, 34, 34, 1, 1, 1, 100, 1);
     Creature coelho("FireLady", 550, 500, 0, 0, 34, 34, 1, 1, 1, 50, 1);

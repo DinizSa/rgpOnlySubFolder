@@ -3,12 +3,14 @@
 #include <iostream>
 #include <fstream>
 
-Maps::Maps(string pathToMap, string spriteAsset, int bgWidth, int bgHeight) {
+Maps::Maps(string sName, int bgWidth, int bgHeight) {
 
 	// Read map and settings from file and construct an array of landscapes
-	ifstream data(pathToMap, ios::in | ios::binary);
+	this->sName = sName;
+	ifstream data(sName + ".txt", ios::in | ios::binary);
 	if (data.is_open()) {
 		int spriteDimX, spriteDimY, spriteNrX, spriteNrY;
+		string spriteAsset;
 		data >> spriteAsset >> nrHorizontal >> nrVertical >> spriteDimX >> spriteDimY >> spriteNrX >> spriteNrY;
 		landscapes = new Landscape[nrHorizontal * nrVertical];
 		indicesMap = new int[nrHorizontal * nrVertical];
@@ -54,8 +56,8 @@ void Maps::draw(sf::RenderWindow* window) {
 
 
 // <---------------------- MAP WILD ONE ----------------->
-Maps_WildOne::Maps_WildOne(): Maps("MapWildOne.txt", "MapWildOne", 800, 600){ }
+Maps_WildOne::Maps_WildOne(): Maps("MapWildOne", 800, 600){}
 
 
 // <---------------------- MAP WILD TRIP ----------------->
-Maps_WildOneTrip::Maps_WildOneTrip() : Maps("MapWildOneTrip.txt", "MapWildOneTrip", 800, 600) { }
+Maps_WildOneTrip::Maps_WildOneTrip() : Maps("MapWildOneTrip", 800, 600) {}

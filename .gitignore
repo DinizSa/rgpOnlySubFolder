@@ -89,3 +89,7 @@ Debug/textDrawer.obj
 Debug/timer.obj
 Debug/vc142.idb
 Debug/vc142.pdb
+*.tlog
+*.obj
+*.idb
+*.pdb
