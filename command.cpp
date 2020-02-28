@@ -1,10 +1,36 @@
-#include "command_MoveTo.h"
+#include "command.h"
 #include "assets.h"
 
+// <----- Talk Command ----->
+cCommand_Talk::cCommand_Talk(cTextDrawer* pTextDrawer, string textName, string textToDisplay, int iMsDuration, sf::Color color) {
+	iMsDisplaying = 0;
+	this->iMsDuration = iMsDuration;
+	this->textColor = color;
+	this->textName = textName;
+	this->textToDisplay = textToDisplay;
+	this->pTextDrawer = pTextDrawer;
+};
+
+cCommand_Talk::~cCommand_Talk() {
+};
+
+void cCommand_Talk::Start() {
+	pTextDrawer->setText(textName, textToDisplay, textColor);
+};
+
+void cCommand_Talk::Update(int msElapsed) {
+	iMsDisplaying += msElapsed;
+	if (iMsDisplaying > iMsDuration) {
+		this->bCompleted = true;
+		pTextDrawer->removeText(textName);
+	}
+};
+
+// <----- Move Command ----->
 cCommand_MoveTo::cCommand_MoveTo(Dynamic* dynamic, float x, float y) {
 	this->dynamic = dynamic;
 	m_fTargetPosX = x;
-	m_fTargetPosY = y;	
+	m_fTargetPosY = y;
 	bCompleted = false;
 }
 cCommand_MoveTo::~cCommand_MoveTo() {
@@ -32,3 +58,5 @@ void cCommand_MoveTo::Update(int iElapsedTime) {
 		dynamic->addVelocityNormalizedXY(m_fVx, m_fVy);
 	}
 }
+
+
