@@ -31,8 +31,8 @@ Dynamic::Dynamic(string name, float px, float py, float vx, float vy, float widt
 	msStartedMoving = 0;
 	msSinceStartedMoving = 0;
 }
-void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {
-	move(map, vDynamic, windowW, windowH);
+void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
+	move(map, vDynamic, 800, 600);
 	applyFriction();
 	SetGraphics(timer);
 }
@@ -46,6 +46,9 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 	int blockYOrigin= (int)(py/ heightLandscape) % (int)heightLandscape;
 	int blockYCenter = (int)((py+height/2)/ heightLandscape) % (int)heightLandscape;
 	int blockYDown = (int)((py+height)/ heightLandscape) % (int)heightLandscape;
+
+	//if(vx!=0 || vy != 0)
+	//	cout << " VX " << vx << ", VY " << vy << endl;
 
 	// Horizontal
 	if ((vx > 0 && px < windowW - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (int)(px + width), (int)(py + height/2)))) ||

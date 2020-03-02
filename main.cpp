@@ -6,64 +6,32 @@
 #include "inputHandler.h"
 #include "timer.h"
 #include "scriptProcessor.h"
-#include "command_MoveTo.h"
-#include "commands.h"
+#include "command.h"
 #include "textDrawer.h"
-#include "command_Talk.h"
+#include "level.h"
 
 int main()
 {
+
+    // Initialization of shared ressources between levels
     sf::RenderWindow window(sf::VideoMode(800, 600), "Window");
     window.setFramerateLimit(60);
-    Timer timer;
-
     Assets::get().LoadTextures();
     Assets::get().LoadMaps();
     InputHandler inputHandler;
-    Maps* wildOne = Assets::get().GetMaps("MapWildOne");
-    Maps* wildTripOne = Assets::get().GetMaps("MapWildTripOne");
-    Maps* pCurrentMap = wildOne;
-    //Creature player("EarthBender", 50, 50, 0, 0, 34, 34, 1, 1, 1, 100, 2);
-    Creature player("PackMan", 400, 450, 0, 0, 34, 34, 1, 1, 1, 100, 1);
-    Creature coelho("FireLady", 550, 500, 0, 0, 34, 34, 1, 1, 1, 50, 1);
-    Interactive magicFlower("RedFlowers", 700, 450, 34, 34);
-
-    cTextDrawer textDrawer;
-    cCommand_Talk commandTalkConv00(&textDrawer, "hi", "Hey! ", 1000, sf::Color::Red);
-    cCommand_Talk commandTalkConv01(&textDrawer, "hiBack", "Hi! ", 1000, sf::Color::Blue);
-
-    // Commands
-    cScriptProcessor scriptProcessor;
-    cCommand_MoveTo comandToMove(&coelho, player.getPosX(), player.getPosY());
-    scriptProcessor.AddCommand(&comandToMove);
-    scriptProcessor.AddCommand(&commandTalkConv00);
-    scriptProcessor.AddCommand(&commandTalkConv01);
-
-    vector<Dynamic*> vDynamic;
-    vDynamic.push_back(&player);
-    vDynamic.push_back(&coelho);
-    vDynamic.push_back(&magicFlower);
-
+    cLevel_LevelOne level;
 
     while (window.isOpen())
     {
+        // TODO: Events related with window shouldnt be handled in the level
+        // Events
+        level.handleInputs(&window, inputHandler);
         // Update
-        timer.updateTimer();
-        scriptProcessor.ProcessCommands(timer.getMsSinceLastFrame());
-        if(scriptProcessor.getUserControlEnabled())
-            inputHandler.pollEvents(&window, &vDynamic, &player);
-
-        for (int i = 0; i < vDynamic.size(); i++)
-            vDynamic[i]->update(&timer, pCurrentMap, &vDynamic, window.getSize().x, window.getSize().y);
+        level.update();
 
         // Display
         window.clear(sf::Color(0,0,0,255));
-        //// Draw map & dynamic objects
-        pCurrentMap->draw(&window);
-        for (int i = 0; i < vDynamic.size(); i++)
-            vDynamic[i]->draw(&window);
-        textDrawer.drawText(&window);
-
+        level.draw(&window);
         window.display();
     }
 

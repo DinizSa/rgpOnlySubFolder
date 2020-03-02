@@ -1,5 +1,7 @@
 #pragma once
 #include "landscape.h"
+//#include "interactive.h"
+
 class Maps {
 public:
 	Maps(string sName,  int bgWidth, int bgHeight);
@@ -16,6 +18,7 @@ private:
 	bool* solidMap;
 	int nrHorizontal, nrVertical;
 	string sName;
+
 };
 
 class Maps_WildOne : public Maps {

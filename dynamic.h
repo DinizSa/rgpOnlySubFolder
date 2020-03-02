@@ -26,7 +26,7 @@ public:
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual void OnInteraction(Dynamic* secondDynamic) = 0;
 	Dynamic* getCollidingDynamic(vector<Dynamic*>* vDynamic);
-	void update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);
+	void update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic);
 
 	// Getters
 	inline float getSolidVsSolid() { return this->solidVsSolid; }

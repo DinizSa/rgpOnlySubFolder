@@ -1,6 +1,13 @@
 #include "command.h"
 #include "assets.h"
 
+cCommand::cCommand(){
+	bCompleted = false;
+	bStarted = false;
+}
+
+cCommand::~cCommand() {};
+
 // <----- Talk Command ----->
 cCommand_Talk::cCommand_Talk(cTextDrawer* pTextDrawer, string textName, string textToDisplay, int iMsDuration, sf::Color color) {
 	iMsDisplaying = 0;
@@ -9,12 +16,16 @@ cCommand_Talk::cCommand_Talk(cTextDrawer* pTextDrawer, string textName, string t
 	this->textName = textName;
 	this->textToDisplay = textToDisplay;
 	this->pTextDrawer = pTextDrawer;
+	bCompleted = false;
+	bStarted = false;
 };
 
 cCommand_Talk::~cCommand_Talk() {
 };
 
 void cCommand_Talk::Start() {
+	bCompleted = false;
+	bStarted = true;
 	pTextDrawer->setText(textName, textToDisplay, textColor);
 };
 
@@ -32,6 +43,7 @@ cCommand_MoveTo::cCommand_MoveTo(Dynamic* dynamic, float x, float y) {
 	m_fTargetPosX = x;
 	m_fTargetPosY = y;
 	bCompleted = false;
+	bStarted = false;
 }
 cCommand_MoveTo::~cCommand_MoveTo() {
 
@@ -41,6 +53,7 @@ void cCommand_MoveTo::Start() {
 	this->m_fStartPosX = dynamic->getPosX();
 	this->m_fStartPosY = dynamic->getPosY();
 	bStarted = true;
+	bCompleted = false;
 
 }
 
