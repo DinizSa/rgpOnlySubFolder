@@ -11,8 +11,9 @@ protected:
 	string name;
 public:
 	Entity();
-	Entity(string name, float px, float py, float width, float height);
+	Entity(string name, float px, float py);
 	~Entity();
+	void setDimensions(float width, float height);
 
 	void setPartialTexture(int px, int py, int dx, int dy);
 	void draw(sf::RenderWindow* window);

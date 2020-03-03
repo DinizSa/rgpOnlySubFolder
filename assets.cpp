@@ -43,7 +43,7 @@ void Assets::LoadMaps() {
 		m_mapsMaps[map->getName()] = map;
 	};
 
-	load(new Maps_WildOne());
-	load(new Maps_WildOneTrip());
+	load(new Maps("MapWildOne"));
+	load(new Maps("MapWildOneTrip"));
 
 }

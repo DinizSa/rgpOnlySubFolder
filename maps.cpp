@@ -3,8 +3,9 @@
 #include <iostream>
 #include <fstream>
 
-Maps::Maps(string sName, int bgWidth, int bgHeight) {
-
+Maps::Maps(string sName) {
+	int bgWidth = 800;
+	int bgHeight = 600;
 	// Read map and settings from file and construct an array of landscapes
 	this->sName = sName;
 	ifstream data(sName + ".txt", ios::in | ios::binary);
@@ -27,7 +28,7 @@ Maps::Maps(string sName, int bgWidth, int bgHeight) {
 			{
 				int ind = x + y * nrHorizontal;
 				data >> indicesMap[ind] >> solidMap[ind];
-				landscapes[ind] = Landscape(spriteAsset, x * widthLandscape, y * heightLandscape, widthLandscape, heightLandscape);
+				landscapes[ind] = Landscape(spriteAsset, x * widthLandscape, y * heightLandscape, (float)widthLandscape, (float)heightLandscape);
 				int posSpriteX = ((int)indicesMap[ind] % spriteNrX) * widthSpriteInd;
 				int posSpriteY = floor(indicesMap[ind] / spriteNrX) * heightSpriteInd;
 				landscapes[ind].setPartialTexture(posSpriteX, posSpriteY, widthSpriteInd, heightSpriteInd);
@@ -49,15 +50,6 @@ Maps::~Maps() {
 void Maps::draw(sf::RenderWindow* window) {
 	for (int i = 0; i < nrHorizontal * nrVertical; i++)
 	{
-		//if(solidMap[i])
-			landscapes[i].draw(window);
+		landscapes[i].draw(window);
 	}
 }
-
-
-// <---------------------- MAP WILD ONE ----------------->
-Maps_WildOne::Maps_WildOne(): Maps("MapWildOne", 800, 600){}
-
-
-// <---------------------- MAP WILD TRIP ----------------->
-Maps_WildOneTrip::Maps_WildOneTrip() : Maps("MapWildOneTrip", 800, 600) {}

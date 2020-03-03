@@ -1,7 +1,7 @@
 #pragma once
+using namespace std;
 #include <SFML/Graphics.hpp>
 #include <map>
-using namespace std;
 #include "maps.h"
 
 class Assets {
@@ -27,8 +27,8 @@ public:
 		return mapSizeSprite[name];
 	}
 
-	string GetPresentMap() { return sPresentMap; }
-	void SetPresentMap(string presentMap) { sPresentMap = presentMap; }
+	string GetCurrentMap() { return sPresentMap; }
+	void SetCurrentMap(string presentMap) { sPresentMap = presentMap; }
 
 	void LoadTextures();
 	void LoadMaps();

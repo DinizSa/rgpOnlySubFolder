@@ -6,8 +6,8 @@ Creature::Creature(): Dynamic() {
 }
 Creature::~Creature() {
 }
-Creature::Creature(string name, float px, float py, float vx, float vy, float width, float height, bool solidVsSolid, bool solidVsDynamic, bool friendly, int maxHp, int maxSpeed):
-	Dynamic(name, px, py, vx, vy, width, height, solidVsSolid, solidVsDynamic, friendly, true, maxSpeed){
+Creature::Creature(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, int maxHp, int maxSpeed):
+	Dynamic(name, px, py, solidVsSolid, solidVsDynamic, friendly, true, maxSpeed){
 	this->hp = maxHp;
 	this->maxHp = maxHp;
 }

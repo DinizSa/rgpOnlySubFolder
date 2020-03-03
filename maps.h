@@ -4,7 +4,7 @@
 
 class Maps {
 public:
-	Maps(string sName,  int bgWidth, int bgHeight);
+	Maps(string sName);
 	~Maps();
 	void draw(sf::RenderWindow* window);
 	bool getSolid(int x, int y);
@@ -21,12 +21,12 @@ private:
 
 };
 
-class Maps_WildOne : public Maps {
-public:
-	Maps_WildOne();
-};
-
-class Maps_WildOneTrip : public Maps {
-public:
-	Maps_WildOneTrip();
-};
+//class Maps_WildOne : public Maps {
+//public:
+//	Maps_WildOne();
+//};
+//
+//class Maps_WildOneTrip : public Maps {
+//public:
+//	Maps_WildOneTrip();
+//};

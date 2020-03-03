@@ -4,7 +4,7 @@
 class Interactive : public Dynamic {
 public:
 	Interactive();
-	Interactive(string name, float px, float py, float width, float height);
+	Interactive(string name, float px, float py);
 	~Interactive();
 	void OnInteraction(Dynamic* secondDynamic);
 };

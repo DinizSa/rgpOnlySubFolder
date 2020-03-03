@@ -27,8 +27,6 @@ protected:
 	cTextDrawer textDrawer;
 	vector<Dynamic*> vDynamic;
 	vector<cCommand*> vCommands;
-
-private:
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
 };
 

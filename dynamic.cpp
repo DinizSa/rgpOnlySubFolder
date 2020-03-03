@@ -17,13 +17,13 @@ Dynamic::Dynamic():
 }
 Dynamic::~Dynamic() {
 }
-Dynamic::Dynamic(string name, float px, float py, float vx, float vy, float width, float height, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, int maxSpeed) :
-	Entity(name, px, py, width, height)	{\
+Dynamic::Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, int maxSpeed) :
+	Entity(name, px, py)	{
 	this->solidVsSolid = solidVsSolid;
 	this->solidVsDynamic = solidVsDynamic;
 	this->friendly = friendly;
-	this->vx = vx;
-	this->vy = vy;
+	this->vx = 0;
+	this->vy = 0;
 	this->hasFriction = hasFriction;
 	this->maxSpeed = maxSpeed;
 	facingDirection = SOUTH;
