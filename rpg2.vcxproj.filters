@@ -36,25 +36,19 @@
     <ClInclude Include="maps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inputHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="commands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scriptProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="command_MoveTo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="textDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="command_Talk.h">
+    <ClInclude Include="command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,22 +77,19 @@
     <ClCompile Include="assets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="inputHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="scriptProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="command_MoveTo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="textDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="command_Talk.cpp">
+    <ClCompile Include="command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

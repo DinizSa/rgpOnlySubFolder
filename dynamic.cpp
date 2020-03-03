@@ -107,11 +107,11 @@ void Dynamic::SetGraphics(Timer* timer) {
 }
 
 
-// Return a pointer to the entity that is colliding or nullptr if not colliding (only if has different names)
+// Return a pointer to the entity that is colliding or nullptr if not colliding 
 Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
 	for (int i = 0; i < vDynamic->size(); i++)
 	{
-		if (this->getName() != (*vDynamic)[i]->getName()) {
+		if (this != (*vDynamic)[i]) {
 			if (this->getPosX() + this->getWidth() > (*vDynamic)[i]->getPosX() && this->getPosX() < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
 				if (this->getPosY() + this->getWidth() > (*vDynamic)[i]->getPosY() && this->getPosY() < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
 					//cout << this->getName() << " colliding with " << (*vDynamic)[i]->getName() << endl;
@@ -123,11 +123,11 @@ Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
 	return nullptr;
 }
 
-// Return a boolean if it's colliding (only if has different names)
+// Return a boolean if it's colliding
 bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, int posX, int posY) {
 	for (int i =0; i < vDynamic->size(); i++)
 	{
-		if (this->getName() != (*vDynamic)[i]->getName()) {
+		if (this != (*vDynamic)[i]) {
 			if (posX > (*vDynamic)[i]->getPosX() && posX < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
 				if (posY > (*vDynamic)[i]->getPosY() && posY < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
 					//cout << this->getName() << "  colliding with " << (*vDynamic)[i]->getName() << endl;

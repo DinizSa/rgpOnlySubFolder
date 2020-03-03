@@ -20,15 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets.h" />
-    <ClInclude Include="command_MoveTo.h" />
-    <ClInclude Include="commands.h" />
-    <ClInclude Include="command_Talk.h" />
+    <ClInclude Include="command.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="dynamic.h" />
     <ClInclude Include="entity.h" />
-    <ClInclude Include="inputHandler.h" />
     <ClInclude Include="interactive.h" />
     <ClInclude Include="landscape.h" />
+    <ClInclude Include="level.h" />
     <ClInclude Include="maps.h" />
     <ClInclude Include="scriptProcessor.h" />
     <ClInclude Include="textDrawer.h" />
@@ -36,14 +34,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assets.cpp" />
-    <ClCompile Include="command_MoveTo.cpp" />
-    <ClCompile Include="command_Talk.cpp" />
+    <ClCompile Include="command.cpp" />
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="dynamic.cpp" />
     <ClCompile Include="entity.cpp" />
-    <ClCompile Include="inputHandler.cpp" />
     <ClCompile Include="interactive.cpp" />
     <ClCompile Include="landscape.cpp" />
+    <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maps.cpp" />
     <ClCompile Include="scriptProcessor.cpp" />

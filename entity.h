@@ -20,6 +20,8 @@ public:
 	// Getters
 	inline float getPosX() { return this->px; }
 	inline float getPosY() { return this->py; }
+	inline void setPosX(float px) { this->px = px; }
+	inline void setPosY(float py) { this->py = py; }
 	inline float getWidth() { return this->width; }
 	inline float getHeight() { return this->height; }
 	inline string getName() { return this->name; }

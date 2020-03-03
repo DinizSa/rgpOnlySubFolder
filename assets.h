@@ -27,11 +27,15 @@ public:
 		return mapSizeSprite[name];
 	}
 
+	string GetPresentMap() { return sPresentMap; }
+	void SetPresentMap(string presentMap) { sPresentMap = presentMap; }
+
 	void LoadTextures();
 	void LoadMaps();
 
 
 private:
+	string sPresentMap;
 	// Turn constructor and destructor invisible to the outside
 	Assets();
 	~Assets();

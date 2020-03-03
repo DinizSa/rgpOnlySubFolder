@@ -3,7 +3,6 @@
 #include "entity.h"
 #include "maps.h"
 #include "creature.h"
-#include "inputHandler.h"
 #include "timer.h"
 #include "scriptProcessor.h"
 #include "command.h"
@@ -18,14 +17,23 @@ int main()
     window.setFramerateLimit(60);
     Assets::get().LoadTextures();
     Assets::get().LoadMaps();
-    InputHandler inputHandler;
     cLevel_LevelOne level;
 
     while (window.isOpen())
     {
         // TODO: Events related with window shouldnt be handled in the level
         // Events
-        level.handleInputs(&window, inputHandler);
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                window.close();
+            else
+                if (level.isAcceptingInputs())
+                    level.handleInputs(event);
+            
+        }
+
         // Update
         level.update();
 

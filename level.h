@@ -5,28 +5,31 @@
 #include "creature.h"
 #include "command.h"
 #include "scriptProcessor.h"
-#include "inputHandler.h"
+#include "Interactive.h"
 // Responsible for putting together all info of the game in that level
 class Level {
 public:
 	Level();
 	~Level();
-	void handleInputs(sf::RenderWindow* pWindow, InputHandler inputHandler);
+	inline bool isAcceptingInputs() { return scriptProcessor.getUserControlEnabled();}
+	void handleInputs(sf::Event event);
 	void update();
 	void draw(sf::RenderWindow* pWindow);
 
-	void switchMap(string targetMap);
+	//void switchMap(string targetMap);
 	virtual void populateDynamics()=0;
 
 protected:
 
-	Maps* pCurrentMap;
 	Timer timer;
 	Creature* player;
 	cScriptProcessor scriptProcessor;
 	cTextDrawer textDrawer;
 	vector<Dynamic*> vDynamic;
 	vector<cCommand*> vCommands;
+
+private:
+	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
 };
 
 

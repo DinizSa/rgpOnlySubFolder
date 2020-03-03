@@ -2,7 +2,11 @@
 #include "assets.h"
 
 Level::Level() {
-	pCurrentMap = nullptr;
+	this->bPressedLeft = false;
+	this->bPressedRight = false;
+	this->bPressedUp = false;
+	this->bPressedDown = false;
+
 	timer.updateTimer();
 	vDynamic.clear();
 	player = new Creature("PackMan", 400, 450, 0, 0, 34, 34, 1, 1, 1, 100, 1);
@@ -20,34 +24,64 @@ void Level::update() {
 	scriptProcessor.ProcessCommands(timer.getMsSinceLastFrame());
 
 	for (auto dynamic: vDynamic){
-		dynamic->update(&timer, pCurrentMap, &vDynamic);
+		dynamic->update(&timer, Assets::get().GetMaps(Assets::get().GetPresentMap()), &vDynamic);
 	}
 }
 
-void Level::switchMap(string targetMap) {
-	pCurrentMap = Assets::get().GetMaps(targetMap);
-}
 
 void Level::draw(sf::RenderWindow* pWindow) {
-	pCurrentMap->draw(pWindow);
-	for (auto dynamic : vDynamic) {
-		dynamic->draw(pWindow);
+	Assets::get().GetMaps(Assets::get().GetPresentMap())->draw(pWindow);
+	for (int i = 1; i < vDynamic.size(); i++) {
+		vDynamic[i]->draw(pWindow);
 	}
+	player->draw(pWindow);
 	textDrawer.drawText(pWindow);
 }
 
-void Level::handleInputs(sf::RenderWindow* pWindow, InputHandler inputHandler) {
-	scriptProcessor.ProcessCommands(timer.getMsSinceLastFrame());
-	// Handle inputs if not running a command
-	if (scriptProcessor.getUserControlEnabled())
-		inputHandler.pollEvents(pWindow, &vDynamic, player);
+void Level::handleInputs(sf::Event event) {
+
+	if (event.type == sf::Event::KeyPressed) {
+		if (event.key.code == sf::Keyboard::A)
+			this->bPressedLeft = true;
+		if (event.key.code == sf::Keyboard::D)
+			this->bPressedRight = true;
+		if (event.key.code == sf::Keyboard::W)
+			this->bPressedUp = true;
+		if (event.key.code == sf::Keyboard::S)
+			this->bPressedDown = true;
+		if (event.key.code == sf::Keyboard::Space)
+			if (player->getCollidingDynamic(&vDynamic) != nullptr) 
+				player->getCollidingDynamic(&vDynamic)->OnInteraction(player);
+	}
+
+	// Movement released
+	if (event.type == sf::Event::KeyReleased) {
+		if (event.key.code == sf::Keyboard::A)
+			this->bPressedLeft = false;
+		if (event.key.code == sf::Keyboard::D)
+			this->bPressedRight = false;
+		if (event.key.code == sf::Keyboard::W)
+			this->bPressedUp = false;
+		if (event.key.code == sf::Keyboard::S)
+			this->bPressedDown = false;
+	}
+
+	if (bPressedLeft)
+		player->addVelocityNormalizedX(-1.f);
+	if (bPressedRight)
+		player->addVelocityNormalizedX(1.f);
+	if (bPressedUp)
+		player->addVelocityNormalizedY(-1.f);
+	if (bPressedDown)
+		player->addVelocityNormalizedY(1.f);
+
 }
 
 
 // <--------------------------- Level One --------------------------->
 cLevel_LevelOne::cLevel_LevelOne() {
 	populateDynamics();
-	pCurrentMap = Assets::get().GetMaps("MapWildOne");
+	Assets::get().SetPresentMap("MapWildOne");
 
 
 	// Commands TODO: put in the right place
@@ -76,6 +110,6 @@ void cLevel_LevelOne::populateDynamics() {
 	vDynamic.push_back(new Creature("FireLady", 550, 500, 0, 0, 34, 34, 1, 1, 1, 50, 1));
 	vDynamic.push_back(new Creature("EarthBender", 650, 500, 0, 0, 34, 34, 1, 1, 1, 50, 1));
 	// Map Interactives
-	vDynamic.push_back(new Interactive("RedFlowers", 700, 450, 34, 34));
+	vDynamic.push_back(new cInteractive_Teleport(700, 450, "MapWildOneTrip", 500, 100));
 
 }
