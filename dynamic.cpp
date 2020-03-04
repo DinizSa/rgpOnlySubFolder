@@ -43,7 +43,7 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 	float widthLandscape = windowW / map->getNrHorizontal();
 	float heightLandscape = windowH / map->getNrVertical();
 	int blockXOrigin = (int)((px + width * marginEmpty)/ widthLandscape) % (int)widthLandscape;
-	int blockXCenter = (int)((px+width/2)/ widthLandscape) % (int)widthLandscape;
+	int blockXCenter = (int)((px + width/2)/ widthLandscape) % (int)widthLandscape;
 	int blockXRight = (int)((px + width * (1.f- marginEmpty))/ widthLandscape) % (int)widthLandscape;
 	int blockYOrigin= (int)((py + height * marginEmpty) / heightLandscape) % (int)heightLandscape;
 	int blockYCenter = (int)((py+height/2)/ heightLandscape) % (int)heightLandscape;

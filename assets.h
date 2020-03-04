@@ -3,6 +3,7 @@ using namespace std;
 #include <SFML/Graphics.hpp>
 #include <map>
 #include "maps.h"
+#include "dynamicMap.h"
 
 class Assets {
 
@@ -17,29 +18,30 @@ public:
 	Assets(Assets const&) = delete; // Get rid of the default copy constructor
 	void operator = (Assets const&) = delete; // assign to other variable would make a small copy of this object
 
-	sf::Texture& GetTexture(string name) {
-		return m_mapsTextures[name];
-	}
-	Maps* GetMaps(string name) {
-		return m_mapsMaps[name];
-	}
-	int GetSizeSprite(string name) {
-		return mapSizeSprite[name];
-	}
+	inline sf::Texture& GetTexture(string name) { return m_mapsTextures[name]; }
+	inline int GetSizeSprite(string name) { return mapSizeSprite[name]; }
 
-	string GetCurrentMap() { return sPresentMap; }
-	void SetCurrentMap(string presentMap) { sPresentMap = presentMap; }
+	//inline string GetNameMap() { return sPresentMap; }
+	//inline void SetNameMap(string presentMap) { sPresentMap = presentMap; }
+	//inline Maps* GetCurrentMap() { return m_maps[sPresentMap]; }
+
+	inline string GetNameDynamicMap() { return sPresentDynamicMap; }
+	inline void SetNameDynamicMap(string presentMap) { sPresentDynamicMap = presentMap; }
+	inline cDynamicMap* GetCurrentDynamicMap() { return m_dynamicMaps[sPresentDynamicMap]; }
 
 	void LoadTextures();
-	void LoadMaps();
+	//void LoadMaps();
+	void LoadDynamicMaps();
 
 
 private:
-	string sPresentMap;
+	//string sPresentMap;
+	string sPresentDynamicMap;
 	// Turn constructor and destructor invisible to the outside
 	Assets();
 	~Assets();
 	map<string, sf::Texture> m_mapsTextures;
-	map<string, Maps*> m_mapsMaps;
+	//map<string, Maps*> m_maps;
+	map<string, cDynamicMap*> m_dynamicMaps;
 	map<string, int> mapSizeSprite;
 };

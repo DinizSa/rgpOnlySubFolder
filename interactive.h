@@ -12,11 +12,11 @@ public:
 // <---------------------------- cInteractive_Teleport ---------------------------->
 class cInteractive_Teleport: public Interactive {
 public:
-	cInteractive_Teleport(float posX, float posY, string targetMapName, float targetX, float targetY);
+	cInteractive_Teleport(float posX, float posY, string sTargetDynamicMap, float targetX, float targetY);
 	~cInteractive_Teleport();
 	void OnInteraction(Dynamic* secondDynamic) override;
 
 private:
 	float targetX, targetY;
-	string sTargetMapName;
+	string sTargetDynamicMap;
 };

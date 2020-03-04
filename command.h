@@ -20,10 +20,10 @@ public:
 
 };
 
-// <----- Talk Command ----->
+// <------------------------------- Talk Command ------------------------------->
 class cCommand_Talk : public cCommand {
 public:
-	cCommand_Talk(cTextDrawer* pTextDrawer, string textName, string textToDisplay, int iMsDuration, sf::Color color = sf::Color::Blue);
+	cCommand_Talk(cTextDrawer* pTextDrawer, string textToDisplay, int iMsDuration, sf::Color color = sf::Color::Blue);
 	~cCommand_Talk();
 
 	inline void finish() { this->bCompleted = true; };
@@ -34,12 +34,11 @@ private:
 	int iMsDisplaying;
 	int iMsDuration;
 	sf::Color textColor;
-	string textName;
 	string textToDisplay;
 	cTextDrawer* pTextDrawer;
 };
 
-// <----- Move Command ----->
+// <------------------------------- Move Command ------------------------------->
 class cCommand_MoveTo : public cCommand {
 public:
 	cCommand_MoveTo(Dynamic* dynamic, float x, float y);

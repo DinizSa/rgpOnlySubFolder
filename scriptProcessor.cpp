@@ -1,7 +1,7 @@
 #include "scriptProcessor.h"
 
 cScriptProcessor::cScriptProcessor() {
-
+	bUserControlEnabled = true;
 }
 
 void cScriptProcessor::AddCommand(cCommand* cmd) {
@@ -12,7 +12,7 @@ void cScriptProcessor::ProcessCommands(int iElapsedTime) {
 	bUserControlEnabled = m_listCommands.empty();
 
 	// If has commands in the queue
-	if (!m_listCommands.empty()) {
+	if (!bUserControlEnabled) {
 
 		// Front command is not completed
 		if (!m_listCommands.front()->isCompleted()) {

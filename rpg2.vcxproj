@@ -26,7 +26,7 @@
     <ClInclude Include="entity.h" />
     <ClInclude Include="interactive.h" />
     <ClInclude Include="landscape.h" />
-    <ClInclude Include="level.h" />
+    <ClInclude Include="dynamicMap.h" />
     <ClInclude Include="maps.h" />
     <ClInclude Include="scriptProcessor.h" />
     <ClInclude Include="textDrawer.h" />
@@ -40,7 +40,7 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="interactive.cpp" />
     <ClCompile Include="landscape.cpp" />
-    <ClCompile Include="level.cpp" />
+    <ClCompile Include="dynamicMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maps.cpp" />
     <ClCompile Include="scriptProcessor.cpp" />

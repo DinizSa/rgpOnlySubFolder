@@ -10,7 +10,8 @@ Assets::Assets() {
 }
 
 Assets::~Assets() {
-
+	for (auto dynMaps : m_dynamicMaps)
+		delete dynMaps.second;
 }
 
 void Assets::LoadTextures() {
@@ -37,13 +38,24 @@ void Assets::LoadTextures() {
 }
 
 
-void Assets::LoadMaps() {
+//void Assets::LoadMaps() {
+//
+//	auto load = [&](Maps* map) {
+//		m_maps[map->getName()] = map;
+//	};
+//
+//	load(new Maps("MapWildOne"));
+//	load(new Maps("MapWildOneTrip"));
+//
+//}
 
-	auto load = [&](Maps* map) {
-		m_mapsMaps[map->getName()] = map;
+void Assets::LoadDynamicMaps() {
+
+	auto load = [&](cDynamicMap* dynMap) {
+		m_dynamicMaps[dynMap->getName()] = dynMap;
 	};
 
-	load(new Maps("MapWildOne"));
-	load(new Maps("MapWildOneTrip"));
+	load(new cDynamicMap_One);
+	load(new cDynamicMap_OneTrip);
 
 }

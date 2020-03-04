@@ -17,11 +17,11 @@ void Interactive::OnInteraction(Dynamic* secondDynamic) {
 
 // <---------------------------- cInteractive_Teleport ---------------------------->
 
-cInteractive_Teleport::cInteractive_Teleport(float posX, float posY, string targetMapName, float targetX, float targetY)
+cInteractive_Teleport::cInteractive_Teleport(float posX, float posY, string sTargetDynamicMap, float targetX, float targetY)
  : Interactive("RedFlowers", posX, posY) {
+	this->sTargetDynamicMap = sTargetDynamicMap;
 	this->targetX = targetX;
 	this->targetY = targetY;
-	this->sTargetMapName = targetMapName;
 }
 
 cInteractive_Teleport::~cInteractive_Teleport() {}
@@ -29,6 +29,6 @@ cInteractive_Teleport::~cInteractive_Teleport() {}
 void cInteractive_Teleport::OnInteraction(Dynamic* secondDynamic) {
 	secondDynamic->setPosX(targetX);
 	secondDynamic->setPosY(targetY);
-	cout << " Teleporting " << endl;
-	Assets::get().SetCurrentMap("MapWildOneTrip");
+	cout << "Teleporting to " << sTargetDynamicMap << endl;
+	Assets::get().SetNameDynamicMap(sTargetDynamicMap);
 }

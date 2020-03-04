@@ -8,12 +8,11 @@ cCommand::cCommand(){
 
 cCommand::~cCommand() {};
 
-// <----- Talk Command ----->
-cCommand_Talk::cCommand_Talk(cTextDrawer* pTextDrawer, string textName, string textToDisplay, int iMsDuration, sf::Color color) {
+// <------------------------------- Talk Command ------------------------------->
+cCommand_Talk::cCommand_Talk(cTextDrawer* pTextDrawer, string textToDisplay, int iMsDuration, sf::Color color) {
 	iMsDisplaying = 0;
 	this->iMsDuration = iMsDuration;
 	this->textColor = color;
-	this->textName = textName;
 	this->textToDisplay = textToDisplay;
 	this->pTextDrawer = pTextDrawer;
 	bCompleted = false;
@@ -26,20 +25,22 @@ cCommand_Talk::~cCommand_Talk() {
 void cCommand_Talk::Start() {
 	bCompleted = false;
 	bStarted = true;
-	pTextDrawer->setText(textName, textToDisplay, textColor);
+	pTextDrawer->setText( textToDisplay, textColor);
 };
 
 void cCommand_Talk::Update(int msElapsed) {
 	iMsDisplaying += msElapsed;
 	if (iMsDisplaying > iMsDuration) {
 		this->bCompleted = true;
-		pTextDrawer->removeText(textName);
+		pTextDrawer->removeText();
 	}
 };
 
-// <----- Move Command ----->
+// <------------------------------- Move Command ------------------------------->
 cCommand_MoveTo::cCommand_MoveTo(Dynamic* dynamic, float x, float y) {
 	this->dynamic = dynamic;
+	this->m_fStartPosX = 0.f;
+	this->m_fStartPosY = 0.f;
 	m_fTargetPosX = x;
 	m_fTargetPosY = y;
 	bCompleted = false;

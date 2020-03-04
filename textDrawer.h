@@ -10,10 +10,10 @@ public:
 	~cTextDrawer();
 
 	void drawText(sf::RenderWindow* window);
-	void setText(string name, string text, sf::Color color);
-	void removeText(string name);
+	void setText(string text, sf::Color color);
+	void removeText();
 
 private:
 	sf::Font font;
-	map<string, sf::Text> _mapTexts;
+	sf::Text sfText;
 };

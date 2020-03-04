@@ -7,7 +7,7 @@
 #include "scriptProcessor.h"
 #include "command.h"
 #include "textDrawer.h"
-#include "level.h"
+#include "dynamicMap.h"
 
 int main()
 {
@@ -16,12 +16,22 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Window");
     window.setFramerateLimit(60);
     Assets::get().LoadTextures();
-    Assets::get().LoadMaps();
-    cLevel_LevelOne level;
+    Assets::get().LoadDynamicMaps();
 
-    while (window.isOpen())
+    Assets::get().SetNameDynamicMap("DynMap_WildOne");
+    cDynamicMap* currentDynamicMap = Assets::get().GetCurrentDynamicMap();
+
+    Creature* pPlayer = new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f);
+    currentDynamicMap->setpPlayer(pPlayer);
+
+     while (window.isOpen())
     {
-        // TODO: Events related with window shouldnt be handled in the level
+         // If dynamicMap changed
+         if (currentDynamicMap != Assets::get().GetCurrentDynamicMap()) {
+             currentDynamicMap = Assets::get().GetCurrentDynamicMap();
+             currentDynamicMap->setpPlayer(pPlayer);
+         }
+
         // Events
         sf::Event event;
         while (window.pollEvent(event))
@@ -29,19 +39,20 @@ int main()
             if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 window.close();
             else
-                if (level.isAcceptingInputs())
-                    level.handleInputs(event);
+                if (currentDynamicMap->isAcceptingInputs())
+                    currentDynamicMap->handleInputs(event);
             
         }
 
         // Update
-        level.update();
+        currentDynamicMap->update();
 
         // Display
         window.clear(sf::Color(0,0,0,255));
-        level.draw(&window);
+        currentDynamicMap->draw(&window);
         window.display();
     }
+
 
     return 0;
 }

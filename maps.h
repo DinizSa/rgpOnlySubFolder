@@ -1,6 +1,5 @@
 #pragma once
 #include "landscape.h"
-//#include "interactive.h"
 
 class Maps {
 public:
@@ -20,13 +19,3 @@ private:
 	string sName;
 
 };
-
-//class Maps_WildOne : public Maps {
-//public:
-//	Maps_WildOne();
-//};
-//
-//class Maps_WildOneTrip : public Maps {
-//public:
-//	Maps_WildOneTrip();
-//};
