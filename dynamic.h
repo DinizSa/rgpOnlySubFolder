@@ -12,13 +12,13 @@ protected:
 	bool solidVsDynamic;
 	bool friendly;
 	bool hasFriction;
-	int maxSpeed;
+	float maxSpeed;
 	enum FacingDirection{SOUTH = 0, WEST = 1, NORTH = 2, EAST = 3} facingDirection;
 	enum {STANDING, WALKING, DEATH} graphicState;
 
 public:
 	Dynamic();
-	Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, int maxSpeed);
+	Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed);
 	~Dynamic();
 	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
@@ -32,11 +32,11 @@ public:
 	inline float getSolidVsSolid() { return this->solidVsSolid; }
 	inline float getSolidVsDynamic() { return this->solidVsDynamic; }
 	inline float isFriendly() { return this->friendly; }
-	inline int getMaxSpeed() { return this->maxSpeed; }
+	inline float getMaxSpeed() { return this->maxSpeed; }
 
 private:
 	void move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);
-	bool isCollidingDynamic(vector<Dynamic*>* entitys, int posX, int posY);
+	bool isCollidingDynamic(vector<Dynamic*>* entitys, float posX, float posY);
 	void applyFriction();
 	void SetGraphics(Timer* timer);
 	int msStartedMoving;

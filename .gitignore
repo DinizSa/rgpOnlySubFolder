@@ -93,3 +93,5 @@ Debug/vc142.pdb
 *.obj
 *.idb
 *.pdb
+Debug/creature.obj
+Debug/

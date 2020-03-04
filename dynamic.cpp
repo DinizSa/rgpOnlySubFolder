@@ -6,8 +6,8 @@ Dynamic::Dynamic():
 	this->solidVsSolid = false;
 	this->solidVsDynamic = false;
 	this->friendly = true;
-	this->vx = 0;
-	this->vy = 0;
+	this->vx = 0.f;
+	this->vy = 0.f;
 	this->hasFriction = true;
 	this->maxSpeed = 0;
 	facingDirection = SOUTH;
@@ -17,13 +17,13 @@ Dynamic::Dynamic():
 }
 Dynamic::~Dynamic() {
 }
-Dynamic::Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, int maxSpeed) :
+Dynamic::Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed) :
 	Entity(name, px, py)	{
 	this->solidVsSolid = solidVsSolid;
 	this->solidVsDynamic = solidVsDynamic;
 	this->friendly = friendly;
-	this->vx = 0;
-	this->vy = 0;
+	this->vx = 0.f;
+	this->vy = 0.f;
 	this->hasFriction = hasFriction;
 	this->maxSpeed = maxSpeed;
 	facingDirection = SOUTH;
@@ -38,21 +38,20 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 }
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {
+	// Margin around the rectangle that is not considered in the colision, so it looks smoother
+	float marginEmpty = 0.15f;
 	float widthLandscape = windowW / map->getNrHorizontal();
 	float heightLandscape = windowH / map->getNrVertical();
-	int blockXOrigin = (int)(px/ widthLandscape) % (int)widthLandscape;
+	int blockXOrigin = (int)((px + width * marginEmpty)/ widthLandscape) % (int)widthLandscape;
 	int blockXCenter = (int)((px+width/2)/ widthLandscape) % (int)widthLandscape;
-	int blockXRight = (int)((px+width)/ widthLandscape) % (int)widthLandscape;
-	int blockYOrigin= (int)(py/ heightLandscape) % (int)heightLandscape;
+	int blockXRight = (int)((px + width * (1.f- marginEmpty))/ widthLandscape) % (int)widthLandscape;
+	int blockYOrigin= (int)((py + height * marginEmpty) / heightLandscape) % (int)heightLandscape;
 	int blockYCenter = (int)((py+height/2)/ heightLandscape) % (int)heightLandscape;
-	int blockYDown = (int)((py+height)/ heightLandscape) % (int)heightLandscape;
-
-	//if(vx!=0 || vy != 0)
-	//	cout << " VX " << vx << ", VY " << vy << endl;
+	int blockYDown = (int)((py+ height * (1.f - marginEmpty))/ heightLandscape) % (int)heightLandscape;
 
 	// Horizontal
-	if ((vx > 0 && px < windowW - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (int)(px + width), (int)(py + height/2)))) ||
-		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px, (int)(py+height/2) ))))) {
+	if ((vx > 0 && px < windowW - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (int)(px + width* (1.f - marginEmpty)), (int)(py + height/2)))) ||
+		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmpty, (int)(py+height/2) ))))) {
 		px += vx;
 	}
 	else {
@@ -98,7 +97,7 @@ void Dynamic::SetGraphics(Timer* timer) {
 	// phaseAnimation represents the collumn of the sprite
 	int phaseAnimation = 0;
 	if(this->maxSpeed > 0)
-		phaseAnimation = ((int)(msSinceStartedMoving / ((int)(this->maxSpeed * 50)))) % 3;
+		phaseAnimation = ((int)(msSinceStartedMoving * (this->maxSpeed / 50.f))) % 3;
 
 	int sizeSprite = Assets::get().GetSizeSprite(name);
 	// facingDirection represents the line of the sprite
@@ -109,7 +108,7 @@ void Dynamic::SetGraphics(Timer* timer) {
 
 // Return a pointer to the entity that is colliding or nullptr if not colliding 
 Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
-	for (int i = 0; i < vDynamic->size(); i++)
+	for (unsigned i = 0; i < vDynamic->size(); i++)
 	{
 		if (this != (*vDynamic)[i]) {
 			if (this->getPosX() + this->getWidth() > (*vDynamic)[i]->getPosX() && this->getPosX() < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
@@ -124,8 +123,8 @@ Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
 }
 
 // Return a boolean if it's colliding
-bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, int posX, int posY) {
-	for (int i =0; i < vDynamic->size(); i++)
+bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, float posX, float posY) {
+	for (unsigned i =0; i < vDynamic->size(); i++)
 	{
 		if (this != (*vDynamic)[i]) {
 			if (posX > (*vDynamic)[i]->getPosX() && posX < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
@@ -142,7 +141,7 @@ bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, int posX, int posY)
 
 
 void Dynamic::applyFriction() {
-	float friction = (float)maxSpeed/10.f;
+	float friction = maxSpeed/20.f;
 	if (this->hasFriction) {
 		// Horizontal
 		if (abs(vx) < friction)

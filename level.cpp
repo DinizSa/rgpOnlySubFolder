@@ -9,12 +9,12 @@ Level::Level() {
 
 	timer.updateTimer();
 	vDynamic.clear();
-	player = new Creature("PackMan", 400, 450, 1, 1, 1, 100, 1);
+	player = new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f);
 }
 
 Level::~Level() {
 	delete player;
-	for (int i = 0; i < vDynamic.size(); i++)
+	for (unsigned i = 0; i < vDynamic.size(); i++)
 		delete vDynamic[i];
 
 }
@@ -41,7 +41,7 @@ void Level::update() {
 
 void Level::draw(sf::RenderWindow* pWindow) {
 	Assets::get().GetMaps(Assets::get().GetCurrentMap())->draw(pWindow);
-	for (int i = 1; i < vDynamic.size(); i++) {
+	for (unsigned i = 1; i < vDynamic.size(); i++) {
 		vDynamic[i]->draw(pWindow);
 	}
 	player->draw(pWindow);
@@ -96,7 +96,7 @@ cLevel_LevelOne::cLevel_LevelOne() {
 
 cLevel_LevelOne::~cLevel_LevelOne() {
 	vDynamic.clear();
-	for (int i = 0; i < vCommands.size(); i++)
+	for (unsigned i = 0; i < vCommands.size(); i++)
 		delete vCommands[i];
 
 };
@@ -106,8 +106,8 @@ void cLevel_LevelOne::populateDynamics() {
 	// Player
 	vDynamic.push_back(player);
 	// Secondary characters
-	vDynamic.push_back(new Creature("FireLady", 550, 500, 1, 1, 1, 50, 1));
-	vDynamic.push_back(new Creature("EarthBender", 650, 500,1, 1, 1, 50, 1));
+	vDynamic.push_back(new Creature("FireLady", 550, 500, 1, 1, 1, 50, 1.5f));
+	vDynamic.push_back(new Creature("EarthBender", 650, 500,1, 1, 1, 50, 1.5f));
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(700, 450, "MapWildOneTrip", 500, 100));
 
