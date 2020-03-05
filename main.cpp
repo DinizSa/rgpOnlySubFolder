@@ -52,7 +52,7 @@ int main()
         currentDynamicMap->draw(&window);
         window.display();
     }
-
+     delete pPlayer;
 
     return 0;
 }

@@ -31,7 +31,7 @@ void Assets::LoadTextures() {
 
 	// B&W
 	load("MapWildOne", "assets/tiles/MapWildOneBW.png");
-	load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
+	load("MapWildOneTrip", "assets/tiles/MapWildOneTripBW.png");
 	load("EarthBender", "assets/tiles/EarthBender4BW.png");
 	load("FireLady", "assets/tiles/FireLady4BW.png");
 	load("PackMan", "assets/tiles/PackMan4BW.png");

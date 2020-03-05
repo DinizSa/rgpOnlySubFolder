@@ -16,7 +16,7 @@ Dynamic::Dynamic():
 	msSinceStartedMoving = 0;
 }
 Dynamic::~Dynamic() {
-}
+ }
 Dynamic::Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed) :
 	Entity(name, px, py)	{
 	this->solidVsSolid = solidVsSolid;
