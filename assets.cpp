@@ -22,17 +22,20 @@ void Assets::LoadTextures() {
 	};
 
 	// Load assets
-	//load("tileCharacters", "assets/tiles/tileCharacters.png");
-	load("Map", "assets/tiles/tileMap.png");
-	load("MapWildOne", "assets/tiles/MapWildOne.png");
-	load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
-	load("Bandido", "assets/tiles/Bandido.png");
-	load("Coelho", "assets/tiles/Coelho.png");
+	//load("MapWildOne", "assets/tiles/MapWildOne.png");
+	//load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
+	//load("EarthBender", "assets/tiles/EarthBender4.png");
+	//load("FireLady", "assets/tiles/FireLady4.png");
+	//load("PackMan", "assets/tiles/PackMan4.png");
+	//load("RedFlowers", "assets/tiles/RedFlowers.png");
 
-	load("EarthBender", "assets/tiles/EarthBender4.png");
-	load("FireLady", "assets/tiles/FireLady4.png");
-	load("PackMan", "assets/tiles/PackMan4.png");
-	load("RedFlowers", "assets/tiles/RedFlowers.png");
+	// B&W
+	load("MapWildOne", "assets/tiles/MapWildOneBW.png");
+	load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
+	load("EarthBender", "assets/tiles/EarthBender4BW.png");
+	load("FireLady", "assets/tiles/FireLady4BW.png");
+	load("PackMan", "assets/tiles/PackMan4BW.png");
+	load("RedFlowers", "assets/tiles/RedFlowersBW.png");
 
 	
 }
