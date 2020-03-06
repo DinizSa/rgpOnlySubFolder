@@ -21,16 +21,11 @@ public:
 	inline sf::Texture& GetTexture(string name) { return m_mapsTextures[name]; }
 	inline int GetSizeSprite(string name) { return mapSizeSprite[name]; }
 
-	//inline string GetNameMap() { return sPresentMap; }
-	//inline void SetNameMap(string presentMap) { sPresentMap = presentMap; }
-	//inline Maps* GetCurrentMap() { return m_maps[sPresentMap]; }
-
 	inline string GetNameDynamicMap() { return sPresentDynamicMap; }
 	inline void SetNameDynamicMap(string presentMap) { sPresentDynamicMap = presentMap; }
 	inline cDynamicMap* GetCurrentDynamicMap() { return m_dynamicMaps[sPresentDynamicMap]; }
 
 	void LoadTextures();
-	//void LoadMaps();
 	void LoadDynamicMaps();
 
 
@@ -41,7 +36,6 @@ private:
 	Assets();
 	~Assets();
 	map<string, sf::Texture> m_mapsTextures;
-	//map<string, Maps*> m_maps;
 	map<string, cDynamicMap*> m_dynamicMaps;
 	map<string, int> mapSizeSprite;
 };

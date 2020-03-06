@@ -88,8 +88,7 @@ cDynamicMap_One::cDynamicMap_One() {
 
 	// Commands TODO: put in the right place
 	vCommands.push_back(new cCommand_MoveTo(vDynamic[2], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	vCommands.push_back(new cCommand_Talk(&textDrawer, "Man those red flowers are eatable ", 1000, sf::Color::Black));
-	vCommands.push_back(new cCommand_Talk(&textDrawer, "Fk ye tanks man !", 1000, sf::Color::Black));
+	vCommands.push_back(new cCommand_Talk(&textDrawer, "Man you can eat those flowers! ", 1500, sf::Color::Black));
 	for (auto command : vCommands)
 		scriptProcessor.AddCommand(command);
 };
@@ -115,8 +114,8 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 
 	// Commands TODO: put in the right place
 	vCommands.push_back(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	vCommands.push_back(new cCommand_Talk(&textDrawer, "I am so high right now... ", 1000, sf::Color::Black));
-	vCommands.push_back(new cCommand_Talk(&textDrawer, "I dont even know what's going on", 1000, sf::Color::Black));
+	vCommands.push_back(new cCommand_Talk(&textDrawer, "I am so high right now... ", 1500, sf::Color::Black));
+	vCommands.push_back(new cCommand_Talk(&textDrawer, "I dont even know what's going on", 1500, sf::Color::Black));
 	for (auto command : vCommands)
 		scriptProcessor.AddCommand(command);
 };
