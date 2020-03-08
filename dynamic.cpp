@@ -97,7 +97,7 @@ void Dynamic::SetGraphics(Timer* timer) {
 	// phaseAnimation represents the collumn of the sprite
 	int phaseAnimation = 0;
 	if(this->maxSpeed > 0)
-		phaseAnimation = ((int)(msSinceStartedMoving * (this->maxSpeed / 50.f))) % 3;
+		phaseAnimation = ((int)(msSinceStartedMoving*(10 * maxSpeed) / (1000))) % 3;
 
 	int sizeSprite = Assets::get().GetSizeSprite(name);
 	// facingDirection represents the line of the sprite

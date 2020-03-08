@@ -108,6 +108,7 @@ void cDynamicMap_One::populateDynamics() {
 
 // <--------------------------- Populated Map: MapWildTripOne --------------------------->
 cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
+	cout << "init" << endl;
 	this->sName = "DynMap_WildOneTrip";
 	cMap = new Maps("MapWildOneTrip");
 	populateDynamics();
@@ -123,8 +124,6 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 
 void cDynamicMap_OneTrip::populateDynamics() {
-	// pPlayer
-	//vDynamic.push_back(pPlayer);
 	// Secondary characters
 	vDynamic.push_back(new Creature("FireLady", 550, 500, 1, 1, 1, 50, 1.5f));
 	vDynamic.push_back(new Creature("EarthBender", 650, 500, 1, 1, 1, 50, 1.5f));

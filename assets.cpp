@@ -22,26 +22,41 @@ void Assets::LoadTextures() {
 		m_mapsTextures[sName] = texture;
 	};
 
+	load("MapWildOne", "assets/tiles/MapWildOne.png");
+	load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
+	load("EarthBender", "assets/tiles/EarthBender4.png");
+	load("FireLady", "assets/tiles/FireLady4.png");
+	load("PackMan", "assets/tiles/PackMan4.png");
+	load("RedFlowers", "assets/tiles/RedFlowers.png");
+	load("Portal", "assets/tiles/PortalBWY.png");
 
 	// B&W
-	load("MapWildOne", "assets/tiles/MapWildOneBW.png");
-	load("MapWildOneTrip", "assets/tiles/MapWildOneTripBW.png");
-	load("EarthBender", "assets/tiles/EarthBender4BW.png");
-	load("FireLady", "assets/tiles/FireLady4BW.png");
-	load("PackMan", "assets/tiles/PackMan4BW.png");
-	load("RedFlowers", "assets/tiles/RedFlowersBW.png");
-	load("Portal", "assets/tiles/PortalBWY.png");
+	//load("MapWildOne", "assets/tiles/MapWildOneBW.png");
+	//load("MapWildOneTrip", "assets/tiles/MapWildOneTripBW.png");
+	//load("EarthBender", "assets/tiles/EarthBender4BW.png");
+	//load("FireLady", "assets/tiles/FireLady4BW.png");
+	//load("PackMan", "assets/tiles/PackMan4BW.png");
+	//load("RedFlowers", "assets/tiles/RedFlowersBW.png");
+	//load("Portal", "assets/tiles/PortalBWY.png");
 
 }
 
+void Assets::SetDynamicMap(string presentMap) { 
 
-void Assets::LoadDynamicMaps() {
+	sPresentDynamicMap = presentMap;
 
-	auto load = [&](cDynamicMap* dynMap) {
-		m_dynamicMaps[dynMap->getName()] = dynMap;
-	};
+	// If it is already loaded
+	for (auto dynMap : m_dynamicMaps) {
+		if (dynMap.first == presentMap) {
+			return;
+		}
+	}
 
-	load(new cDynamicMap_One);
-	load(new cDynamicMap_OneTrip);
+	// If not, load
+	if (presentMap == "DynMap_WildOne") {
+		m_dynamicMaps["DynMap_WildOne"] = new cDynamicMap_One;
+	}else if (presentMap == "DynMap_WildOneTrip") {
+		m_dynamicMaps["DynMap_WildOneTrip"] = new cDynamicMap_OneTrip;
+	}
 
 }

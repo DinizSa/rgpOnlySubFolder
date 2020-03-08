@@ -16,9 +16,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Window");
     window.setFramerateLimit(60);
     Assets::get().LoadTextures();
-    Assets::get().LoadDynamicMaps();
 
-    Assets::get().SetNameDynamicMap("DynMap_WildOne");
+    Assets::get().SetDynamicMap("DynMap_WildOne");
     cDynamicMap* currentDynamicMap = Assets::get().GetCurrentDynamicMap();
 
     Creature* pPlayer = new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f);
