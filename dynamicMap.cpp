@@ -9,7 +9,6 @@ cDynamicMap::cDynamicMap() {
 	pTimer = new Timer;
 	pTimer->updateTimer();
 	vDynamic.clear();
-	// Save space for the player
 	vDynamic.push_back(new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f));
 }
 
@@ -24,7 +23,7 @@ cDynamicMap::~cDynamicMap() {
 
 void cDynamicMap::update() {
 	pTimer->updateTimer();
-	scriptProcessor.ProcessCommands(pTimer->getMsSinceLastFrame());
+	cScriptProcessor::Get().ProcessCommands(pTimer->getMsSinceLastFrame());
 
 	for (auto dynamic: vDynamic){
 		dynamic->update(pTimer, cMap, &vDynamic);
@@ -90,7 +89,7 @@ cDynamicMap_One::cDynamicMap_One() {
 	vCommands.push_back(new cCommand_MoveTo(vDynamic[2], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
 	vCommands.push_back(new cCommand_Talk(&textDrawer, "Man you can eat those flowers! ", 1500, sf::Color::Black));
 	for (auto command : vCommands)
-		scriptProcessor.AddCommand(command);
+		cScriptProcessor::Get().AddCommand(command);
 };
 
 cDynamicMap_One::~cDynamicMap_One() {};
@@ -118,7 +117,7 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 	vCommands.push_back(new cCommand_Talk(&textDrawer, "I am so high right now... ", 1500, sf::Color::Black));
 	vCommands.push_back(new cCommand_Talk(&textDrawer, "I dont even know what's going on", 1500, sf::Color::Black));
 	for (auto command : vCommands)
-		scriptProcessor.AddCommand(command);
+		cScriptProcessor::Get().AddCommand(command);
 };
 
 cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};

@@ -5,7 +5,15 @@ using namespace std;
 
 class cScriptProcessor {
 public:
-	cScriptProcessor();
+
+	static cScriptProcessor& Get() {
+		static cScriptProcessor me;
+		// Init
+		//me.bUserControlEnabled = true;
+		return me;
+	}
+	cScriptProcessor(cScriptProcessor const&) = delete;
+	void operator = (cScriptProcessor const&) = delete;
 
 	inline bool getUserControlEnabled() { return this->bUserControlEnabled; }
 	void AddCommand(cCommand* cmd);
@@ -15,5 +23,5 @@ protected:
 	bool bUserControlEnabled;
 private:
 	list<cCommand*> m_listCommands;
-
+	cScriptProcessor();
 };
