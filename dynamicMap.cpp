@@ -2,6 +2,7 @@
 #include "assets.h"
 #include "command.h"
 #include "scriptProcessor.h"
+#include <type_traits>
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
@@ -12,6 +13,9 @@ cDynamicMap::cDynamicMap() {
 	pTimer->updateTimer();
 	vDynamic.clear();
 	vDynamic.push_back(new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f));
+
+
+	
 }
 
 cDynamicMap::~cDynamicMap() {
@@ -96,6 +100,7 @@ void cDynamicMap_One::populateDynamics() {
 	// Map characters
 	vDynamic.push_back(new cCreature_FireLady);
 	vDynamic.push_back(new cCreature_EarthBender);
+	vDynamic.push_back(new cCreature_EvilRabbit);
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 

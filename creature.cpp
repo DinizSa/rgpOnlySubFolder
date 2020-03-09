@@ -34,3 +34,18 @@ void cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 20, secondDynamic->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am Earth bender! ", 1500, sf::Color::Color({ 200, 100, 0, 255 })));
 }
+
+
+// <------------------------------------ Evil Rabbit --------------------------------------------->
+cCreature_EvilRabbit::cCreature_EvilRabbit() : Creature("EvilRabbit", 400, 400, 1, 1, 1, 50, 1.5f) {};
+
+void cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri! The rabbit day will come!", 1000, sf::Color::Red));
+	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, this->getPosX() + 300, this->getPosY()));
+}
+
+void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
+	cout << "Rabbit AI is being cvalled" << endl;
+	this->addVelocityNormalizedXY(1, -0.5);
+
+}

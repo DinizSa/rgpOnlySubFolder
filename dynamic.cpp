@@ -35,6 +35,7 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	move(map, vDynamic, 800, 600);
 	applyFriction();
 	SetGraphics(timer);
+	updateAI((*vDynamic)[0]);
 }
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {

@@ -12,6 +12,7 @@ public:
 	inline void defend(int damage) { this->hp -= damage; }
 	inline void attack(Creature* target, int damage) { target->defend(damage); }
 	void OnInteraction(Dynamic* secondDynamic);
+	void updateAI(Creature* pPlayer) {};
 };
 
 // <------------------------------------ Fire Lady --------------------------------------------->
@@ -26,4 +27,12 @@ class cCreature_EarthBender : public Creature {
 public:
 	cCreature_EarthBender();
 	void OnInteraction(Dynamic* secondDynamic) override;
+};
+
+// <------------------------------------ Evil Rabbit --------------------------------------------->
+class cCreature_EvilRabbit : public Creature {
+public:
+	cCreature_EvilRabbit();
+	void OnInteraction(Dynamic* secondDynamic) override;
+	void updateAI(Dynamic* pPlayer);
 };
