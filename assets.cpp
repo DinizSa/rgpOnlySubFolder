@@ -9,6 +9,7 @@ Assets::Assets() {
 	mapSizeSprite["RedFlowers"] = 34;
 	mapSizeSprite["Portal"] = 34;
 	mapSizeSprite["EvilRabbit"] = 34;
+	mapSizeSprite["PinkRabbit"] = 34;
 }
 
 Assets::~Assets() {
@@ -41,6 +42,7 @@ void Assets::LoadTextures() {
 	load("RedFlowers", "assets/tiles/RedFlowersBW.png");
 	load("Portal", "assets/tiles/PortalBWY.png");
 	load("EvilRabbit", "assets/tiles/EvilRabbit.png");
+	load("PinkRabbit", "assets/tiles/PinkRabbit.png");
 
 }
 

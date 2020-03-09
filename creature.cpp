@@ -5,9 +5,6 @@
 Creature::Creature(): Dynamic() {
 	hp = 0;
 	maxHp = 0;
-	dx = 0.f;
-	dy = 0.f;
-	delta = 0.f;
 
 }
 Creature::~Creature() {
@@ -42,17 +39,16 @@ void cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 
 
 // <------------------------------------ Evil Rabbit --------------------------------------------->
-cCreature_EvilRabbit::cCreature_EvilRabbit(float px, float py) : Creature("EvilRabbit", px, py, 1, 1, 1, 50, 1.5f) {};
+cCreature_EvilRabbit::cCreature_EvilRabbit(float px, float py) : Creature("EvilRabbit", px, py, 1, 1, 1, 50, 1.0f) {};
 
 void cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
-	//cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, this->getPosX() + 300, this->getPosY()));
 }
 
 void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
-	dx = this->px - pPlayer->getPosX();
-	dy = this->py - pPlayer->getPosY();
-	delta = sqrtf(dx * dx + dy * dy);
+	float dx = this->px - pPlayer->getPosX();
+	float dy = this->py - pPlayer->getPosY();
+	float delta = sqrtf(dx * dx + dy * dy);
 	if (framesOfRest == 0) {
 		//if (delta < 100)
 		framesOfRest = 60 * 4;
@@ -62,6 +58,19 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	}
 	if(framesOfRest > 60*3 && abs(delta) > Assets::get().GetSizeSprite("RespectableDistance"))
 		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);
-
 }
-d
+
+// <------------------------------------ Pink Friendly Rabbit --------------------------------------------->
+cCreature_PinkRabbit::cCreature_PinkRabbit(float px, float py) : Creature("PinkRabbit", px, py, 1, 1, 1, 50, 1.0f) {};
+
+void cCreature_PinkRabbit::OnInteraction(Dynamic* secondDynamic) {
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
+}
+
+void cCreature_PinkRabbit::updateAI(Dynamic* pPlayer) {
+	float dx = this->px - pPlayer->getPosX();
+	float dy = this->py - pPlayer->getPosY();
+	float delta = sqrtf(dx * dx + dy * dy);
+	if( abs(delta) < 100)
+		this->addVelocityNormalizedXY(dx / delta, dy / delta);
+}

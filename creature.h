@@ -14,7 +14,6 @@ public:
 	void OnInteraction(Dynamic* secondDynamic);
 	void updateAI(Creature* pPlayer) {};
 
-	float dx, dy, delta;
 };
 
 // <------------------------------------ Fire Lady --------------------------------------------->
@@ -35,6 +34,16 @@ public:
 class cCreature_EvilRabbit : public Creature {
 public:
 	cCreature_EvilRabbit(float px, float py);
+	void OnInteraction(Dynamic* secondDynamic) override;
+	void updateAI(Dynamic* pPlayer);
+private:
+	int framesOfRest = 60 * 4;
+};
+
+// <------------------------------------ Pink Friendly Rabbit --------------------------------------------->
+class cCreature_PinkRabbit : public Creature {
+public:
+	cCreature_PinkRabbit(float px, float py);
 	void OnInteraction(Dynamic* secondDynamic) override;
 	void updateAI(Dynamic* pPlayer);
 private:

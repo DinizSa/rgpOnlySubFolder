@@ -98,6 +98,7 @@ void cDynamicMap_One::populateDynamics() {
 	vDynamic.push_back(new cCreature_FireLady(450, 500));
 	vDynamic.push_back(new cCreature_EarthBender(550, 350));
 	vDynamic.push_back(new cCreature_EvilRabbit(700, 500));
+	vDynamic.push_back(new cCreature_PinkRabbit(700, 450));
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
