@@ -6,8 +6,13 @@ using namespace std;
 
 class cTextDrawer {
 public:
-	cTextDrawer();
-	~cTextDrawer();
+
+	static cTextDrawer& get() {
+		static cTextDrawer me;
+		return me;
+	}
+	cTextDrawer(cTextDrawer&) = delete;
+	void operator = (cTextDrawer&) = delete;
 
 	void drawText(sf::RenderWindow* window);
 	void setText(string text, sf::Color color);
@@ -16,4 +21,6 @@ public:
 private:
 	sf::Font font;
 	sf::Text sfText;
+	cTextDrawer();
+	~cTextDrawer();
 };

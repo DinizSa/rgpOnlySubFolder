@@ -47,7 +47,7 @@ void cDynamicMap::draw(sf::RenderWindow* pWindow) {
 		vDynamic[i]->draw(pWindow);
 	}
 	vDynamic[0]->draw(pWindow);
-	textDrawer.drawText(pWindow);
+	cTextDrawer::get().drawText(pWindow);
 }
 
 void cDynamicMap::handleInputs(sf::Event event) {
@@ -87,7 +87,7 @@ cDynamicMap_One::cDynamicMap_One() {
 
 	// Commands TODO: put in the right place
 	vCommands.push_back(new cCommand_MoveTo(vDynamic[2], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	vCommands.push_back(new cCommand_Talk(&textDrawer, "Man you can eat those flowers! ", 1500, sf::Color::Black));
+	vCommands.push_back(new cCommand_Talk("Man you can eat those flowers! ", 1500, sf::Color::Black));
 	for (auto command : vCommands)
 		cScriptProcessor::Get().AddCommand(command);
 };
@@ -98,7 +98,7 @@ void cDynamicMap_One::populateDynamics() {
 	// pPlayer
 	//vDynamic.push_back(pPlayer);
 	// Secondary characters
-	vDynamic.push_back(new Creature("FireLady", 550, 500, 1, 1, 1, 50, 1.5f));
+	vDynamic.push_back(new cCreature_FireLady);
 	vDynamic.push_back(new Creature("EarthBender", 650, 500,1, 1, 1, 50, 1.5f));
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
@@ -114,8 +114,8 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 
 	// Commands TODO: put in the right place
 	vCommands.push_back(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	vCommands.push_back(new cCommand_Talk(&textDrawer, "I am so high right now... ", 1500, sf::Color::Black));
-	vCommands.push_back(new cCommand_Talk(&textDrawer, "I dont even know what's going on", 1500, sf::Color::Black));
+	vCommands.push_back(new cCommand_Talk("I am so high right now... ", 1500, sf::Color::Black));
+	vCommands.push_back(new cCommand_Talk("I dont even know what's going on", 1500, sf::Color::Black));
 	for (auto command : vCommands)
 		cScriptProcessor::Get().AddCommand(command);
 };
@@ -124,7 +124,7 @@ cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 
 void cDynamicMap_OneTrip::populateDynamics() {
 	// Secondary characters
-	vDynamic.push_back(new Creature("FireLady", 550, 500, 1, 1, 1, 50, 1.5f));
+	vDynamic.push_back(new cCreature_FireLady);
 	vDynamic.push_back(new Creature("EarthBender", 650, 500, 1, 1, 1, 50, 1.5f));
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));

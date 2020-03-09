@@ -22,7 +22,6 @@ protected:
 	string sName;
 	Timer* pTimer;
 	Maps* cMap;
-	cTextDrawer textDrawer;
 	vector<Dynamic*> vDynamic;
 	vector<cCommand*> vCommands;
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
