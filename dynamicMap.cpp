@@ -89,18 +89,15 @@ cDynamicMap_One::cDynamicMap_One() {
 	cMap = new Maps("MapWildOne");
 	populateDynamics();
 
-	// Commands TODO: put in the right place
-	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[2], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Man you can eat those flowers! ", 1500, sf::Color::Black));
 };
 
 cDynamicMap_One::~cDynamicMap_One() {};
 
 void cDynamicMap_One::populateDynamics() {
 	// Map characters
-	vDynamic.push_back(new cCreature_FireLady);
-	vDynamic.push_back(new cCreature_EarthBender);
-	vDynamic.push_back(new cCreature_EvilRabbit);
+	vDynamic.push_back(new cCreature_FireLady(450, 500));
+	vDynamic.push_back(new cCreature_EarthBender(550, 350));
+	vDynamic.push_back(new cCreature_EvilRabbit(700, 500));
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
@@ -120,8 +117,8 @@ cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 
 void cDynamicMap_OneTrip::populateDynamics() {
 	// Map characters
-	vDynamic.push_back(new cCreature_FireLady);
-	vDynamic.push_back(new cCreature_EarthBender);
+	vDynamic.push_back(new cCreature_FireLady(450, 500));
+	vDynamic.push_back(new cCreature_EarthBender(550, 650));
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
 

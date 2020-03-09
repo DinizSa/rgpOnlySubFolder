@@ -27,7 +27,7 @@ public:
 	virtual void OnInteraction(Dynamic* secondDynamic) = 0;
 	Dynamic* getCollidingDynamic(vector<Dynamic*>* vDynamic);
 	void update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic);
-	void updateAI(Dynamic* pPlayer) {};
+	virtual void updateAI(Dynamic* pPlayer) {};
 
 	// Getters
 	inline float getSolidVsSolid() { return this->solidVsSolid; }

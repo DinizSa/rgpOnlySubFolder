@@ -13,26 +13,30 @@ public:
 	inline void attack(Creature* target, int damage) { target->defend(damage); }
 	void OnInteraction(Dynamic* secondDynamic);
 	void updateAI(Creature* pPlayer) {};
+
+	float dx, dy, delta;
 };
 
 // <------------------------------------ Fire Lady --------------------------------------------->
 class cCreature_FireLady : public Creature {
 public:
-	cCreature_FireLady();
+	cCreature_FireLady(float px, float py);
 	void OnInteraction(Dynamic* secondDynamic) override;
 };
 
 // <------------------------------------ Earth Bender --------------------------------------------->
 class cCreature_EarthBender : public Creature {
 public:
-	cCreature_EarthBender();
+	cCreature_EarthBender(float px, float py);
 	void OnInteraction(Dynamic* secondDynamic) override;
 };
 
 // <------------------------------------ Evil Rabbit --------------------------------------------->
 class cCreature_EvilRabbit : public Creature {
 public:
-	cCreature_EvilRabbit();
+	cCreature_EvilRabbit(float px, float py);
 	void OnInteraction(Dynamic* secondDynamic) override;
 	void updateAI(Dynamic* pPlayer);
+private:
+	int framesOfRest = 60 * 4;
 };

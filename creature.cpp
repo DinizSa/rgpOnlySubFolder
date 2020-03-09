@@ -1,9 +1,14 @@
 #include "creature.h"
 #include "scriptProcessor.h"
+#include "assets.h"
 
 Creature::Creature(): Dynamic() {
 	hp = 0;
 	maxHp = 0;
+	dx = 0.f;
+	dy = 0.f;
+	delta = 0.f;
+
 }
 Creature::~Creature() {
 }
@@ -19,14 +24,14 @@ void Creature::OnInteraction(Dynamic* secondDynamic) {
 
 
 // <------------------------------------ Fire Lady --------------------------------------------->
-cCreature_FireLady::cCreature_FireLady(): Creature("FireLady", 550, 500, 1, 1, 1, 50, 1.5f) {};
+cCreature_FireLady::cCreature_FireLady(float px, float py): Creature("FireLady", px, py, 1, 1, 1, 50, 1.5f) {};
 
 void cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am Fire Lady! ", 1500, sf::Color::Red));
 }
 
 // <------------------------------------ Earth Bender --------------------------------------------->
-cCreature_EarthBender::cCreature_EarthBender() : Creature("EarthBender", 550, 400, 1, 1, 1, 50, 1.5f) {};
+cCreature_EarthBender::cCreature_EarthBender(float px, float py) : Creature("EarthBender", px, py, 1, 1, 1, 50, 1.5f) {};
 
 void cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, this->py));
@@ -37,15 +42,26 @@ void cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 
 
 // <------------------------------------ Evil Rabbit --------------------------------------------->
-cCreature_EvilRabbit::cCreature_EvilRabbit() : Creature("EvilRabbit", 400, 400, 1, 1, 1, 50, 1.5f) {};
+cCreature_EvilRabbit::cCreature_EvilRabbit(float px, float py) : Creature("EvilRabbit", px, py, 1, 1, 1, 50, 1.5f) {};
 
 void cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri! The rabbit day will come!", 1000, sf::Color::Red));
-	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, this->getPosX() + 300, this->getPosY()));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
+	//cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, this->getPosX() + 300, this->getPosY()));
 }
 
 void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
-	cout << "Rabbit AI is being cvalled" << endl;
-	this->addVelocityNormalizedXY(1, -0.5);
+	dx = this->px - pPlayer->getPosX();
+	dy = this->py - pPlayer->getPosY();
+	delta = sqrtf(dx * dx + dy * dy);
+	if (framesOfRest == 0) {
+		//if (delta < 100)
+		framesOfRest = 60 * 4;
+	}
+	else {
+		framesOfRest--;
+	}
+	if(framesOfRest > 60*3 && abs(delta) > Assets::get().GetSizeSprite("RespectableDistance"))
+		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);
 
 }
+d
