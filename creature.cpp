@@ -26,7 +26,7 @@ void cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 }
 
 // <------------------------------------ Earth Bender --------------------------------------------->
-cCreature_EarthBender::cCreature_EarthBender() : Creature("EarthBender", 550, 500, 1, 1, 1, 50, 1.5f) {};
+cCreature_EarthBender::cCreature_EarthBender() : Creature("EarthBender", 550, 400, 1, 1, 1, 50, 1.5f) {};
 
 void cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, this->py));

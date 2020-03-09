@@ -30,5 +30,4 @@ void cInteractive_Teleport::OnInteraction(Dynamic* secondDynamic) {
 	Assets::get().SetDynamicMap(sTargetDynamicMap);
 	secondDynamic->setPosX(targetX);
 	secondDynamic->setPosY(targetY);
-	cout << "Teleporting to " << sTargetDynamicMap << endl;
 }

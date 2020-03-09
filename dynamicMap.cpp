@@ -93,9 +93,7 @@ cDynamicMap_One::cDynamicMap_One() {
 cDynamicMap_One::~cDynamicMap_One() {};
 
 void cDynamicMap_One::populateDynamics() {
-	// pPlayer
-	//vDynamic.push_back(pPlayer);
-	// Secondary characters
+	// Map characters
 	vDynamic.push_back(new cCreature_FireLady);
 	vDynamic.push_back(new cCreature_EarthBender);
 	// Map Interactives
@@ -105,12 +103,10 @@ void cDynamicMap_One::populateDynamics() {
 
 // <--------------------------- Populated Map: MapWildTripOne --------------------------->
 cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
-	cout << "init" << endl;
 	this->sName = "DynMap_WildOneTrip";
 	cMap = new Maps("MapWildOneTrip");
 	populateDynamics();
 
-	// Commands TODO: put in the right place
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Damm dog", 1500, sf::Color::Black));
 };
@@ -118,7 +114,7 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 
 void cDynamicMap_OneTrip::populateDynamics() {
-	// Secondary characters
+	// Map characters
 	vDynamic.push_back(new cCreature_FireLady);
 	vDynamic.push_back(new cCreature_EarthBender);
 	// Map Interactives
