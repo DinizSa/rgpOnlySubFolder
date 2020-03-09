@@ -3,6 +3,10 @@
 cScriptProcessor::cScriptProcessor() {
 	bUserControlEnabled = true;
 }
+cScriptProcessor::~cScriptProcessor() {
+	for (auto command : m_listCommands)
+		delete command;
+}
 
 void cScriptProcessor::AddCommand(cCommand* cmd) {
 	this->m_listCommands.push_back(cmd);

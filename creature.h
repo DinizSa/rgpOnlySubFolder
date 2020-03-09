@@ -13,3 +13,17 @@ public:
 	inline void attack(Creature* target, int damage) { target->defend(damage); }
 	void OnInteraction(Dynamic* secondDynamic);
 };
+
+// <------------------------------------ Fire Lady --------------------------------------------->
+class cCreature_FireLady : public Creature {
+public:
+	cCreature_FireLady();
+	void OnInteraction(Dynamic* secondDynamic) override;
+};
+
+// <------------------------------------ Earth Bender --------------------------------------------->
+class cCreature_EarthBender : public Creature {
+public:
+	cCreature_EarthBender();
+	void OnInteraction(Dynamic* secondDynamic) override;
+};

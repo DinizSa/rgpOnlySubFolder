@@ -3,8 +3,6 @@
 #include "maps.h"
 #include "dynamic.h"
 #include "creature.h"
-#include "command.h"
-#include "scriptProcessor.h"
 #include "Interactive.h"
 // Responsible for putting together all life into the map
 class cDynamicMap {
@@ -23,7 +21,6 @@ protected:
 	Timer* pTimer;
 	Maps* cMap;
 	vector<Dynamic*> vDynamic;
-	vector<cCommand*> vCommands;
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
 
 	virtual void populateDynamics()=0;

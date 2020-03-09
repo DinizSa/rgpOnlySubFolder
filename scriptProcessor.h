@@ -8,8 +8,6 @@ public:
 
 	static cScriptProcessor& Get() {
 		static cScriptProcessor me;
-		// Init
-		//me.bUserControlEnabled = true;
 		return me;
 	}
 	cScriptProcessor(cScriptProcessor const&) = delete;
@@ -24,4 +22,5 @@ protected:
 private:
 	list<cCommand*> m_listCommands;
 	cScriptProcessor();
+	~cScriptProcessor();
 };

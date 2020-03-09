@@ -1,5 +1,7 @@
 #include "dynamicMap.h"
 #include "assets.h"
+#include "command.h"
+#include "scriptProcessor.h"
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
@@ -14,8 +16,6 @@ cDynamicMap::cDynamicMap() {
 
 cDynamicMap::~cDynamicMap() {
 	delete pTimer;
-	for (unsigned i = 0; i < vCommands.size(); i++)
-		delete vCommands[i];
 	delete cMap;
 	for (unsigned i = 1; i < vDynamic.size(); i++)
 		delete vDynamic[i];
@@ -86,10 +86,8 @@ cDynamicMap_One::cDynamicMap_One() {
 	populateDynamics();
 
 	// Commands TODO: put in the right place
-	vCommands.push_back(new cCommand_MoveTo(vDynamic[2], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	vCommands.push_back(new cCommand_Talk("Man you can eat those flowers! ", 1500, sf::Color::Black));
-	for (auto command : vCommands)
-		cScriptProcessor::Get().AddCommand(command);
+	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[2], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Man you can eat those flowers! ", 1500, sf::Color::Black));
 };
 
 cDynamicMap_One::~cDynamicMap_One() {};
@@ -99,7 +97,7 @@ void cDynamicMap_One::populateDynamics() {
 	//vDynamic.push_back(pPlayer);
 	// Secondary characters
 	vDynamic.push_back(new cCreature_FireLady);
-	vDynamic.push_back(new Creature("EarthBender", 650, 500,1, 1, 1, 50, 1.5f));
+	vDynamic.push_back(new cCreature_EarthBender);
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
@@ -113,11 +111,8 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 	populateDynamics();
 
 	// Commands TODO: put in the right place
-	vCommands.push_back(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	vCommands.push_back(new cCommand_Talk("I am so high right now... ", 1500, sf::Color::Black));
-	vCommands.push_back(new cCommand_Talk("I dont even know what's going on", 1500, sf::Color::Black));
-	for (auto command : vCommands)
-		cScriptProcessor::Get().AddCommand(command);
+	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Damm dog", 1500, sf::Color::Black));
 };
 
 cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
@@ -125,7 +120,7 @@ cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 void cDynamicMap_OneTrip::populateDynamics() {
 	// Secondary characters
 	vDynamic.push_back(new cCreature_FireLady);
-	vDynamic.push_back(new Creature("EarthBender", 650, 500, 1, 1, 1, 50, 1.5f));
+	vDynamic.push_back(new cCreature_EarthBender);
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
 
