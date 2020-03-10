@@ -51,6 +51,9 @@
     <ClInclude Include="dynamicMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="quest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="creature.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dynamicMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="quest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

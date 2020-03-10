@@ -33,7 +33,7 @@ cCreature_EarthBender::cCreature_EarthBender(float px, float py) : Creature("Ear
 void cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, this->py));
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, secondDynamic->getPosY()));
-	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 20, secondDynamic->getPosY()));
+	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX(), secondDynamic->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am Earth bender! ", 1500, sf::Color::Color({ 200, 100, 0, 255 })));
 }
 
@@ -49,15 +49,13 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	float dx = this->px - pPlayer->getPosX();
 	float dy = this->py - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
-	if (framesOfRest == 0) {
-		//if (delta < 100)
+	if (framesOfRest == 0)
 		framesOfRest = 60 * 4;
-	}
-	else {
-		framesOfRest--;
-	}
+
 	if(framesOfRest > 60*3 && abs(delta) > Assets::get().GetSizeSprite("RespectableDistance"))
 		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);
+
+	framesOfRest--;
 }
 
 // <------------------------------------ Pink Friendly Rabbit --------------------------------------------->
@@ -71,6 +69,12 @@ void cCreature_PinkRabbit::updateAI(Dynamic* pPlayer) {
 	float dx = this->px - pPlayer->getPosX();
 	float dy = this->py - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
-	if( abs(delta) < 100)
+
+	if (framesOfRest == 0)
+		framesOfRest = 60 * 2;
+
+	if (framesOfRest > 60  && abs(delta) < 100)
 		this->addVelocityNormalizedXY(dx / delta, dy / delta);
+
+	framesOfRest--;
 }

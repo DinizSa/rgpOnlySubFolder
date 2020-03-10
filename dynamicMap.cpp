@@ -2,8 +2,7 @@
 #include "assets.h"
 #include "command.h"
 #include "scriptProcessor.h"
-#include <type_traits>
-
+#include "quest.h"
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
 	this->bPressedRight = false;

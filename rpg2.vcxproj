@@ -28,6 +28,7 @@
     <ClInclude Include="landscape.h" />
     <ClInclude Include="dynamicMap.h" />
     <ClInclude Include="maps.h" />
+    <ClInclude Include="quest.h" />
     <ClInclude Include="scriptProcessor.h" />
     <ClInclude Include="textDrawer.h" />
     <ClInclude Include="timer.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="dynamicMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maps.cpp" />
+    <ClCompile Include="quest.cpp" />
     <ClCompile Include="scriptProcessor.cpp" />
     <ClCompile Include="textDrawer.cpp" />
     <ClCompile Include="timer.cpp" />
