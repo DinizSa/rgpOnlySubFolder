@@ -12,7 +12,7 @@ protected:
 public:
 	Entity();
 	Entity(string name, float px, float py);
-	~Entity();
+	//~Entity();
 	void setDimensions(float width, float height);
 
 	void setPartialTexture(int px, int py, int dx, int dy);

@@ -19,7 +19,7 @@ protected:
 public:
 	Dynamic();
 	Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed);
-	~Dynamic();
+	//~Dynamic();
 	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
 	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed; }

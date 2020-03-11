@@ -22,8 +22,9 @@ public:
 	inline int GetSizeSprite(string name) { return mapSizeSprite[name]; }
 
 	inline string GetNameDynamicMap() { return sPresentDynamicMap; }
-	void SetDynamicMap(string presentMap);
-	inline cDynamicMap* GetCurrentDynamicMap() { return m_dynamicMaps[sPresentDynamicMap]; }
+	void SetNameDynamicMap(string presentMap) { sPresentDynamicMap = presentMap; };
+	//void SetDynamicMap(string presentMap);
+	//inline cDynamicMap* GetCurrentDynamicMap() { return m_dynamicMaps[sPresentDynamicMap]; }
 
 	void LoadTextures();
 

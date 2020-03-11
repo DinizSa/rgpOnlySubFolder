@@ -31,8 +31,8 @@ void Entity::setDimensions(float width, float height) {
 }
 
 
-Entity::~Entity() {
-}
+//Entity::~Entity() {
+//}
 
 void Entity::draw(sf::RenderWindow* window) {
 	window->draw(this->shape);

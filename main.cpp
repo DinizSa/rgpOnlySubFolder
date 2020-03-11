@@ -16,19 +16,27 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Window");
     window.setFramerateLimit(60);
     Assets::get().LoadTextures();
+    Assets::get().SetNameDynamicMap("DynMap_WildOne");
 
-    Assets::get().SetDynamicMap("DynMap_WildOne");
-    cDynamicMap* currentDynamicMap = Assets::get().GetCurrentDynamicMap();
+    // Quest
+    vector<cQuest*> vQuest;
+    vQuest.push_back(new cQuest_Base());
 
     Creature* pPlayer = new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f);
-    currentDynamicMap->setpPlayer(pPlayer);
+    cDynamicMap* currentDynamicMap = new cDynamicMap_One;
+    currentDynamicMap->populateDynamics(pPlayer, vQuest);
+
+
 
      while (window.isOpen())
     {
          // If dynamicMap changed
-         if (currentDynamicMap != Assets::get().GetCurrentDynamicMap()) {
-             currentDynamicMap = Assets::get().GetCurrentDynamicMap();
-             currentDynamicMap->setpPlayer(pPlayer);
+         if (currentDynamicMap->getName() != Assets::get().GetNameDynamicMap()){
+             if ("DynMap_WildOne" == Assets::get().GetNameDynamicMap())
+                 currentDynamicMap = new cDynamicMap_One;
+             else if ("DynMap_WildOneTrip" == Assets::get().GetNameDynamicMap())
+                 currentDynamicMap = new cDynamicMap_OneTrip;
+             currentDynamicMap->populateDynamics(pPlayer, vQuest);
          }
 
         // Events
@@ -51,7 +59,11 @@ int main()
         currentDynamicMap->draw(&window);
         window.display();
     }
+     for (unsigned i = 0; i < vQuest.size(); i++)
+         delete vQuest[i];
+     vQuest.clear();
      delete pPlayer;
+     delete currentDynamicMap;
 
     return 0;
 }

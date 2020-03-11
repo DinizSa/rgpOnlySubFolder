@@ -27,7 +27,7 @@ cInteractive_Teleport::cInteractive_Teleport(float posX, float posY, string sTar
 cInteractive_Teleport::~cInteractive_Teleport() {}
 
 void cInteractive_Teleport::OnInteraction(Dynamic* secondDynamic) {
-	Assets::get().SetDynamicMap(sTargetDynamicMap);
+	Assets::get().SetNameDynamicMap(sTargetDynamicMap);
 	secondDynamic->setPosX(targetX);
 	secondDynamic->setPosY(targetY);
 }

@@ -11,12 +11,8 @@ cDynamicMap::cDynamicMap() {
 	this->bPressedDown = false;
 	pTimer = new Timer;
 	pTimer->updateTimer();
-	vDynamic.clear();
-	vDynamic.push_back(new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f));
 
 
-
-	vQuest.push_back(new cQuest_Base());
 }
 
 cDynamicMap::~cDynamicMap() {
@@ -24,17 +20,15 @@ cDynamicMap::~cDynamicMap() {
 	delete cMap;
 	for (unsigned i = 1; i < vDynamic.size(); i++)
 		delete vDynamic[i];
-	for (unsigned i = 0; i < vQuest.size(); i++)
-		delete vQuest[i];
+	vDynamic.clear();
 }
 
 void cDynamicMap::update() {
 	pTimer->updateTimer();
 	cScriptProcessor::Get().ProcessCommands(pTimer->getMsSinceLastFrame());
 
-	for (auto dynamic: vDynamic){
+	for (auto dynamic: vDynamic)
 		dynamic->update(pTimer, cMap, &vDynamic);
-	}
 
 	// Player movement
 	if (bPressedLeft)
@@ -50,9 +44,9 @@ void cDynamicMap::update() {
 
 void cDynamicMap::draw(sf::RenderWindow* pWindow) {
 	cMap->draw(pWindow);
-	for (unsigned i = 1; i < vDynamic.size(); i++) {
+	for (unsigned i = 1; i < vDynamic.size(); i++) 
 		vDynamic[i]->draw(pWindow);
-	}
+	
 	vDynamic[0]->draw(pWindow);
 	cTextDrawer::get().drawText(pWindow);
 }
@@ -90,20 +84,20 @@ void cDynamicMap::handleInputs(sf::Event event) {
 cDynamicMap_One::cDynamicMap_One() {
 	this->sName = "DynMap_WildOne";
 	cMap = new Maps("MapWildOne");
-	populateDynamics();
 
 };
 
 cDynamicMap_One::~cDynamicMap_One() {};
 
-void cDynamicMap_One::populateDynamics() {
+void cDynamicMap_One::populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) {
+	this->vDynamic.push_back(pPlayer);
 	// Map characters
-	vDynamic.push_back(new cCreature_FireLady(450, 500));
-	vDynamic.push_back(new cCreature_EarthBender(550, 350));
-	vDynamic.push_back(new cCreature_EvilRabbit(700, 500));
-	vDynamic.push_back(new cCreature_PinkRabbit(700, 450));
+	this->vDynamic.push_back(new cCreature_FireLady(450, 500));
+	this->vDynamic.push_back(new cCreature_EarthBender(550, 350));
+	this->vDynamic.push_back(new cCreature_EvilRabbit(700, 500));
+	this->vDynamic.push_back(new cCreature_PinkRabbit(700, 450));
 	// Map Interactives
-	vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
+	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
 
 	for (unsigned i = 0; i < vQuest.size(); i++)
@@ -114,26 +108,24 @@ void cDynamicMap_One::populateDynamics() {
 cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 	this->sName = "DynMap_WildOneTrip";
 	cMap = new Maps("MapWildOneTrip");
-	populateDynamics();
-
-	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Damm dog", 1500, sf::Color::Black));
-
 
 };
 
 cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 
-void cDynamicMap_OneTrip::populateDynamics() {
+void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) {
+	this->vDynamic.push_back(pPlayer);
 	// Map characters
-	vDynamic.push_back(new cCreature_FireLady(450, 500));
-	vDynamic.push_back(new cCreature_EarthBender(550, 650));
+	this->vDynamic.push_back(new cCreature_FireLady(350, 100));
+	this->vDynamic.push_back(new cCreature_EarthBender(550, 650));
 	// Map Interactives
-	vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
+	this->vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
 
 
 	for (unsigned i = 0; i < vQuest.size(); i++)
-		vQuest[i]->PopulateDynamics(vDynamic, this->sName);
+		vQuest[i]->PopulateDynamics(this->vDynamic, this->sName);
 
 
+	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Damm dog", 1500, sf::Color::Black));
 }

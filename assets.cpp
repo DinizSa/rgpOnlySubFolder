@@ -32,6 +32,8 @@ void Assets::LoadTextures() {
 	//load("RedFlowers", "assets/tiles/RedFlowers.png");
 	//load("Portal", "assets/tiles/PortalBWY.png");
 	//load("EvilRabbit", "assets/tiles/EvilRabbit.png");
+	//load("PinkRabbit", "assets/tiles/PinkRabbit.png");
+
 
 	// B&W
 	load("MapWildOne", "assets/tiles/MapWildOneBW.png");
@@ -46,22 +48,21 @@ void Assets::LoadTextures() {
 
 }
 
-void Assets::SetDynamicMap(string presentMap) { 
-
-	sPresentDynamicMap = presentMap;
-
-	// If it is already loaded
-	for (auto dynMap : m_dynamicMaps) {
-		if (dynMap.first == presentMap) {
-			return;
-		}
-	}
-
-	// If not, load
-	if (presentMap == "DynMap_WildOne") {
-		m_dynamicMaps["DynMap_WildOne"] = new cDynamicMap_One;
-	}else if (presentMap == "DynMap_WildOneTrip") {
-		m_dynamicMaps["DynMap_WildOneTrip"] = new cDynamicMap_OneTrip;
-	}
-
-}
+//void Assets::SetDynamicMap(string presentMap) { 
+//
+//	sPresentDynamicMap = presentMap;
+//
+//	// If it is already loaded
+//	for (auto dynMap : m_dynamicMaps) {
+//		if (dynMap.first == presentMap) {
+//			return;
+//		}
+//	}
+//
+//	// If not, load
+//	if (presentMap == "DynMap_WildOne") {
+//		m_dynamicMaps["DynMap_WildOne"] = new cDynamicMap_One;
+//	}else if (presentMap == "DynMap_WildOneTrip") {
+//		m_dynamicMaps["DynMap_WildOneTrip"] = new cDynamicMap_OneTrip;
+//	}
+//}

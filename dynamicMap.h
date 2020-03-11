@@ -15,7 +15,8 @@ public:
 	void draw(sf::RenderWindow* pWindow);
 
 	inline string getName() { return sName; }
-	inline void setpPlayer(Creature* pPlayer) { this->vDynamic[0]=pPlayer; }
+	//inline void setpPlayer(Creature* pPlayer) { this->vDynamic[0]=pPlayer; }
+	virtual void populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest)=0;
 
 protected:
 	string sName;
@@ -23,8 +24,6 @@ protected:
 	Maps* cMap;
 	vector<Dynamic*> vDynamic;
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
-	vector<cQuest*> vQuest;
-	virtual void populateDynamics()=0;
 };
 
 
@@ -33,7 +32,7 @@ class cDynamicMap_One : public cDynamicMap {
 public:
 	cDynamicMap_One();
 	~cDynamicMap_One();
-	void populateDynamics() override;
+	void populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) override;
 };
 
 // <--- Level One Trip --->
@@ -41,5 +40,5 @@ class cDynamicMap_OneTrip : public cDynamicMap {
 public:
 	cDynamicMap_OneTrip();
 	~cDynamicMap_OneTrip();
-	void populateDynamics() override;
+	void populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) override;
 };
