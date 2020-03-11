@@ -2,7 +2,8 @@
 #include "assets.h"
 #include "command.h"
 #include "scriptProcessor.h"
-#include "quest.h"
+#include "Interactive.h"
+
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
 	this->bPressedRight = false;
@@ -14,7 +15,8 @@ cDynamicMap::cDynamicMap() {
 	vDynamic.push_back(new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f));
 
 
-	
+
+	vQuest.push_back(new cQuest_Base());
 }
 
 cDynamicMap::~cDynamicMap() {
@@ -22,6 +24,8 @@ cDynamicMap::~cDynamicMap() {
 	delete cMap;
 	for (unsigned i = 1; i < vDynamic.size(); i++)
 		delete vDynamic[i];
+	for (unsigned i = 0; i < vQuest.size(); i++)
+		delete vQuest[i];
 }
 
 void cDynamicMap::update() {
@@ -101,6 +105,9 @@ void cDynamicMap_One::populateDynamics() {
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
+
+	for (unsigned i = 0; i < vQuest.size(); i++)
+		vQuest[i]->PopulateDynamics(vDynamic, this->sName);
 }
 
 // <--------------------------- Populated Map: MapWildTripOne --------------------------->
@@ -111,6 +118,8 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Damm dog", 1500, sf::Color::Black));
+
+
 };
 
 cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
@@ -121,5 +130,10 @@ void cDynamicMap_OneTrip::populateDynamics() {
 	vDynamic.push_back(new cCreature_EarthBender(550, 650));
 	// Map Interactives
 	vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
+
+
+	for (unsigned i = 0; i < vQuest.size(); i++)
+		vQuest[i]->PopulateDynamics(vDynamic, this->sName);
+
 
 }

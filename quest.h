@@ -8,13 +8,21 @@ public:
 	inline bool isCompleted() { return bCompleted; };
 	inline string getName() { return sName; };
 	// Current dynamics and map
-	virtual void PopulateDynamics(vector<Dynamic*> vDynamic, string mapName);
+	virtual void PopulateDynamics(vector<Dynamic*>& vDynamic, string mapName) = 0;
 	// Current dynamics and the target interacted, so we can specify each case
-	virtual void OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target);
+	virtual void OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) = 0;
 
 protected:
 	string sName;
 	bool bCompleted;
+};
 
+// <------------------------------------ Base quest ------------------------------------>
+class cQuest_Base : public cQuest {
+public:
+	cQuest_Base();
+	~cQuest_Base();
+	void PopulateDynamics(vector<Dynamic*>& vDynamic, string mapName) override;
+	void OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) override;
 
 };

@@ -3,7 +3,8 @@
 #include "maps.h"
 #include "dynamic.h"
 #include "creature.h"
-#include "Interactive.h"
+#include "quest.h"
+
 // Responsible for putting together all life into the map
 class cDynamicMap {
 public:
@@ -22,7 +23,7 @@ protected:
 	Maps* cMap;
 	vector<Dynamic*> vDynamic;
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
-
+	vector<cQuest*> vQuest;
 	virtual void populateDynamics()=0;
 };
 
