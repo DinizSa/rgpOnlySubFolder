@@ -10,7 +10,7 @@ class cDynamicMap {
 public:
 	cDynamicMap();
 	~cDynamicMap();
-	void handleInputs(sf::Event event);
+	void handleInputs(sf::Event event, vector<cQuest*> vQuest);
 	void update();
 	void draw(sf::RenderWindow* pWindow);
 

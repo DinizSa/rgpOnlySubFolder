@@ -1,5 +1,6 @@
 #include "quest.h"
 #include "creature.h"
+#include "assets.h"
 
 cQuest::cQuest() {
 	sName = "";
@@ -11,8 +12,8 @@ cQuest::~cQuest() { }
 
 
 // <------------------------------------ Base quest ------------------------------------>
-cQuest_Base::cQuest_Base() { cout << "Base quest criada" << endl; }
-cQuest_Base::~cQuest_Base(){ cout << "Base quest destruida" << endl; }
+cQuest_Base::cQuest_Base() { }
+cQuest_Base::~cQuest_Base(){ }
 void cQuest_Base::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapName) {
 	if (dynMmapName == "DynMap_WildOne") {
 		vDynamic.push_back(new cCreature_PinkRabbit(100, 100));
@@ -21,6 +22,12 @@ void cQuest_Base::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapNam
 	} 
 }
 
-void cQuest_Base::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
-	cout << "Interactin gquest" << endl;
+bool cQuest_Base::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
+	cout << "QUEST OnInteraction" << endl;
+
+	if (target->getName() == "FireLady" && Assets::get().GetNameDynamicMap() == "DynMap_WildOneTrip") {
+		cout << "QUEST FireLady on DynMap_WildOne" << endl;
+		return true;
+	}
+	return false;
 }

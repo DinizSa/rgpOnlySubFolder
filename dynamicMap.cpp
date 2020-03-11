@@ -51,7 +51,7 @@ void cDynamicMap::draw(sf::RenderWindow* pWindow) {
 	cTextDrawer::get().drawText(pWindow);
 }
 
-void cDynamicMap::handleInputs(sf::Event event) {
+void cDynamicMap::handleInputs(sf::Event event, vector<cQuest*> vQuest) {
 
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::A)
@@ -63,8 +63,14 @@ void cDynamicMap::handleInputs(sf::Event event) {
 		if (event.key.code == sf::Keyboard::S)
 			this->bPressedDown = true;
 		if (event.key.code == sf::Keyboard::Space)
-			if (vDynamic[0]->getCollidingDynamic(&vDynamic) != nullptr)
-				vDynamic[0]->getCollidingDynamic(&vDynamic)->OnInteraction(vDynamic[0]);
+			if (vDynamic[0]->getCollidingDynamic(&vDynamic) != nullptr) {
+				Dynamic* collided = vDynamic[0]->getCollidingDynamic(&vDynamic);
+				// With the following  implementation, quest interactions are more important than individual interactions
+				for (auto quest : vQuest)
+					if (quest->OnInteraction(vDynamic, collided))
+						return; 
+				collided->OnInteraction(vDynamic[0]);
+			}
 	}
 
 	// Movement released

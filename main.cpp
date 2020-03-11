@@ -36,7 +36,7 @@ int main()
                  currentDynamicMap = new cDynamicMap_One;
              else if ("DynMap_WildOneTrip" == Assets::get().GetNameDynamicMap())
                  currentDynamicMap = new cDynamicMap_OneTrip;
-             currentDynamicMap->populateDynamics(pPlayer, vQuest);
+             currentDynamicMap->populateDynamics(pPlayer, vQuest );
          }
 
         // Events
@@ -45,9 +45,9 @@ int main()
         {
             if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 window.close();
-            else
+            else 
                 if (cScriptProcessor::Get().getUserControlEnabled())
-                    currentDynamicMap->handleInputs(event);
+                    currentDynamicMap->handleInputs(event, vQuest);
             
         }
 
@@ -59,8 +59,10 @@ int main()
         currentDynamicMap->draw(&window);
         window.display();
     }
+
+     // Cleanup
      for (unsigned i = 0; i < vQuest.size(); i++)
-         delete vQuest[i];
+         delete vQuest [i];
      vQuest.clear();
      delete pPlayer;
      delete currentDynamicMap;
