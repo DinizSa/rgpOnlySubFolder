@@ -51,7 +51,7 @@ void cDynamicMap::draw(sf::RenderWindow* pWindow) {
 	cTextDrawer::get().drawText(pWindow);
 }
 
-void cDynamicMap::handleInputs(sf::Event event, vector<cQuest*> vQuest) {
+void cDynamicMap::handleInputs(sf::Event event) {
 
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::A)
@@ -66,8 +66,8 @@ void cDynamicMap::handleInputs(sf::Event event, vector<cQuest*> vQuest) {
 			if (vDynamic[0]->getCollidingDynamic(&vDynamic) != nullptr) {
 				Dynamic* collided = vDynamic[0]->getCollidingDynamic(&vDynamic);
 				// With the following  implementation, quest interactions are more important than individual interactions
-				for (auto quest : vQuest)
-					if (quest->OnInteraction(vDynamic, collided))
+				for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
+					if ((*cQuest::getQuestVector())[i]->OnInteraction(vDynamic, collided))
 						return; 
 				collided->OnInteraction(vDynamic[0]);
 			}
@@ -95,7 +95,7 @@ cDynamicMap_One::cDynamicMap_One() {
 
 cDynamicMap_One::~cDynamicMap_One() {};
 
-void cDynamicMap_One::populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) {
+void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(pPlayer);
 	// Map characters
 	this->vDynamic.push_back(new cCreature_FireLady(450, 500));
@@ -105,9 +105,8 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest)
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
-
-	for (unsigned i = 0; i < vQuest.size(); i++)
-		vQuest[i]->PopulateDynamics(vDynamic, this->sName);
+	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
+		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
 }
 
 // <--------------------------- Populated Map: MapWildTripOne --------------------------->
@@ -119,7 +118,7 @@ cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
 
 cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 
-void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) {
+void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(pPlayer);
 	// Map characters
 	this->vDynamic.push_back(new cCreature_FireLady(350, 100));
@@ -128,8 +127,8 @@ void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQu
 	this->vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
 
 
-	for (unsigned i = 0; i < vQuest.size(); i++)
-		vQuest[i]->PopulateDynamics(this->vDynamic, this->sName);
+	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
+		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
 
 
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));

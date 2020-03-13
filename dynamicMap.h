@@ -10,13 +10,13 @@ class cDynamicMap {
 public:
 	cDynamicMap();
 	~cDynamicMap();
-	void handleInputs(sf::Event event, vector<cQuest*> vQuest);
+	void handleInputs(sf::Event event);
 	void update();
 	void draw(sf::RenderWindow* pWindow);
 
 	inline string getName() { return sName; }
 	//inline void setpPlayer(Creature* pPlayer) { this->vDynamic[0]=pPlayer; }
-	virtual void populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest)=0;
+	virtual void populateDynamics(Dynamic* pPlayer)=0;
 
 protected:
 	string sName;
@@ -32,7 +32,7 @@ class cDynamicMap_One : public cDynamicMap {
 public:
 	cDynamicMap_One();
 	~cDynamicMap_One();
-	void populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) override;
+	void populateDynamics(Dynamic* pPlayer) override;
 };
 
 // <--- Level One Trip --->
@@ -40,5 +40,5 @@ class cDynamicMap_OneTrip : public cDynamicMap {
 public:
 	cDynamicMap_OneTrip();
 	~cDynamicMap_OneTrip();
-	void populateDynamics(Dynamic* pPlayer, vector<cQuest*> vQuest) override;
+	void populateDynamics(Dynamic* pPlayer) override;
 };

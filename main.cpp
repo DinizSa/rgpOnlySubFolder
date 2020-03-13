@@ -8,6 +8,7 @@
 #include "command.h"
 #include "textDrawer.h"
 #include "dynamicMap.h"
+#include "quest.h"
 
 int main()
 {
@@ -18,13 +19,10 @@ int main()
     Assets::get().LoadTextures();
     Assets::get().SetNameDynamicMap("DynMap_WildOne");
 
-    // Quest
-    vector<cQuest*> vQuest;
-    vQuest.push_back(new cQuest_Base());
 
     Creature* pPlayer = new Creature("PackMan", 400, 450, 1, 1, 1, 100, 2.0f);
     cDynamicMap* currentDynamicMap = new cDynamicMap_One;
-    currentDynamicMap->populateDynamics(pPlayer, vQuest);
+    currentDynamicMap->populateDynamics(pPlayer);
 
 
 
@@ -36,7 +34,7 @@ int main()
                  currentDynamicMap = new cDynamicMap_One;
              else if ("DynMap_WildOneTrip" == Assets::get().GetNameDynamicMap())
                  currentDynamicMap = new cDynamicMap_OneTrip;
-             currentDynamicMap->populateDynamics(pPlayer, vQuest );
+             currentDynamicMap->populateDynamics(pPlayer );
          }
 
         // Events
@@ -47,7 +45,7 @@ int main()
                 window.close();
             else 
                 if (cScriptProcessor::Get().getUserControlEnabled())
-                    currentDynamicMap->handleInputs(event, vQuest);
+                    currentDynamicMap->handleInputs(event);
             
         }
 
@@ -61,9 +59,6 @@ int main()
     }
 
      // Cleanup
-     for (unsigned i = 0; i < vQuest.size(); i++)
-         delete vQuest [i];
-     vQuest.clear();
      delete pPlayer;
      delete currentDynamicMap;
 

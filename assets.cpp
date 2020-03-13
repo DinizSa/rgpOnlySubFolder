@@ -23,18 +23,7 @@ void Assets::LoadTextures() {
 		texture.loadFromFile(sFileName);
 		m_mapsTextures[sName] = texture;
 	};
-
-	//load("MapWildOne", "assets/tiles/MapWildOne.png");
-	//load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
-	//load("EarthBender", "assets/tiles/EarthBender4.png");
-	//load("FireLady", "assets/tiles/FireLady4.png");
-	//load("PackMan", "assets/tiles/PackMan4.png");
-	//load("RedFlowers", "assets/tiles/RedFlowers.png");
-	//load("Portal", "assets/tiles/PortalBWY.png");
-	//load("EvilRabbit", "assets/tiles/EvilRabbit.png");
-	//load("PinkRabbit", "assets/tiles/PinkRabbit.png");
-
-
+	   
 	// B&W
 	load("MapWildOne", "assets/tiles/MapWildOneBW.png");
 	load("MapWildOneTrip", "assets/tiles/MapWildOneTripBW.png");
@@ -47,22 +36,3 @@ void Assets::LoadTextures() {
 	load("PinkRabbit", "assets/tiles/PinkRabbit.png");
 
 }
-
-//void Assets::SetDynamicMap(string presentMap) { 
-//
-//	sPresentDynamicMap = presentMap;
-//
-//	// If it is already loaded
-//	for (auto dynMap : m_dynamicMaps) {
-//		if (dynMap.first == presentMap) {
-//			return;
-//		}
-//	}
-//
-//	// If not, load
-//	if (presentMap == "DynMap_WildOne") {
-//		m_dynamicMaps["DynMap_WildOne"] = new cDynamicMap_One;
-//	}else if (presentMap == "DynMap_WildOneTrip") {
-//		m_dynamicMaps["DynMap_WildOneTrip"] = new cDynamicMap_OneTrip;
-//	}
-//}

@@ -23,18 +23,16 @@ public:
 
 	inline string GetNameDynamicMap() { return sPresentDynamicMap; }
 	void SetNameDynamicMap(string presentMap) { sPresentDynamicMap = presentMap; };
-	//void SetDynamicMap(string presentMap);
-	//inline cDynamicMap* GetCurrentDynamicMap() { return m_dynamicMaps[sPresentDynamicMap]; }
 
 	void LoadTextures();
 
 
 private:
-	//string sPresentMap;
-	string sPresentDynamicMap;
-	// Turn constructor and destructor invisible to the outside
+	// Turn constructor and destructor invisible to the outside as a singleton
 	Assets();
 	~Assets();
+
+	string sPresentDynamicMap;
 	map<string, sf::Texture> m_mapsTextures;
 	map<string, cDynamicMap*> m_dynamicMaps;
 	map<string, int> mapSizeSprite;

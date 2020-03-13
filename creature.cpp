@@ -1,6 +1,7 @@
 #include "creature.h"
 #include "scriptProcessor.h"
 #include "assets.h"
+#include "quest.h"
 
 Creature::Creature(): Dynamic() {
 	hp = 0;
@@ -25,6 +26,8 @@ cCreature_FireLady::cCreature_FireLady(float px, float py): Creature("FireLady",
 
 void cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am Fire Lady! ", 1500, sf::Color::Red));
+	cQuest::addQuest(new cQuest_Base);
+	cout << "Fire lady added a quest on interaction!" << endl;
 }
 
 // <------------------------------------ Earth Bender --------------------------------------------->
@@ -50,9 +53,9 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	float dy = this->py - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
 	if (framesOfRest == 0)
-		framesOfRest = 60 * 4;
+		framesOfRest = 60 * 6;
 
-	if(framesOfRest > 60*3 && abs(delta) > Assets::get().GetSizeSprite("RespectableDistance"))
+	if(framesOfRest > 60*4 && abs(delta) > Assets::get().GetSizeSprite("RespectableDistance"))
 		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);
 
 	framesOfRest--;
