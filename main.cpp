@@ -24,7 +24,8 @@ int main()
     cDynamicMap* currentDynamicMap = new cDynamicMap_One;
     currentDynamicMap->populateDynamics(pPlayer);
 
-
+    //cQuest::addQuest(new cQuest_Base);
+    cQuest::addQuest(make_shared<cQuest_Base>());
 
      while (window.isOpen())
     {

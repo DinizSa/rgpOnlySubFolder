@@ -25,9 +25,9 @@ void Creature::OnInteraction(Dynamic* secondDynamic) {
 cCreature_FireLady::cCreature_FireLady(float px, float py): Creature("FireLady", px, py, 1, 1, 1, 50, 1.5f) {};
 
 void cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
+	//shared_ptr<cQuest> sharedQuest = make_shared<cQuest_FindThePinkRabbit>();
+	cQuest::addQuest(make_shared<cQuest_FindThePinkRabbit>());
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am Fire Lady! ", 1500, sf::Color::Red));
-	cQuest::addQuest(new cQuest_Base);
-	cout << "Fire lady added a quest on interaction!" << endl;
 }
 
 // <------------------------------------ Earth Bender --------------------------------------------->

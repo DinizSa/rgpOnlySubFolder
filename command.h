@@ -51,5 +51,4 @@ private:
 	float m_fStartPosY;
 	float m_fTargetPosX;
 	float m_fTargetPosY;
-
 };

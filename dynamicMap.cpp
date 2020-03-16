@@ -107,6 +107,7 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
+
 }
 
 // <--------------------------- Populated Map: MapWildTripOne --------------------------->
@@ -125,7 +126,6 @@ void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cCreature_EarthBender(550, 650));
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
-
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);

@@ -16,7 +16,7 @@ void cScriptProcessor::ProcessCommands(int iElapsedTime) {
 	bUserControlEnabled = m_listCommands.empty();
 
 	// If has commands in the queue
-	if (!bUserControlEnabled) {
+	if (!m_listCommands.empty()) {
 
 		// Front command is not completed
 		if (!m_listCommands.front()->isCompleted()) {
