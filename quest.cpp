@@ -21,15 +21,12 @@ void cQuest::addQuest(shared_ptr<cQuest> questToAdd) {
 };
 
 void cQuest::removeQuest(string questName) {
-	cout << "start:" << cQuest::vQuest.size() << endl;
 	for (int i = 0; i < cQuest::vQuest.size(); i++) {
 		if (cQuest::vQuest[i]->getName() == questName) {
 			cQuest::vQuest.erase(cQuest::vQuest.begin()+i);
-			cout << "fim:" << cQuest::vQuest.size() << endl;
 			return;
 		}
 	}
-	cout << "fim:" << cQuest::vQuest.size() << endl;
 }
 
 // <------------------------------------ Base quest ------------------------------------>
@@ -63,7 +60,9 @@ bool cQuest_Base::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 }
 
 // <------------------------------------ Find Pink Rabbit quest ------------------------------------>
-cQuest_FindThePinkRabbit::cQuest_FindThePinkRabbit() :cQuest("Find pink Rabbit") { rabbitFound = false;
+cQuest_FindThePinkRabbit::cQuest_FindThePinkRabbit() :cQuest("Find pink Rabbit") { 
+	rabbitFound = false;
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Please help me find Mr Evil rabbit!", 1500));
 }
 cQuest_FindThePinkRabbit::~cQuest_FindThePinkRabbit() { }
 void cQuest_FindThePinkRabbit::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapName) {

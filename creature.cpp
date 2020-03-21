@@ -14,6 +14,7 @@ Creature::Creature(string name, string asset, float px, float py, bool solidVsSo
 	Dynamic(name, asset, px, py, solidVsSolid, solidVsDynamic, friendly, true, maxSpeed){
 	this->hp = maxHp;
 	this->maxHp = maxHp;
+	this->questAdded = false;
 }
 
 void Creature::OnInteraction(Dynamic* secondDynamic) {
@@ -22,12 +23,16 @@ void Creature::OnInteraction(Dynamic* secondDynamic) {
 
 
 // <------------------------------------ Fire Lady --------------------------------------------->
-cCreature_FireLady::cCreature_FireLady(string name, float px, float py): Creature(name, "FireLady", px, py, 1, 1, 1, 50, 1.5f) {};
+cCreature_FireLady::cCreature_FireLady(string name, float px, float py) : Creature(name, "FireLady", px, py, 1, 1, 1, 50, 1.5f) {  };
 
 void cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 	//shared_ptr<cQuest> sharedQuest = make_shared<cQuest_FindThePinkRabbit>();
-	cQuest::addQuest(make_shared<cQuest_FindThePinkRabbit>());
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am " + this->getName(), 1500, sf::Color::Red));
+	if (!this->questAdded) {
+		cQuest::addQuest(make_shared<cQuest_FindThePinkRabbit>());
+		this->questAdded = true;
+	}
+	else
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am " + this->getName(), 1500, sf::Color::Red));
 }
 
 // <------------------------------------ Earth Bender --------------------------------------------->

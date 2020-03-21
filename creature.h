@@ -5,6 +5,8 @@ class Creature : public Dynamic {
 private:
 	int hp;
 	int maxHp;
+protected:
+	bool questAdded;
 public:
 	Creature();
 	//~Creature();
