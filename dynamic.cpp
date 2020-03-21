@@ -59,7 +59,11 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 		px += vx;
 	}
 	else {
-		vx = 0;
+		if (vx < 0)
+			facingDirection = WEST;
+		else if (vx > 0)
+			facingDirection = EAST;
+			vx = 0;
 	}
 	// Vertical
 	if ((vy > 0 && py < windowH - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height))))) ||
@@ -67,6 +71,10 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 		py += vy;
 	}
 	else {
+		if (vy < 0)
+			facingDirection = NORTH;
+		else if (vy > 0)
+			facingDirection = SOUTH;
 		vy = 0;
 	}
 
