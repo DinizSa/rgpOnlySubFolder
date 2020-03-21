@@ -6,19 +6,19 @@ Entity::Entity() {
 	this->py = 0.f;
 	this->width = 0.f;
 	this->height = 0.f;
-	this->name = "";
+	this->sAsset = "";
 	this->shape = sf::RectangleShape(sf::Vector2f(width, height));
 }
 
-Entity::Entity(string name, float px, float py) {
-	this->name = name;
+Entity::Entity(string sAsset, float px, float py) {
+	this->sAsset = sAsset;
 	this->px = px;
 	this->py = py;
 	this->width = 34;
 	this->height = 34;
 	this->shape = sf::RectangleShape(sf::Vector2f(width, height));
 	this->shape.setPosition(sf::Vector2f(px, py));
-	this->shape.setTexture(&Assets::get().GetTexture(this->getName()));
+	this->shape.setTexture(&Assets::get().GetTexture(sAsset));
 }
 
 void Entity::setPartialTexture(int px, int py, int dx, int dy) {

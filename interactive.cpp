@@ -4,15 +4,15 @@
 Interactive::Interactive():
 	Dynamic() {
 }
-Interactive::Interactive(string name, float px, float py) :
-	Dynamic(name, px, py, true, true, true, true, 0) {
-
+Interactive::Interactive(string asset, float px, float py) :
+	Dynamic(asset, asset, px, py, true, true, true, true, 0) {
+	// For simplicity, interactives name will be their assets name
 }
 
 Interactive::~Interactive() {}
 
 void Interactive::OnInteraction(Dynamic* secondDynamic) {
-	cout << this->name << " interacting  with " << secondDynamic->getName() << " (Interactive) " << endl;
+	cout << this->getName() << " interacting  with " << secondDynamic->getName() << " (Interactive) " << endl;
 }
 
 // <---------------------------- cInteractive_Teleport ---------------------------->

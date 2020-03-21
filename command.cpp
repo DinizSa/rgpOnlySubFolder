@@ -61,7 +61,7 @@ void cCommand_MoveTo::Update(int iElapsedTime) {
 	float currentPosX = dynamic->getPosX();
 	float currentPosY = dynamic->getPosY();
 	float m_fTotalDistance = sqrt(powf((m_fTargetPosX - currentPosX), 2) + powf((m_fTargetPosY - currentPosY), 2));
-	if (m_fTotalDistance <= Assets::get().GetSizeSprite("RespectableDistance")) {
+	if (m_fTotalDistance <= Assets::get().GetSizeSprite()) {
 		this->bCompleted = true;
 	}
 	else {

@@ -18,7 +18,7 @@ protected:
 
 public:
 	Dynamic();
-	Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed);
+	Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed);
 	//~Dynamic();
 	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
@@ -34,6 +34,7 @@ public:
 	inline float getSolidVsDynamic() { return this->solidVsDynamic; }
 	inline float isFriendly() { return this->friendly; }
 	inline float getMaxSpeed() { return this->maxSpeed; }
+	inline string getName() { return this->sName; }
 
 private:
 	void move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);
@@ -42,5 +43,5 @@ private:
 	void SetGraphics(Timer* timer);
 	int msStartedMoving;
 	int msSinceStartedMoving;
-
+	string sName;
 };

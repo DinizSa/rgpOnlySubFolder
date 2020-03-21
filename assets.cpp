@@ -1,15 +1,7 @@
 #include "assets.h"
 
 Assets::Assets() {
-	mapSizeSprite["MapBlock"] = 34;
-	mapSizeSprite["RespectableDistance"] = 34;
-	mapSizeSprite["EarthBender"] = 34;
-	mapSizeSprite["PackMan"] = 34;
-	mapSizeSprite["FireLady"] = 34;
-	mapSizeSprite["RedFlowers"] = 34;
-	mapSizeSprite["Portal"] = 34;
-	mapSizeSprite["EvilRabbit"] = 34;
-	mapSizeSprite["PinkRabbit"] = 34;
+	iSizeSprite = 34;
 }
 
 Assets::~Assets() {

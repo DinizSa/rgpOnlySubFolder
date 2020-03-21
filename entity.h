@@ -8,10 +8,10 @@ class Entity {
 protected:
 	float px, py;
 	float width, height;
-	string name;
+	string sAsset;
 public:
 	Entity();
-	Entity(string name, float px, float py);
+	Entity(string sAsset, float px, float py);
 	//~Entity();
 	void setDimensions(float width, float height);
 
@@ -25,7 +25,7 @@ public:
 	inline void setPosY(float py) { this->py = py; }
 	inline float getWidth() { return this->width; }
 	inline float getHeight() { return this->height; }
-	inline string getName() { return this->name; }
+	inline string getAssetName() { return this->sAsset; }
 
 protected:
 	sf::RectangleShape shape;

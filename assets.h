@@ -19,7 +19,7 @@ public:
 	void operator = (Assets const&) = delete; // assign to other variable would make a small copy of this object
 
 	inline sf::Texture& GetTexture(string name) { return m_mapsTextures[name]; }
-	inline int GetSizeSprite(string name) { return mapSizeSprite[name]; }
+	inline int GetSizeSprite() { return iSizeSprite; }
 
 	inline string GetNameDynamicMap() { return sPresentDynamicMap; }
 	void SetNameDynamicMap(string presentMap) { sPresentDynamicMap = presentMap; };
@@ -35,5 +35,5 @@ private:
 	string sPresentDynamicMap;
 	map<string, sf::Texture> m_mapsTextures;
 	map<string, cDynamicMap*> m_dynamicMaps;
-	map<string, int> mapSizeSprite;
+	int iSizeSprite;
 };

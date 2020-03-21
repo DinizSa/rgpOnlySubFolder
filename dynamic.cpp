@@ -15,11 +15,12 @@ Dynamic::Dynamic():
 	graphicState = STANDING;
 	msStartedMoving = 0;
 	msSinceStartedMoving = 0;
+	this->sName = "";
 }
 //Dynamic::~Dynamic() {
 // }
-Dynamic::Dynamic(string name, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed) :
-	Entity(name, px, py)	{
+Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed) :
+	Entity(asset, px, py)	{
 	this->solidVsSolid = solidVsSolid;
 	this->solidVsDynamic = solidVsDynamic;
 	this->friendly = friendly;
@@ -31,6 +32,7 @@ Dynamic::Dynamic(string name, float px, float py, bool solidVsSolid, bool solidV
 	graphicState = STANDING;
 	msStartedMoving = 0;
 	msSinceStartedMoving = 0;
+	this->sName = name;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	move(map, vDynamic, 800, 600);
@@ -101,7 +103,7 @@ void Dynamic::SetGraphics(Timer* timer) {
 	if(this->maxSpeed > 0)
 		phaseAnimation = ((int)(msSinceStartedMoving*(10 * maxSpeed) / (1000))) % 3;
 
-	int sizeSprite = Assets::get().GetSizeSprite(name);
+	int sizeSprite = Assets::get().GetSizeSprite();
 	// facingDirection represents the line of the sprite
 	setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
 
@@ -113,12 +115,47 @@ Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
 	for (unsigned i = 0; i < vDynamic->size(); i++)
 	{
 		if (this != (*vDynamic)[i]) {
-			if (this->getPosX() + this->getWidth() > (*vDynamic)[i]->getPosX() && this->getPosX() < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
-				if (this->getPosY() + this->getWidth() > (*vDynamic)[i]->getPosY() && this->getPosY() < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
-					//cout << this->getName() << " colliding with " << (*vDynamic)[i]->getName() << endl;
-					return (*vDynamic)[i];
+			float minDistance = Assets::get().GetSizeSprite() / 2;
+			if(facingDirection == SOUTH){
+				if (this->getPosX() + this->getWidth() > (*vDynamic)[i]->getPosX() && this->getPosX() < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
+					float distanceY = (*vDynamic)[i]->getPosY() - (this->getPosY() + this->getWidth());
+					if (distanceY < minDistance && distanceY > -minDistance) {
+						return (*vDynamic)[i];
+					}
 				}
 			}
+			else if (facingDirection == NORTH) {
+				if (this->getPosX() + this->getWidth() > (*vDynamic)[i]->getPosX() && this->getPosX() < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
+					float distanceY = this->getPosY() - ((*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getWidth());
+					if (distanceY < minDistance && distanceY > -minDistance) {
+						return (*vDynamic)[i];
+					}
+				}
+			}
+			else if (facingDirection == WEST) {
+				float distanceX = this->getPosX() - ((*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth());
+				if (distanceX < minDistance && distanceX > -minDistance) {
+					if (this->getPosY() + this->getWidth() > (*vDynamic)[i]->getPosY() && this->getPosY() < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
+						return (*vDynamic)[i];
+					}
+				}
+			}
+			else if (facingDirection == EAST) {
+				float distanceX = (*vDynamic)[i]->getPosX() - (this->getPosX() + this->getWidth());
+				if (distanceX < minDistance && distanceX > -minDistance) {
+					if (this->getPosY() + this->getWidth() > (*vDynamic)[i]->getPosY() && this->getPosY() < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
+						return (*vDynamic)[i];
+					}
+				}
+			}
+			// Old way: detects 360º interactions
+			//if (this->getPosX() + this->getWidth() > (*vDynamic)[i]->getPosX() && this->getPosX() < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
+			//	if (this->getPosY() + this->getWidth() > (*vDynamic)[i]->getPosY() && this->getPosY() < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
+			//		//cout << this->getName() << " colliding with " << (*vDynamic)[i]->getName() << endl;
+
+			//		return (*vDynamic)[i];
+			//	}
+			//}
 		}
 	}
 	return nullptr;

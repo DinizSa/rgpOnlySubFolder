@@ -21,12 +21,15 @@ void cQuest::addQuest(shared_ptr<cQuest> questToAdd) {
 };
 
 void cQuest::removeQuest(string questName) {
+	cout << "start:" << cQuest::vQuest.size() << endl;
 	for (int i = 0; i < cQuest::vQuest.size(); i++) {
 		if (cQuest::vQuest[i]->getName() == questName) {
 			cQuest::vQuest.erase(cQuest::vQuest.begin()+i);
+			cout << "fim:" << cQuest::vQuest.size() << endl;
 			return;
 		}
 	}
+	cout << "fim:" << cQuest::vQuest.size() << endl;
 }
 
 // <------------------------------------ Base quest ------------------------------------>
@@ -34,15 +37,15 @@ cQuest_Base::cQuest_Base():cQuest("Base quest") {  }
 cQuest_Base::~cQuest_Base() { }
 void cQuest_Base::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapName) {
 	if (dynMmapName == "DynMap_WildOne") {
-		vDynamic.push_back(new cCreature_PinkRabbit(100, 100));
+		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",100, 100));
 	}else if (dynMmapName == "DynMap_WildOneTrip") {
-		vDynamic.push_back(new cCreature_PinkRabbit(500, 100));
+		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",500, 100));
 	} 
 }
 
 bool cQuest_Base::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 	cQuest::getQuestVector()->size();
-	if (target->getName() == "EarthBender" && Assets::get().GetNameDynamicMap() == "DynMap_WildOne") {
+	if (target->getName() == "Joseph" ) {
 		if (cQuest::getQuestVector()->size() < 2) {
 			cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must find quests!", 1500));
 			return true;
@@ -51,6 +54,10 @@ bool cQuest_Base::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Good luck \n on your journey!", 1500));
 			return true;
 		}
+	}
+	if (target->getName() == "Joseph brother") {
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must ask my brother \n Joseph about your quests!", 1500));
+		return true;
 	}
 	return false;
 }
@@ -61,13 +68,13 @@ cQuest_FindThePinkRabbit::cQuest_FindThePinkRabbit() :cQuest("Find pink Rabbit")
 cQuest_FindThePinkRabbit::~cQuest_FindThePinkRabbit() { }
 void cQuest_FindThePinkRabbit::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapName) {
 	if (dynMmapName == "DynMap_WildOneTrip") {
-		vDynamic.push_back(new cCreature_PinkRabbit(750, 500));
+		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",750, 500));
 	} 
 }
 
 bool cQuest_FindThePinkRabbit::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 
-	if (target->getName() == "FireLady" && Assets::get().GetNameDynamicMap() == "DynMap_WildOne") {
+	if (target->getName() == "Matilda" ) {
 		if (!rabbitFound) {
 			cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must find the Pink Acid Rabbit !", 1500));
 			return true;
@@ -78,7 +85,7 @@ bool cQuest_FindThePinkRabbit::OnInteraction(vector<Dynamic*> vDynamic, Dynamic*
 			return true;
 		}
 	}
-	else if (target->getName() == "PinkRabbit" && Assets::get().GetNameDynamicMap() == "DynMap_WildOneTrip") {
+	else if (target->getAssetName() == "PinkRabbit" /*&& Assets::get().GetNameDynamicMap() == "DynMap_WildOneTrip"*/) {
 		if (!rabbitFound) {
 			this->rabbitFound = true;
 			cScriptProcessor::Get().AddCommand(new cCommand_Talk("DAMM you found me !", 1500));
