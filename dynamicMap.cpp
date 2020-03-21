@@ -100,7 +100,7 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	// Map characters
 	this->vDynamic.push_back(new cCreature_FireLady("Matilda", 450, 500));
 	this->vDynamic.push_back(new cCreature_EarthBender("Joseph", 550, 350));
-	//this->vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 700, 500));
+	this->vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 700, 500));
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit", 700, 350));
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));

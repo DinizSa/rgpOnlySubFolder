@@ -36,7 +36,7 @@ void cQuest_Base::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapNam
 	if (dynMmapName == "DynMap_WildOne") {
 		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",100, 100));
 	}else if (dynMmapName == "DynMap_WildOneTrip") {
-		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",500, 100));
+		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",600, 100));
 	} 
 }
 
