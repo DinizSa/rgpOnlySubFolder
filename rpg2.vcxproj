@@ -25,7 +25,6 @@
     <ClInclude Include="dynamic.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="interactive.h" />
-    <ClInclude Include="item.h" />
     <ClInclude Include="itemMap.h" />
     <ClInclude Include="landscape.h" />
     <ClInclude Include="dynamicMap.h" />
@@ -42,7 +41,6 @@
     <ClCompile Include="dynamic.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="interactive.cpp" />
-    <ClCompile Include="item.cpp" />
     <ClCompile Include="itemMap.cpp" />
     <ClCompile Include="landscape.cpp" />
     <ClCompile Include="dynamicMap.cpp" />

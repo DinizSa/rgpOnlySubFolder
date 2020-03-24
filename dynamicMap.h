@@ -24,6 +24,8 @@ protected:
 	Maps* cMap;
 	vector<Dynamic*> vDynamic;
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
+
+	void handleInteraction();
 };
 
 

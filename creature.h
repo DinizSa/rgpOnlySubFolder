@@ -15,7 +15,7 @@ public:
 	inline void attack(Creature* target, int damage) { target->defend(damage); }
 	bool OnInteraction(Dynamic* secondDynamic);
 	void updateAI(Creature* pPlayer) {};
-	inline void heal(int quantityToHeal) { this->hp = min(maxHp, hp + quantityToHeal); cout << "Healed by " << quantityToHeal << endl; }
+	inline void heal(int quantityToHeal) { this->hp = min(maxHp, hp + quantityToHeal); }
 
 };
 

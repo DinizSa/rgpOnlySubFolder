@@ -4,7 +4,6 @@ using namespace std;
 #include <string>
 #include "maps.h"
 #include "timer.h"
-#include "item.h"
 #include <memory>
 
 class Dynamic: public Entity {
@@ -17,12 +16,12 @@ protected:
 	float maxSpeed;
 	enum FacingDirection{SOUTH = 0, WEST = 1, NORTH = 2, EAST = 3} facingDirection;
 	enum {STANDING, WALKING, DEATH} graphicState;
-	map< shared_ptr<cItem>, int> lInventory;
+	map< Dynamic*, int> lInventory;
 
 public:
 	Dynamic();
 	Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed);
-	//~Dynamic();
+	~Dynamic();
 	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
 	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed; }
@@ -40,9 +39,9 @@ public:
 	inline string getName() { return this->sName; }
 
 	// Inventory
-	void addItem(shared_ptr<cItem> itemToAdd, int quantity);
-	void removeItem(shared_ptr<cItem> itemToRemove, int quantity);
-	bool hasItem(shared_ptr<cItem> itemToCheck);
+	void addItem(Dynamic* itemToAdd, int quantity);
+	void removeItem(Dynamic* itemToRemove, int quantity);
+	bool hasItem(Dynamic* itemToCheck);
 
 private:
 	void move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);

@@ -17,8 +17,11 @@ Dynamic::Dynamic():
 	msSinceStartedMoving = 0;
 	this->sName = "";
 }
-//Dynamic::~Dynamic() {
-// }
+Dynamic::~Dynamic() {
+	for (auto item : lInventory) {
+		delete item.first;
+	}
+ }
 Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed) :
 	Entity(asset, px, py)	{
 	this->solidVsSolid = solidVsSolid;
@@ -219,7 +222,7 @@ void Dynamic::applyFriction() {
 }
 
 // Inventory -> Add item
-void Dynamic::addItem(shared_ptr<cItem> itemToAdd, int quantity) { 
+void Dynamic::addItem(Dynamic* itemToAdd, int quantity) {
 	for (auto item : lInventory) {
 		if (item.first->getName() == itemToAdd->getName()) {
 			item.second += quantity;
@@ -231,7 +234,7 @@ void Dynamic::addItem(shared_ptr<cItem> itemToAdd, int quantity) {
 }
 
 // Inventory -> Remove item
-void Dynamic::removeItem(shared_ptr<cItem> itemToRemove, int quantity) {
+void Dynamic::removeItem(Dynamic* itemToRemove, int quantity) {
 	if (quantity == 0) {
 		lInventory.erase(itemToRemove);
 	}
@@ -249,7 +252,7 @@ void Dynamic::removeItem(shared_ptr<cItem> itemToRemove, int quantity) {
 }
 
 // Inventory -> Checks if has item
-bool Dynamic::hasItem(shared_ptr<cItem> itemToCheck) {
+bool Dynamic::hasItem(Dynamic* itemToCheck) {
 	for (auto item : lInventory) {
 		if (item.first->getName() == itemToCheck->getName()) {
 			return true;

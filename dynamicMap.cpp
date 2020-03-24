@@ -4,7 +4,6 @@
 #include "scriptProcessor.h"
 #include "Interactive.h"
 #include "itemMap.h"
-#include "item.h"
 #include <algorithm>
 
 cDynamicMap::cDynamicMap() {
@@ -66,17 +65,7 @@ void cDynamicMap::handleInputs(sf::Event event) {
 		if (event.key.code == sf::Keyboard::S)
 			this->bPressedDown = true;
 		if (event.key.code == sf::Keyboard::Space)
-			if (vDynamic[0]->getCollidingDynamic(&vDynamic) != nullptr) {
-				Dynamic* collided = vDynamic[0]->getCollidingDynamic(&vDynamic);
-				// With the following  implementation, quest interactions are more important than individual interactions
-				for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
-					if ((*cQuest::getQuestVector())[i]->OnInteraction(vDynamic, collided))
-						return; 
-				// If dynamic's return true OnInteraction, they must be removed
-				if (collided->OnInteraction(vDynamic[0])) {
-					vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());
-				}
-			}
+			handleInteraction();
 	}
 
 	// Movement released
@@ -89,6 +78,29 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedUp = false;
 		if (event.key.code == sf::Keyboard::S)
 			this->bPressedDown = false;
+	}
+}
+
+void cDynamicMap::handleInteraction() {
+	if (vDynamic[0]->getCollidingDynamic(&vDynamic) != nullptr) {
+		Dynamic* collided = vDynamic[0]->getCollidingDynamic(&vDynamic);
+		// Quests
+		for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
+			if ((*cQuest::getQuestVector())[i]->OnInteraction(vDynamic, collided))
+				return;
+		// Items
+		if (dynamic_cast<cItemMap*>(collided)) {
+			if (collided->OnInteraction(vDynamic[0])) {
+				// If an item returns true, is to add
+				vDynamic[0]->addItem(collided, 1);
+			}
+			// Removo pointer do mapa, mas não faço delete, pois passa para o player. É deletado no seu destructor.
+			vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());
+			return;
+		}
+		// Not an item
+		collided->OnInteraction(vDynamic[0]);
+
 	}
 }
 
@@ -111,7 +123,7 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
-	this->vDynamic.push_back(new cItemMap(make_shared<cItem>("health", "hearth", "health increase"), 50.f,400.f,1));
+	this->vDynamic.push_back(new cItemMap_HealthPotion(10, 50.f, 400.f));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
