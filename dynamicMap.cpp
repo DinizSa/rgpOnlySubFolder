@@ -5,6 +5,7 @@
 #include "Interactive.h"
 #include "itemMap.h"
 #include "item.h"
+#include <algorithm>
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
@@ -71,7 +72,10 @@ void cDynamicMap::handleInputs(sf::Event event) {
 				for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 					if ((*cQuest::getQuestVector())[i]->OnInteraction(vDynamic, collided))
 						return; 
-				collided->OnInteraction(vDynamic[0]);
+				// If dynamic's return true OnInteraction, they must be removed
+				if (collided->OnInteraction(vDynamic[0])) {
+					vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());
+				}
 			}
 	}
 

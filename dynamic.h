@@ -6,7 +6,6 @@ using namespace std;
 #include "timer.h"
 #include "item.h"
 #include <memory>
-#include "itemMap.h"
 
 class Dynamic: public Entity {
 protected:
@@ -28,7 +27,7 @@ public:
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
 	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed; }
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
-	virtual void OnInteraction(Dynamic* secondDynamic) = 0;
+	virtual bool OnInteraction(Dynamic* secondDynamic) = 0;
 	Dynamic* getCollidingDynamic(vector<Dynamic*>* vDynamic);
 	void update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic);
 	virtual void updateAI(Dynamic* pPlayer) {};

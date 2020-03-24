@@ -6,7 +6,7 @@
 class cItemMap : public Dynamic {
 public:
 	cItemMap(shared_ptr<cItem> spItem, float px, float py, int iQuantity);
-	void OnInteraction(Dynamic* dynamic);
+	bool OnInteraction(Dynamic* dynamic);
 	void OnUse(Dynamic* dynamic);
 protected:
 	shared_ptr<cItem> spItem;

@@ -11,8 +11,9 @@ Interactive::Interactive(string asset, float px, float py) :
 
 Interactive::~Interactive() {}
 
-void Interactive::OnInteraction(Dynamic* secondDynamic) {
+bool Interactive::OnInteraction(Dynamic* secondDynamic) {
 	cout << this->getName() << " interacting  with " << secondDynamic->getName() << " (Interactive) " << endl;
+	return false;
 }
 
 // <---------------------------- cInteractive_Teleport ---------------------------->
@@ -26,8 +27,9 @@ cInteractive_Teleport::cInteractive_Teleport(float posX, float posY, string sTar
 
 cInteractive_Teleport::~cInteractive_Teleport() {}
 
-void cInteractive_Teleport::OnInteraction(Dynamic* secondDynamic) {
+bool cInteractive_Teleport::OnInteraction(Dynamic* secondDynamic) {
 	Assets::get().SetNameDynamicMap(sTargetDynamicMap);
 	secondDynamic->setPosX(targetX);
 	secondDynamic->setPosY(targetY);
+	return false;
 }

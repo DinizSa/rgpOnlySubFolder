@@ -17,15 +17,16 @@ Creature::Creature(string name, string asset, float px, float py, bool solidVsSo
 	this->questAdded = false;
 }
 
-void Creature::OnInteraction(Dynamic* secondDynamic) {
+bool Creature::OnInteraction(Dynamic* secondDynamic) {
 	cout << this->getName() << " interacting with " << secondDynamic->getName() << endl;
+	return false;
 }
 
 
 // <------------------------------------ Fire Lady --------------------------------------------->
 cCreature_FireLady::cCreature_FireLady(string name, float px, float py) : Creature(name, "FireLady", px, py, 1, 1, 1, 50, 1.5f) {  };
 
-void cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
+bool cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 	//shared_ptr<cQuest> sharedQuest = make_shared<cQuest_FindThePinkRabbit>();
 	if (!this->questAdded) {
 		cQuest::addQuest(make_shared<cQuest_FindThePinkRabbit>());
@@ -33,24 +34,27 @@ void cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 	}
 	else
 		cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am " + this->getName(), 1500, sf::Color::Red));
+	return false;
 }
 
 // <------------------------------------ Earth Bender --------------------------------------------->
 cCreature_EarthBender::cCreature_EarthBender(string name, float px, float py) : Creature(name, "EarthBender", px, py, 1, 1, 1, 50, 1.5f) {};
 
-void cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
+bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, this->py));
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, secondDynamic->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX(), secondDynamic->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am "+this->getName(), 1500, sf::Color::Color({ 200, 100, 0, 255 })));
+	return false;
 }
 
 
 // <------------------------------------ Evil Rabbit --------------------------------------------->
 cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, 1, 50, 1.0f) {};
 
-void cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
+bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
+	return false;
 }
 
 void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
@@ -69,8 +73,9 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 // <------------------------------------ Pink Friendly Rabbit --------------------------------------------->
 cCreature_PinkRabbit::cCreature_PinkRabbit(string name, float px, float py) : Creature(name, "PinkRabbit", px, py, 1, 1, 1, 50, 1.0f) {};
 
-void cCreature_PinkRabbit::OnInteraction(Dynamic* secondDynamic) {
+bool cCreature_PinkRabbit::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
+	return false;
 }
 
 void cCreature_PinkRabbit::updateAI(Dynamic* pPlayer) {
