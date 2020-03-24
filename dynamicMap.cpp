@@ -3,6 +3,8 @@
 #include "command.h"
 #include "scriptProcessor.h"
 #include "Interactive.h"
+#include "itemMap.h"
+#include "item.h"
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
@@ -104,6 +106,8 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit", 700, 350));
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
+
+	this->vDynamic.push_back(new cItemMap(make_shared<cItem>("health", "hearth", "health increase"), 50.f,400.f,1));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);

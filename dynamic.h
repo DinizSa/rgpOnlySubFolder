@@ -4,6 +4,9 @@ using namespace std;
 #include <string>
 #include "maps.h"
 #include "timer.h"
+#include "item.h"
+#include <memory>
+#include "itemMap.h"
 
 class Dynamic: public Entity {
 protected:
@@ -15,6 +18,7 @@ protected:
 	float maxSpeed;
 	enum FacingDirection{SOUTH = 0, WEST = 1, NORTH = 2, EAST = 3} facingDirection;
 	enum {STANDING, WALKING, DEATH} graphicState;
+	map< shared_ptr<cItem>, int> lInventory;
 
 public:
 	Dynamic();
@@ -35,6 +39,11 @@ public:
 	inline float isFriendly() { return this->friendly; }
 	inline float getMaxSpeed() { return this->maxSpeed; }
 	inline string getName() { return this->sName; }
+
+	// Inventory
+	void addItem(shared_ptr<cItem> itemToAdd, int quantity);
+	void removeItem(shared_ptr<cItem> itemToRemove, int quantity);
+	bool hasItem(shared_ptr<cItem> itemToCheck);
 
 private:
 	void move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);

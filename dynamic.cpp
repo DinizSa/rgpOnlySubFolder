@@ -36,9 +36,9 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	move(map, vDynamic, 800, 600);
+	updateAI((*vDynamic)[0]);
 	applyFriction();
 	SetGraphics(timer);
-	updateAI((*vDynamic)[0]);
 }
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {
@@ -216,4 +216,44 @@ void Dynamic::applyFriction() {
 				vy = -this->maxSpeed;
 		}
 	}
+}
+
+// Inventory -> Add item
+void Dynamic::addItem(shared_ptr<cItem> itemToAdd, int quantity) { 
+	for (auto item : lInventory) {
+		if (item.first->getName() == itemToAdd->getName()) {
+			item.second += quantity;
+			return;
+		}
+	}
+	// If not already in the inventory
+	this->lInventory[itemToAdd] = quantity;
+}
+
+// Inventory -> Remove item
+void Dynamic::removeItem(shared_ptr<cItem> itemToRemove, int quantity) {
+	if (quantity == 0) {
+		lInventory.erase(itemToRemove);
+	}
+	else {
+		for (auto item : lInventory) {
+			if (item.first->getName() == itemToRemove->getName()) {
+				item.second -= quantity;
+				if (item.second <= 0) {
+					lInventory.erase(itemToRemove);
+				}
+				return;
+			}
+		}
+	}
+}
+
+// Inventory -> Checks if has item
+bool Dynamic::hasItem(shared_ptr<cItem> itemToCheck) {
+	for (auto item : lInventory) {
+		if (item.first->getName() == itemToCheck->getName()) {
+			return true;
+		}
+	}
+	return false;
 }

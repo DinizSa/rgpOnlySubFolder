@@ -25,6 +25,7 @@ void Assets::LoadTextures() {
 	load("Portal", "assets/tiles/PortalBWY.png");
 	load("EvilRabbit", "assets/tiles/EvilRabbit.png");
 	load("PinkRabbit", "assets/tiles/PinkRabbit.png");
+	load("hearth", "assets/tiles/hearth.png");
 	   
 	//// B&W
 	//load("MapWildOne", "assets/tiles/MapWildOneBW.png");

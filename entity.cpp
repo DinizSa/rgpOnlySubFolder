@@ -14,8 +14,8 @@ Entity::Entity(string sAsset, float px, float py) {
 	this->sAsset = sAsset;
 	this->px = px;
 	this->py = py;
-	this->width = 34;
-	this->height = 34;
+	this->width = Assets::get().GetSizeSprite();
+	this->height = Assets::get().GetSizeSprite();
 	this->shape = sf::RectangleShape(sf::Vector2f(width, height));
 	this->shape.setPosition(sf::Vector2f(px, py));
 	this->shape.setTexture(&Assets::get().GetTexture(sAsset));
