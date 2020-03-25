@@ -177,12 +177,23 @@ bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, float posX, float p
 	for (unsigned i =0; i < vDynamic->size(); i++)
 	{
 		if (this != (*vDynamic)[i]) {
+			// TODO: re-check these 2 limits if's
 			if (posX > (*vDynamic)[i]->getPosX() && posX < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
 				if (posY > (*vDynamic)[i]->getPosY() && posY < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
 					//cout << this->getName() << "  colliding with " << (*vDynamic)[i]->getName() << endl;
 					return true;
 				}
 			}
+		}
+	}
+	return false;
+}
+
+// Return true if it's colliding with player
+bool Dynamic::isCollidingPlayer(Dynamic* pPlayer) {
+	if (this->getPosX() + this->getWidth() > pPlayer->getPosX() && this->getPosX() < pPlayer->getPosX() + pPlayer->getWidth()) {
+		if (this->getPosY() + this->getWidth() > pPlayer->getPosY() && this->getPosY() < pPlayer->getPosY() + pPlayer->getHeight()) {
+			return true;
 		}
 	}
 	return false;

@@ -28,6 +28,7 @@ public:
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual bool OnInteraction(Dynamic* secondDynamic) = 0;
 	Dynamic* getCollidingDynamic(vector<Dynamic*>* vDynamic);
+	bool isCollidingPlayer(Dynamic* pPlayer);
 	void update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic);
 	virtual void updateAI(Dynamic* pPlayer) {};
 

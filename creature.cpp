@@ -50,10 +50,14 @@ bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 
 
 // <------------------------------------ Evil Rabbit --------------------------------------------->
-cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, 1, 50, 1.0f) {};
+cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, 1, 50, 1.0f) {
+	this->iAttack = 5;
+	this->hasAtacked = false;
+};
 
 bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
+	//this->attack(((Creature*)secondDynamic), this->iAttack);
 	return false;
 }
 
@@ -61,8 +65,15 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	float dx = this->px - pPlayer->getPosX();
 	float dy = this->py - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
-	if (framesOfRest == 0)
+	if (framesOfRest == 0) {
 		framesOfRest = 60 * 6;
+		this->hasAtacked = false;
+	}
+
+	if (!this->hasAtacked && this->isCollidingPlayer(pPlayer)) {
+		this->attack((Creature*)pPlayer, this->iAttack);
+		this->hasAtacked = true;
+	}
 
 	if(framesOfRest > 60*4 && abs(delta) > Assets::get().GetSizeSprite())
 		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);

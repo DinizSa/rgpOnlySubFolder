@@ -12,7 +12,7 @@ public:
 	//~Creature();
 	Creature(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, int maxHp, float maxSpeed);
 	inline void defend(int damage) { this->hp -= damage; }
-	inline void attack(Creature* target, int damage) { target->defend(damage); }
+	inline void attack(Creature* target, int damage) { target->defend(damage); cout << this->getName()  << " atacked " << target->getName() << " by " << damage << " HP" << endl; }
 	bool OnInteraction(Dynamic* secondDynamic);
 	void updateAI(Creature* pPlayer) {};
 	inline void heal(int quantityToHeal) { this->hp = min(maxHp, hp + quantityToHeal); }
@@ -40,6 +40,8 @@ public:
 	bool OnInteraction(Dynamic* secondDynamic) override;
 	void updateAI(Dynamic* pPlayer);
 private:
+	int iAttack;
+	bool hasAtacked;
 	int framesOfRest = 60 * 4;
 };
 
