@@ -82,6 +82,7 @@ void cDynamicMap::handleInputs(sf::Event event) {
 }
 
 void cDynamicMap::handleInteraction() {
+	((Creature*)vDynamic[1])->defend(10);
 	if (vDynamic[0]->getCollidingDynamic(&vDynamic) != nullptr) {
 		Dynamic* collided = vDynamic[0]->getCollidingDynamic(&vDynamic);
 		// Quests
