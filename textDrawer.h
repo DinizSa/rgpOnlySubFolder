@@ -15,12 +15,14 @@ public:
 	void operator = (cTextDrawer&) = delete;
 
 	void drawText(sf::RenderWindow* window);
-	void setText(string text, sf::Color color);
-	void removeText();
+	void setDialogue(string text, sf::Color color);
+	void removeDialogue();
+	void setHealth(int health);
 
 private:
 	sf::Font font;
-	sf::Text sfText;
+	sf::Text sfDialogue;
+	sf::Text sfHealth;
 	cTextDrawer();
 	~cTextDrawer();
 };

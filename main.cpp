@@ -20,7 +20,7 @@ int main()
     Assets::get().SetNameDynamicMap("DynMap_WildOne");
 
 
-    Creature* pPlayer = new Creature("Bandido", "PackMan", 400, 450, 1, 1, 1, 100, 2.0f);
+    Creature* pPlayer = new cCreature_Player("Bandido", 400, 450);
     cDynamicMap* currentDynamicMap = new cDynamicMap_One;
     currentDynamicMap->populateDynamics(pPlayer);
 

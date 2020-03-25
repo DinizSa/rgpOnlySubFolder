@@ -1,8 +1,9 @@
 #pragma once
 #include "dynamic.h"
+#include "textDrawer.h"
 
 class Creature : public Dynamic {
-private:
+protected:
 	int hp;
 	int maxHp;
 protected:
@@ -11,12 +12,25 @@ public:
 	Creature();
 	//~Creature();
 	Creature(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, int maxHp, float maxSpeed);
-	inline void defend(int damage) { this->hp -= damage; }
-	inline void attack(Creature* target, int damage) { target->defend(damage); cout << this->getName()  << " atacked " << target->getName() << " by " << damage << " HP" << endl; }
 	bool OnInteraction(Dynamic* secondDynamic);
 	void updateAI(Creature* pPlayer) {};
-	inline void heal(int quantityToHeal) { this->hp = min(maxHp, hp + quantityToHeal); }
 
+	// Health
+	inline void attack(Creature* target, int damage) { target->defend(damage); }
+	void defend(int damage);
+	void heal(int quantityToHeal);
+	inline int getHealth() { return hp; };
+
+};
+
+
+// <------------------------------------ Player --------------------------------------------->
+class cCreature_Player : public Creature {
+public:
+	cCreature_Player(string name, float px, float py);
+	inline bool OnInteraction(Dynamic* secondDynamic) override { return false; };
+	void defend(int damage);
+	void heal(int quantityToHeal);
 };
 
 // <------------------------------------ Fire Lady --------------------------------------------->

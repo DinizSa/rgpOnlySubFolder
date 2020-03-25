@@ -94,13 +94,13 @@ void cDynamicMap::handleInteraction() {
 				// If an item returns true, is to add
 				vDynamic[0]->addItem(collided, 1);
 			}
-			// Removo pointer do mapa, mas não faço delete, pois passa para o player. É deletado no seu destructor.
+			// REmove from the map, and add to the dynamic player
 			vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());
 			return;
 		}
-		// Not an item
+		// All others dynamics
 		collided->OnInteraction(vDynamic[0]);
-
+		return;
 	}
 }
 

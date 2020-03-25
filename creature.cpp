@@ -2,6 +2,7 @@
 #include "scriptProcessor.h"
 #include "assets.h"
 #include "quest.h"
+#include "textDrawer.h"
 
 Creature::Creature(): Dynamic() {
 	hp = 0;
@@ -20,6 +21,29 @@ Creature::Creature(string name, string asset, float px, float py, bool solidVsSo
 bool Creature::OnInteraction(Dynamic* secondDynamic) {
 	cout << this->getName() << " interacting with " << secondDynamic->getName() << endl;
 	return false;
+}
+
+void Creature::defend(int damage) { 
+	this->hp -= damage; 
+}
+
+void Creature::heal(int quantityToHeal) { 
+	this->hp = min(maxHp, hp + quantityToHeal); 
+}
+
+// <------------------------------------ Player --------------------------------------------->
+cCreature_Player::cCreature_Player(string name, float px, float py) : Creature(name, "PackMan", px, py, 1, 1, 1, 100, 2.0f) {
+	cTextDrawer::get().setHealth(this->hp);
+};
+
+void cCreature_Player::defend(int damage) {
+	this->hp -= damage;
+	cTextDrawer::get().setHealth(this->getHealth());
+}
+
+void cCreature_Player::heal(int quantityToHeal) {
+	this->hp = min(maxHp, hp + quantityToHeal);
+	cTextDrawer::get().setHealth(this->getHealth());
 }
 
 

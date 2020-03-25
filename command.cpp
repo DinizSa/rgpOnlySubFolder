@@ -24,14 +24,14 @@ cCommand_Talk::~cCommand_Talk() {
 void cCommand_Talk::Start() {
 	bCompleted = false;
 	bStarted = true;
-	cTextDrawer::get().setText( textToDisplay, textColor);
+	cTextDrawer::get().setDialogue( textToDisplay, textColor);
 };
 
 void cCommand_Talk::Update(int msElapsed) {
 	iMsDisplaying += msElapsed;
 	if (iMsDisplaying > iMsDuration) {
 		this->bCompleted = true;
-		cTextDrawer::get().removeText();
+		cTextDrawer::get().removeDialogue();
 	}
 };
 

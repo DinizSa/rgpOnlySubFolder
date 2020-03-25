@@ -232,7 +232,7 @@ void Dynamic::applyFriction() {
 	}
 }
 
-// Inventory -> Add item
+// Inventory
 void Dynamic::addItem(Dynamic* itemToAdd, int quantity) {
 	for (auto item : lInventory) {
 		if (item.first->getName() == itemToAdd->getName()) {
@@ -244,25 +244,23 @@ void Dynamic::addItem(Dynamic* itemToAdd, int quantity) {
 	this->lInventory[itemToAdd] = quantity;
 }
 
-// Inventory -> Remove item
 void Dynamic::removeItem(Dynamic* itemToRemove, int quantity) {
+	// Quantity = 0 to remove all
 	if (quantity == 0) {
 		lInventory.erase(itemToRemove);
+		return;
 	}
-	else {
-		for (auto item : lInventory) {
-			if (item.first->getName() == itemToRemove->getName()) {
-				item.second -= quantity;
-				if (item.second <= 0) {
-					lInventory.erase(itemToRemove);
-				}
-				return;
+	for (auto item : lInventory) {
+		if (item.first->getName() == itemToRemove->getName()) {
+			item.second -= quantity;
+			if (item.second <= 0) {
+				lInventory.erase(itemToRemove);
 			}
+			return;
 		}
 	}
 }
 
-// Inventory -> Checks if has item
 bool Dynamic::hasItem(Dynamic* itemToCheck) {
 	for (auto item : lInventory) {
 		if (item.first->getName() == itemToCheck->getName()) {

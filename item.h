@@ -12,6 +12,7 @@ public:
 	inline string getName() { return sName; };
 	inline string getAsset() { return sAsset; };
 	inline string getDescription() { return sDesc; };
+
 protected:
 	int iQuantity;
 	string sName;
