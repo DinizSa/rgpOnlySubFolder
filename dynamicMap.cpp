@@ -3,7 +3,7 @@
 #include "command.h"
 #include "scriptProcessor.h"
 #include "Interactive.h"
-#include "itemMap.h"
+#include "item.h"
 #include <algorithm>
 
 cDynamicMap::cDynamicMap() {
@@ -89,7 +89,7 @@ void cDynamicMap::handleInteraction() {
 			if ((*cQuest::getQuestVector())[i]->OnInteraction(vDynamic, collided))
 				return;
 		// Items
-		if (dynamic_cast<cItemMap*>(collided)) {
+		if (dynamic_cast<cItem*>(collided)) {
 			if (collided->OnInteraction(vDynamic[0])) {
 				// If an item returns true, is to add
 				vDynamic[0]->addItem(collided, 1);
@@ -123,7 +123,7 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 
-	this->vDynamic.push_back(new cItemMap_HealthPotion(10, 50.f, 400.f));
+	this->vDynamic.push_back(new cItem_HealthPotion(10, 50.f, 400.f));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);

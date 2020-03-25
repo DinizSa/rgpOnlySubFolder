@@ -2,9 +2,9 @@
 #include <memory>
 #include "dynamic.h"
 
-class cItemMap : public Dynamic {
+class cItem : public Dynamic {
 public:
-	cItemMap(string name, string asset, string desc, float px, float py, int iQuantity);
+	cItem(string name, string asset, string desc, float px, float py, int iQuantity);
 	virtual bool OnInteraction(Dynamic* dynamic)=0;
 	virtual void OnUse(Dynamic* dynamic)=0;
 
@@ -20,10 +20,10 @@ protected:
 };
 
 // <------------------------------------------ Health Potion Item ------------------------------------------>
-class cItemMap_HealthPotion : public cItemMap {
+class cItem_HealthPotion : public cItem {
 public:
-	cItemMap_HealthPotion(int strength); // To put in the characters
-	cItemMap_HealthPotion(int strength, float px, float py); // to put in the map
+	cItem_HealthPotion(int strength); // To put in the characters
+	cItem_HealthPotion(int strength, float px, float py); // to put in the map
 	bool OnInteraction(Dynamic* dynamic) override;
 	void OnUse(Dynamic* dynamic) override;
 
