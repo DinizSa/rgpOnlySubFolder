@@ -17,7 +17,7 @@ public:
 	void drawText(sf::RenderWindow* window);
 	void setDialogue(string text, sf::Color color);
 	void removeDialogue();
-	void setHealth(int health);
+	void setHealth(int health, int maxHealth);
 
 private:
 	sf::Font font;

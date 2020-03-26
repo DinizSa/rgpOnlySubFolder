@@ -17,9 +17,10 @@ public:
 
 	// Health
 	inline void attack(Creature* target, int damage) { target->defend(damage); }
-	virtual void defend(int damage);
+	void defend(int damage);
 	void heal(int quantityToHeal);
 	inline int getHealth() { return hp; };
+	inline int getMaxHealth() { return maxHp; };
 
 };
 
@@ -29,8 +30,6 @@ class cCreature_Player : public Creature {
 public:
 	cCreature_Player(string name, float px, float py);
 	inline bool OnInteraction(Dynamic* secondDynamic) override { return false; };
-	void defend(int damage) override;
-	void heal(int quantityToHeal);
 };
 
 // <------------------------------------ Fire Lady --------------------------------------------->

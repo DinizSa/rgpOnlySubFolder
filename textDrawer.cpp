@@ -9,16 +9,18 @@ cTextDrawer::cTextDrawer(){
 	sfDialogue.setOutlineColor({ 0,0,0,128 });
 	// Health
 	sfHealth.setFont(font);
-	sfHealth.setPosition(650.f,50.f);
+	sfHealth.setPosition(600.f,50.f);
 	sfHealth.setFillColor(sf::Color::Color({ 220,30,30,255}));
 }
 
 cTextDrawer::~cTextDrawer() {
 }
 
-void cTextDrawer::setHealth(int health) {
-	sfHealth.setString( to_string(health) + " HP");
+
+void cTextDrawer::setHealth(int health, int maxHealth) {
+	sfHealth.setString(to_string(health) + "/" + to_string(maxHealth) + " HP");
 }
+
 
 void cTextDrawer::setDialogue(string text, sf::Color color) {
 	sfDialogue.setString(text);

@@ -53,6 +53,8 @@ int main()
         // Update
         currentDynamicMap->update();
 
+        cTextDrawer::get().setHealth(pPlayer->getHealth(), pPlayer->getMaxHealth() );
+
         // Display
         window.clear(sf::Color(0,0,0,255));
         currentDynamicMap->draw(&window);

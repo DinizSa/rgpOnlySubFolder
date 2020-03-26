@@ -33,18 +33,8 @@ void Creature::heal(int quantityToHeal) {
 
 // <------------------------------------ Player --------------------------------------------->
 cCreature_Player::cCreature_Player(string name, float px, float py) : Creature(name, "PackMan", px, py, 1, 1, 1, 100, 2.0f) {
-	cTextDrawer::get().setHealth(this->hp);
 };
 
-void cCreature_Player::defend(int damage) {
-	this->hp -= damage;
-	cTextDrawer::get().setHealth(this->getHealth());
-}
-
-void cCreature_Player::heal(int quantityToHeal) {
-	this->hp = min(maxHp, hp + quantityToHeal);
-	cTextDrawer::get().setHealth(this->getHealth());
-}
 
 
 // <------------------------------------ Fire Lady --------------------------------------------->
