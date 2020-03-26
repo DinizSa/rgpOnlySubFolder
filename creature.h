@@ -16,7 +16,6 @@ public:
 	void updateAI(Creature* pPlayer) {};
 
 	// Health
-	inline void attack(Creature* target, int damage) { target->defend(damage); }
 	void defend(int damage);
 	void heal(int quantityToHeal);
 	inline int getHealth() { return hp; };

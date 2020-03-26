@@ -46,7 +46,7 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {
 	// Margin around the rectangle that is not considered in the colision, so it looks smoother
-	float marginEmpty = 0.15f;
+	float marginEmpty = 0.20f;
 	float widthLandscape = windowW / map->getNrHorizontal();
 	float heightLandscape = windowH / map->getNrVertical();
 	int blockXOrigin = (int)((px + width * marginEmpty)/ widthLandscape) % (int)widthLandscape;
@@ -172,15 +172,13 @@ Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
 	return nullptr;
 }
 
-// Return a boolean if it's colliding
+// Return a boolean if it's colliding with a point
 bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, float posX, float posY) {
 	for (unsigned i =0; i < vDynamic->size(); i++)
 	{
 		if (this != (*vDynamic)[i]) {
-			// TODO: re-check these 2 limits if's
 			if (posX > (*vDynamic)[i]->getPosX() && posX < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
 				if (posY > (*vDynamic)[i]->getPosY() && posY < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
-					//cout << this->getName() << "  colliding with " << (*vDynamic)[i]->getName() << endl;
 					return true;
 				}
 			}

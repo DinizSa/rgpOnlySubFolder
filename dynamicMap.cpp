@@ -29,8 +29,10 @@ void cDynamicMap::update() {
 	pTimer->updateTimer();
 	cScriptProcessor::Get().ProcessCommands(pTimer->getMsSinceLastFrame());
 
+	if (cScriptProcessor::Get().getUserControlEnabled()) {
 	for (auto dynamic: vDynamic)
 		dynamic->update(pTimer, cMap, &vDynamic);
+	}
 
 	// Player movement
 	if (bPressedLeft)

@@ -52,7 +52,6 @@ int main()
 
         // Update
         currentDynamicMap->update();
-
         cTextDrawer::get().setHealth(pPlayer->getHealth(), pPlayer->getMaxHealth() );
 
         // Display

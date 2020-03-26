@@ -85,7 +85,7 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	}
 
 	if (!this->hasAtacked && this->isCollidingPlayer(pPlayer)) {
-		this->attack((Creature*)pPlayer, this->iAttack);
+		((Creature*)pPlayer)->defend(this->iAttack);
 		this->hasAtacked = true;
 	}
 

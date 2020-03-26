@@ -5,11 +5,11 @@ cTextDrawer::cTextDrawer(){
 		cout << "Error loading Font!" << endl;
 	// Dialogue
 	sfDialogue.setFont(font);
-	sfDialogue.setPosition(50.f, 50.f);
+	sfDialogue.setPosition(50.f, 40.f);
 	sfDialogue.setOutlineColor({ 0,0,0,128 });
 	// Health
 	sfHealth.setFont(font);
-	sfHealth.setPosition(600.f,50.f);
+	sfHealth.setPosition(600.f,40.f);
 	sfHealth.setFillColor(sf::Color::Color({ 220,30,30,255}));
 }
 
