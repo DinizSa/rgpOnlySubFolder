@@ -20,11 +20,23 @@ protected:
 	string sDesc;
 };
 
-// <------------------------------------------ Health Potion Item ------------------------------------------>
+// <------------------------------------------ Health Potion Item -> Heal ------------------------------------------>
 class cItem_HealthPotion : public cItem {
 public:
-	cItem_HealthPotion(int strength); // To put in the characters
-	cItem_HealthPotion(int strength, float px, float py); // to put in the map
+	cItem_HealthPotion(int strength); 
+	cItem_HealthPotion(int strength, float px, float py); 
+	bool OnInteraction(Dynamic* dynamic) override;
+	void OnUse(Dynamic* dynamic) override;
+
+private:
+	int iStrength;
+};
+
+// <------------------------------------------ Max Health Potion Item -> Incleases Max Health ------------------------------------------>
+class cItem_MaxHealthPotion : public cItem {
+public:
+	cItem_MaxHealthPotion(int strength); 
+	cItem_MaxHealthPotion(int strength, float px, float py); 
 	bool OnInteraction(Dynamic* dynamic) override;
 	void OnUse(Dynamic* dynamic) override;
 

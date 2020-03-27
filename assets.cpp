@@ -26,6 +26,7 @@ void Assets::LoadTextures() {
 	load("EvilRabbit", "assets/tiles/EvilRabbit.png");
 	load("PinkRabbit", "assets/tiles/PinkRabbit.png");
 	load("hearth", "assets/tiles/hearth.png");
+	load("shroom", "assets/tiles/shroom.png");
 	   
 	//// B&W
 	//load("MapWildOne", "assets/tiles/MapWildOneBW.png");
@@ -38,5 +39,6 @@ void Assets::LoadTextures() {
 	//load("EvilRabbit", "assets/tiles/EvilRabbit.png");
 	//load("PinkRabbit", "assets/tiles/PinkRabbit.png");
 	//load("hearth", "assets/tiles/hearth.png");
+	//load("shroom", "assets/tiles/shroom.png");
 
 }

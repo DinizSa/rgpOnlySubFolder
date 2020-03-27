@@ -15,7 +15,7 @@ protected:
 	bool hasFriction;
 	float maxSpeed;
 	enum FacingDirection{SOUTH = 0, WEST = 1, NORTH = 2, EAST = 3} facingDirection;
-	enum {STANDING, WALKING, DEATH} graphicState;
+	enum GraphicState {STANDING, WALKING, DEATH} graphicState;
 	map< Dynamic*, int> lInventory;
 
 public:

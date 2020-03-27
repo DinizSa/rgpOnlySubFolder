@@ -20,6 +20,7 @@ public:
 	void heal(int quantityToHeal);
 	inline int getHealth() { return hp; };
 	inline int getMaxHealth() { return maxHp; };
+	inline void increaseMaxHealth(int deltaMaxHp) { maxHp += deltaMaxHp; };
 
 };
 

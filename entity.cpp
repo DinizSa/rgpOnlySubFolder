@@ -21,12 +21,14 @@ Entity::Entity(string sAsset, float px, float py) {
 	this->shape.setTexture(&Assets::get().GetTexture(sAsset));
 }
 
+
 void Entity::setPartialTexture(int px, int py, int dx, int dy) {
 	this->shape.setTextureRect(sf::IntRect(px, py, dx, dy));
 }
 
 void Entity::setDimensions(float width, float height) { 
-	this->width = width; this->height = height;
+	this->width = width; 
+	this->height = height;
 	this->shape.setSize(sf::Vector2f(width, height));
 }
 
@@ -35,5 +37,7 @@ void Entity::setDimensions(float width, float height) {
 //}
 
 void Entity::draw(sf::RenderWindow* window) {
+	//this->shape.setOutlineThickness(1.f);
+	//this->shape.setOutlineColor(sf::Color::White);
 	window->draw(this->shape);
 }

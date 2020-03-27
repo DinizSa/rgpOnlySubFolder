@@ -25,6 +25,11 @@ bool Creature::OnInteraction(Dynamic* secondDynamic) {
 
 void Creature::defend(int damage) { 
 	this->hp -= damage; 
+	if (hp < 0) {
+		hp = 0;
+		graphicState = GraphicState::DEATH;
+	}
+
 }
 
 void Creature::heal(int quantityToHeal) { 
@@ -55,7 +60,7 @@ bool cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 cCreature_EarthBender::cCreature_EarthBender(string name, float px, float py) : Creature(name, "EarthBender", px, py, 1, 1, 1, 50, 1.5f) {};
 
 bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
-	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, this->py));
+	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, this->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX() + 100, secondDynamic->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(this, secondDynamic->getPosX(), secondDynamic->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi I am "+this->getName(), 1500, sf::Color::Color({ 200, 100, 0, 255 })));
@@ -76,8 +81,8 @@ bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
 }
 
 void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
-	float dx = this->px - pPlayer->getPosX();
-	float dy = this->py - pPlayer->getPosY();
+	float dx = this->getPosX() - pPlayer->getPosX();
+	float dy = this->getPosY() - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
 	if (framesOfRest == 0) {
 		framesOfRest = 60 * 6;

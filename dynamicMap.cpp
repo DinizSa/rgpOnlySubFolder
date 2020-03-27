@@ -124,7 +124,8 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit", 700, 350));
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
-
+	// Items
+	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 90.f, 400.f));
 	this->vDynamic.push_back(new cItem_HealthPotion(10, 50.f, 400.f));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
