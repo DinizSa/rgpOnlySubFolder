@@ -46,19 +46,20 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {
 	// Margin around the rectangle that is not considered in the colision, so it looks smoother
-	float marginEmpty = 0.20f;
+	float marginEmptyX = 0.30f;
+	float marginEmptyY = 0.10f;
 	float widthLandscape = windowW / map->getNrHorizontal();
 	float heightLandscape = windowH / map->getNrVertical();
-	int blockXOrigin = (int)((px + width * marginEmpty)/ widthLandscape) % (int)widthLandscape;
+	int blockXOrigin = (int)((px + width * marginEmptyX)/ widthLandscape) % (int)widthLandscape;
 	int blockXCenter = (int)((px + width/2)/ widthLandscape) % (int)widthLandscape;
-	int blockXRight = (int)((px + width * (1.f- marginEmpty))/ widthLandscape) % (int)widthLandscape;
-	int blockYOrigin= (int)((py + height * marginEmpty) / heightLandscape) % (int)heightLandscape;
+	int blockXRight = (int)((px + width * (1.f- marginEmptyX))/ widthLandscape) % (int)widthLandscape;
+	int blockYOrigin= (int)((py + height * marginEmptyY) / heightLandscape) % (int)heightLandscape;
 	int blockYCenter = (int)((py+height/2)/ heightLandscape) % (int)heightLandscape;
-	int blockYDown = (int)((py+ height * (1.f - marginEmpty))/ heightLandscape) % (int)heightLandscape;
+	int blockYDown = (int)((py+ height * (1.f - marginEmptyY))/ heightLandscape) % (int)heightLandscape;
 
 	// Horizontal
-	if ((vx > 0 && px < windowW - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmpty)), (py + height/2)))) ||
-		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmpty, (py+height/2) ))))) {
+	if ((vx > 0 && px < windowW - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
+		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
 		px += vx;
 	}
 	else {
@@ -69,8 +70,8 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 			vx = 0;
 	}
 	// Vertical
-	if ((vy > 0 && py < windowH - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height))))) ||
-		(vy < 0 && py > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py) )))) {
+	if ((vy > 0 && py < windowH - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
+		(vy < 0 && py > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
 		py += vy;
 	}
 	else {
@@ -187,7 +188,7 @@ bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, float posX, float p
 	return false;
 }
 
-// Return true if it's colliding with player
+// Return true if it's colliding with the player
 bool Dynamic::isCollidingPlayer(Dynamic* pPlayer) {
 	if (this->getPosX() + this->getWidth() > pPlayer->getPosX() && this->getPosX() < pPlayer->getPosX() + pPlayer->getWidth()) {
 		if (this->getPosY() + this->getWidth() > pPlayer->getPosY() && this->getPosY() < pPlayer->getPosY() + pPlayer->getHeight()) {
