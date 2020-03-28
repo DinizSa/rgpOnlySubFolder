@@ -2,6 +2,7 @@
 #include "assets.h"
 #include "quest.h"
 #include "item.h"
+#include "scriptProcessor.h"
 
 Dynamic::Dynamic():
 	Entity(){
@@ -40,7 +41,8 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	move(map, vDynamic, 800, 600);
-	updateAI((*vDynamic)[0]);
+	if (cScriptProcessor::Get().getUserControlEnabled())
+		updateAI((*vDynamic)[0]);
 	applyFriction();
 	SetGraphics(timer);
 }

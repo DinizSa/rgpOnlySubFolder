@@ -29,10 +29,8 @@ void cDynamicMap::update() {
 	pTimer->updateTimer();
 	cScriptProcessor::Get().ProcessCommands(pTimer->getMsSinceLastFrame());
 
-	if (cScriptProcessor::Get().getUserControlEnabled()) {
 	for (auto dynamic: vDynamic)
 		dynamic->update(pTimer, cMap, &vDynamic);
-	}
 
 	// Player movement
 	if (bPressedLeft)
@@ -153,7 +151,6 @@ void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
-
 
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Damm dog", 1500, sf::Color::Black));
