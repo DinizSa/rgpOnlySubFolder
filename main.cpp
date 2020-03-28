@@ -97,6 +97,7 @@ int main()
                  else {
                      cItem* itemConsumed = inventory.handleInputs(event); // nullptr or pointer to item if some item was selected
                      if (itemConsumed) {
+                         itemConsumed->OnUse(pPlayer);
                          pPlayer->subtractItem(itemConsumed, 1);
                          inventory.update((vector<cItem*>*)(pPlayer->getAllItems()));
                      }
