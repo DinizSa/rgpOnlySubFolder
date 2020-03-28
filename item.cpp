@@ -35,8 +35,12 @@ cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem(
 }
 
 bool cItem_HealthPotion::OnInteraction(Dynamic* dynamic) {
-	OnUse(dynamic);
-	return true;
+	if ((((Creature*)dynamic)->getMaxHealth() - ((Creature*)dynamic)->getHealth()) < this->iStrength) // Less wounded than this would heal
+		return true;
+	else { // Add's to the inventory
+		OnUse(dynamic);
+		return false;
+	}
 }
 
 void cItem_HealthPotion::OnUse(Dynamic* dynamic) {

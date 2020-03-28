@@ -26,6 +26,9 @@ void cInventory::update(vector<cItem*>* items) {
 		(*vInventory)[i]->updatePosition((i % nrItemsLine) * this->widthItem + this->marginItem, (floor(i / nrItemsLine) * this->widthItem + 100));
 	}
 }
+void cInventory::update() {
+	update(this->vInventory);
+}
 
 void cInventory::draw(sf::RenderWindow& pWindow) {
 	for (int i = 0; i < (*vInventory).size();i++) { // Draw each item

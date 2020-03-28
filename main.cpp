@@ -99,7 +99,7 @@ int main()
                      if (itemConsumed) {
                          itemConsumed->OnUse(pPlayer);
                          pPlayer->subtractItem(itemConsumed, 1);
-                         inventory.update((vector<cItem*>*)(pPlayer->getAllItems()));
+                         inventory.update();
                      }
 
                  }
