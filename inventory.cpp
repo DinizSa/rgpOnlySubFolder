@@ -1,16 +1,16 @@
 #include "inventory.h"
 #include "textDrawer.h"
 
-cInventory::cInventory() {
+cInventory::cInventory(vector<cItem*>* items) {
+	this->vInventory = items;
 	this->indiceSelected = -1; // set invalid index
 	this->nrItemsLine = 4;
 	this->widthItem = 100.f;
 	this->marginItem = 10.f;
-	this->vInventory = nullptr;
+	repositionElements();
 };
 
-void cInventory::update(vector<cItem*>* items) {
-	this->vInventory = items;
+void cInventory::repositionElements() {
 
 	// Limits current indice
 	if ((*vInventory).size() < 1)
@@ -22,12 +22,9 @@ void cInventory::update(vector<cItem*>* items) {
 
 	// Format items
 	for (unsigned i = 0; i < (*vInventory).size(); i++) {
-		(*vInventory)[i]->setDimensions(this->widthItem- this->marginItem*2, this->widthItem - this->marginItem * 2);
+		(*vInventory)[i]->setDimensions(this->widthItem - this->marginItem * 2, this->widthItem - this->marginItem * 2);
 		(*vInventory)[i]->updatePosition((i % nrItemsLine) * this->widthItem + this->marginItem, (floor(i / nrItemsLine) * this->widthItem + 100));
 	}
-}
-void cInventory::update() {
-	update(this->vInventory);
 }
 
 void cInventory::draw(sf::RenderWindow& pWindow) {

@@ -33,7 +33,7 @@ int main()
     cQuest::addQuest(make_shared<cQuest_Base>());
 
     // Inventory mode
-    cInventory inventory;
+    cInventory inventory((vector<cItem*>*)(pPlayer->getAllItems()));
 
 
      while (window.isOpen())
@@ -83,7 +83,7 @@ int main()
              if (gameModePreviousFrame != enumGameMode) {
                 gameModePreviousFrame = EnumGameMode::MODE_INVENTORY;
                 cTextDrawer::get().setTitleMode("INVENTORY");
-                inventory.update((vector<cItem*>*)(pPlayer->getAllItems()));
+                inventory.repositionElements();
              }
 
              // Events
@@ -99,7 +99,7 @@ int main()
                      if (itemConsumed) {
                          itemConsumed->OnUse(pPlayer);
                          pPlayer->subtractItem(itemConsumed, 1);
-                         inventory.update();
+                         inventory.repositionElements();
                      }
 
                  }

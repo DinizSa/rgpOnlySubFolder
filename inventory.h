@@ -4,9 +4,8 @@
 
 class cInventory {
 public:
-	cInventory();
-	void update();
-	void update(vector<cItem*>* items);
+	cInventory(vector<cItem*>* items);
+	void repositionElements();
 	cItem* handleInputs(sf::Event event);
 	void draw(sf::RenderWindow& pWindow);
 
