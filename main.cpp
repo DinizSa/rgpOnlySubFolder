@@ -95,9 +95,9 @@ int main()
                  else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
                      enumGameMode = EnumGameMode::MODE_LOCAL_MAP;
                  else {
-                     cItem* itemUpdated = inventory.handleInputs(event); // Pointer to item that changed; nullptr if none change quantity
-                     if (itemUpdated) { 
-                         pPlayer->updateItemQuantity(itemUpdated);
+                     cItem* itemConsumed = inventory.handleInputs(event); // nullptr or pointer to item if some item was selected
+                     if (itemConsumed) {
+                         pPlayer->subtractItem(itemConsumed, 1);
                          inventory.update((vector<cItem*>*)(pPlayer->getAllItems()));
                      }
 

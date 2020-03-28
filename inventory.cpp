@@ -53,9 +53,8 @@ cItem* cInventory::handleInputs(sf::Event event) {
 			this->indiceSelected -= nrItemsLine;
 		if (event.key.code == sf::Keyboard::S && this->indiceSelected + this->nrItemsLine < (*vInventory).size())
 			this->indiceSelected += nrItemsLine;
-		if (event.key.code == sf::Keyboard::Space && !this->vInventory->empty()) { // Consumes it
-			if (!(*vInventory)[this->indiceSelected]->updateQuantity(-1)) // Droped to 0 ?
-				return (*vInventory)[this->indiceSelected];
+		if (event.key.code == sf::Keyboard::Space && !this->vInventory->empty()) { // Tries to select item
+			return (*vInventory)[this->indiceSelected]; // Returns item selected
 		}
 	}
 	return nullptr;

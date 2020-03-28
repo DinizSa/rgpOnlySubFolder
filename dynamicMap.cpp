@@ -92,7 +92,7 @@ void cDynamicMap::handleInteraction() {
 		if (dynamic_cast<cItem*>(collided)) {
 			if (collided->OnInteraction(vDynamic[0])) {
 				// If an item returns true, is to add
-				vDynamic[0]->updateItemQuantity(collided);
+				vDynamic[0]->addItem(collided);
 			}
 			// REmove from the map, and add to the dynamic player
 			vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());

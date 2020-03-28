@@ -14,6 +14,7 @@ bool cItem::updateQuantity(int quantity) {
 	return this->iQuantity > 0;
 }
 
+
 void cItem::drawBorder(sf::RenderWindow* pWindow) {
 	auto border = sf::RectangleShape(sf::Vector2f(this->getWidth(), this->getHeight()));
 	border.setPosition(this->getPosX(), this->getPosY());
@@ -53,7 +54,6 @@ cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength, float px, float py): 
 }
 
 bool cItem_MaxHealthPotion::OnInteraction(Dynamic* dynamic) {
-	OnUse(dynamic);
 	return true; // Add to the inventory
 }
 
