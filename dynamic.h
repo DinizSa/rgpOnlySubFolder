@@ -41,7 +41,7 @@ public:
 	inline string getName() { return this->sName; }
 
 	// Inventory
-	void updateItemQuantity(Dynamic* itemToAdd, int quantity);
+	void updateItemQuantity(Dynamic* itemToAdd);
 	bool hasItem(Dynamic* itemToCheck);
 	inline vector< Dynamic*>* getAllItems() { return &vInventory;  }
 

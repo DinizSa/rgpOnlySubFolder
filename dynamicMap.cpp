@@ -94,7 +94,7 @@ void cDynamicMap::handleInteraction() {
 		if (dynamic_cast<cItem*>(collided)) {
 			if (collided->OnInteraction(vDynamic[0])) {
 				// If an item returns true, is to add
-				vDynamic[0]->updateItemQuantity(collided, 1);
+				vDynamic[0]->updateItemQuantity(collided);
 			}
 			// REmove from the map, and add to the dynamic player
 			vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());
@@ -126,6 +126,7 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 	// Items
 	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 90.f, 400.f));
+	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 70.f, 350.f));
 	this->vDynamic.push_back(new cItem_HealthPotion(10, 50.f, 400.f));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)

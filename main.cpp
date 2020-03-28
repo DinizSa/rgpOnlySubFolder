@@ -79,13 +79,11 @@ int main()
 
          case EnumGameMode::MODE_INVENTORY: {
 
-             sf::RectangleShape background;
-
-             // If comes from other game mode
+             // If comes from other game mode: Initialization
              if (gameModePreviousFrame != enumGameMode) {
-                 inventory.update((vector<cItem*>*)(pPlayer->getAllItems()));
-                background.setFillColor(sf::Color(20, 20, 20, 255));
-                background.setSize(sf::Vector2f(800.f, 600.f));
+                gameModePreviousFrame = EnumGameMode::MODE_INVENTORY;
+                cTextDrawer::get().setTitleMode("INVENTORY");
+                inventory.update((vector<cItem*>*)(pPlayer->getAllItems()));
              }
 
              // Events
@@ -96,20 +94,26 @@ int main()
                      window.close();
                  else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
                      enumGameMode = EnumGameMode::MODE_LOCAL_MAP;
-                 else
-                     inventory.handleInputs(event);
+                 else {
+                     cItem* itemUpdated = inventory.handleInputs(event); // Pointer to item that changed; nullptr if none change quantity
+                     if (itemUpdated) { 
+                         pPlayer->updateItemQuantity(itemUpdated);
+                         inventory.update((vector<cItem*>*)(pPlayer->getAllItems()));
+                     }
+
+                 }
              }
 
-
-
-             // Display
-             window.clear(sf::Color(0, 0, 0, 255));
-             window.draw(background);
+             // Set text
+             if (inventory.getSelectedItem())
+                 cTextDrawer::get().setItemText(inventory.getSelectedItem()->getName(), inventory.getSelectedItem()->getQuantity(), inventory.getSelectedItem()->getDescription());
+             else
+                 cTextDrawer::get().setNoItemText();
+             // Draw
+             window.clear(sf::Color(20, 20, 20, 255));
              inventory.draw(window);
-             cTextDrawer::get().setTitle("INVENTORY");
              cTextDrawer::get().drawText_InventaryMode(&window);
              window.display();
-             gameModePreviousFrame = EnumGameMode::MODE_INVENTORY;
              break;
          }
          case EnumGameMode::MODE_TITLE: {

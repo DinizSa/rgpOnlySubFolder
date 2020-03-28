@@ -14,18 +14,30 @@ public:
 	cTextDrawer(cTextDrawer&) = delete;
 	void operator = (cTextDrawer&) = delete;
 
+	// Map mode
 	void drawText_MapMode(sf::RenderWindow* window);
-	inline void drawText_InventaryMode(sf::RenderWindow* window) { window->draw(sfTitle); }
 	void setDialogue(string text, sf::Color color);
 	void removeDialogue();
 	void setHealth(int health, int maxHealth);
-	inline void setTitle(string title) { sfTitle.setString(title); }
+
+	// Inventary
+	void drawText_InventaryMode(sf::RenderWindow* window);
+	inline void setTitleMode(string title) { sfMode.setString(title); }
+	void setItemText(string name, int quantity, string description);
+	void setNoItemText();
 
 private:
 	sf::Font font;
+
+	// Map mode
 	sf::Text sfDialogue;
 	sf::Text sfHealth;
-	sf::Text sfTitle;
+	// Inventary
+	sf::Text sfMode;
+	sf::Text sfItemName;
+	sf::Text sfItemQuantity;
+	sf::Text sfItemDescription;
+
 	cTextDrawer();
 	~cTextDrawer();
 };

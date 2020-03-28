@@ -8,6 +8,7 @@ cItem::cItem(string name, string asset, string desc, float px, float py, int iQu
 	this->iQuantity = iQuantity;
 }
 
+// Returns true if has some after update
 bool cItem::updateQuantity(int quantity) { 
 	this->iQuantity += quantity; 
 	return this->iQuantity > 0;
@@ -24,11 +25,11 @@ void cItem::drawBorder(sf::RenderWindow* pWindow) {
 
 
 // <------------------------------------------ Health Potion Item ------------------------------------------>
-cItem_HealthPotion::cItem_HealthPotion(int strength):cItem("Health Potion", "hearth", "Drink to regenerate health", -1, -1,1) {
+cItem_HealthPotion::cItem_HealthPotion(int strength):cItem("Health Potion", "hearth", "Regenerates health", -1, -1,1) {
 	this->iStrength = strength;
 }
 
-cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem("Health Potion", "hearth", "Drink to regenerate health", px, py, 1) {
+cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem("Health Potion", "hearth", "Regenerates health", px, py, 1) {
 	this->iStrength = strength;
 }
 
@@ -43,11 +44,11 @@ void cItem_HealthPotion::OnUse(Dynamic* dynamic) {
 
 
 // <------------------------------------------ Max Health Potion Item ------------------------------------------>
-cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength):cItem("Max Health Potion", "shroom", "Drink to increase maximum health", -1, -1,1) {
+cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength):cItem("Max Health Potion", "shroom", "Increases maximum health", -1, -1,1) {
 	this->iStrength = strength;
 }
 
-cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength, float px, float py): cItem("Max Health Potion", "shroom", "Drink to increase maximum health", px, py, 1) {
+cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength, float px, float py): cItem("Max Health Potion", "shroom", "Increases maximum health", px, py, 1) {
 	this->iStrength = strength;
 }
 

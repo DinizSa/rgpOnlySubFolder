@@ -233,24 +233,20 @@ void Dynamic::applyFriction() {
 }
 
 // Inventory. Add, Subtract, or remove the item (passing 0)
-void Dynamic::updateItemQuantity(Dynamic* itemToAdd, int quantity) {
-	int count = 0;
-	for (auto item : vInventory) {
-		if (((cItem*)item)->getName() == itemToAdd->getName()) {
-			if (quantity != 0) {
-				if (quantity == 0 || ((cItem*)item)->updateQuantity(quantity)) { // Adds quantity. Removes item from vector if quantity < 0.
-					vInventory.erase(vInventory.begin() + count);
-					// TODO: should delete here item?
-				}
+void Dynamic::updateItemQuantity(Dynamic* itemToAdd) {
+	for (unsigned i = 0; i < vInventory.size(); i++) {
+		if (((cItem*)vInventory[i])->getName() == itemToAdd->getName()) { // If same type of item
+			if (!(((cItem*)vInventory[i])->updateQuantity(((cItem*)itemToAdd)->getQuantity()))) { // Adds quantity. Removes item from vector if quantity in item is less than zero
+				vInventory.erase(vInventory.begin() + i);
+				// TODO: should delete here item?
 			}
 			return;
 		}
-		count++;
 	}
 	// If not already in the inventory
-	if (quantity > 0) {
-		((cItem*)itemToAdd)->updateQuantity(quantity);
-	this->vInventory.push_back(itemToAdd);
+	if (((cItem*)itemToAdd)->getQuantity() > 0) {
+		//((cItem*)itemToAdd)->updateQuantity(quantity);
+		this->vInventory.push_back(itemToAdd);
 	}
 }
 
