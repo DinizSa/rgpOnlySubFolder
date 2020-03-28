@@ -1,6 +1,7 @@
 #include "dynamic.h"
 #include "assets.h"
 #include "quest.h"
+#include "item.h"
 
 Dynamic::Dynamic():
 	Entity(){
@@ -11,15 +12,15 @@ Dynamic::Dynamic():
 	this->vy = 0.f;
 	this->hasFriction = true;
 	this->maxSpeed = 0;
-	facingDirection = SOUTH;
-	graphicState = STANDING;
+	facingDirection = FacingDirection::SOUTH;
+	graphicState = GraphicState::STANDING;
 	msStartedMoving = 0;
 	msSinceStartedMoving = 0;
 	this->sName = "";
 }
 Dynamic::~Dynamic() {
-	for (auto item : lInventory) {
-		delete item.first;
+	for (auto item : vInventory) {
+		delete item;
 	}
  }
 Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed) :
@@ -231,38 +232,33 @@ void Dynamic::applyFriction() {
 	}
 }
 
-// Inventory
-void Dynamic::addItem(Dynamic* itemToAdd, int quantity) {
-	for (auto item : lInventory) {
-		if (item.first->getName() == itemToAdd->getName()) {
-			item.second += quantity;
-			return;
-		}
-	}
-	// If not already in the inventory
-	this->lInventory[itemToAdd] = quantity;
-}
-
-void Dynamic::removeItem(Dynamic* itemToRemove, int quantity) {
-	// Quantity = 0 to remove all
-	if (quantity == 0) {
-		lInventory.erase(itemToRemove);
-		return;
-	}
-	for (auto item : lInventory) {
-		if (item.first->getName() == itemToRemove->getName()) {
-			item.second -= quantity;
-			if (item.second <= 0) {
-				lInventory.erase(itemToRemove);
+// Inventory. Add, Subtract, or remove the item (passing 0)
+void Dynamic::updateItemQuantity(Dynamic* itemToAdd, int quantity) {
+	int count = 0;
+	for (auto item : vInventory) {
+		if (((cItem*)item)->getName() == itemToAdd->getName()) {
+			if (quantity != 0) {
+				if (quantity == 0 || ((cItem*)item)->updateQuantity(quantity)) { // Adds quantity. Removes item from vector if quantity < 0.
+					vInventory.erase(vInventory.begin() + count);
+					// TODO: should delete here item?
+				}
 			}
 			return;
 		}
+		count++;
+	}
+	// If not already in the inventory
+	if (quantity > 0) {
+		((cItem*)itemToAdd)->updateQuantity(quantity);
+	this->vInventory.push_back(itemToAdd);
 	}
 }
 
+
+
 bool Dynamic::hasItem(Dynamic* itemToCheck) {
-	for (auto item : lInventory) {
-		if (item.first->getName() == itemToCheck->getName()) {
+	for (auto item : vInventory) {
+		if (item->getName() == itemToCheck->getName()) {
 			return true;
 		}
 	}

@@ -11,6 +11,10 @@ cTextDrawer::cTextDrawer(){
 	sfHealth.setFont(font);
 	sfHealth.setPosition(600.f,40.f);
 	sfHealth.setFillColor(sf::Color::Color({ 220,30,30,255}));
+	// Inventory
+	sfTitle.setFont(font);
+	sfTitle.setPosition(320.f,30.f);
+	sfTitle.setFillColor(sf::Color::Color({ 220,30,30,255}));
 }
 
 cTextDrawer::~cTextDrawer() {
@@ -31,7 +35,7 @@ void cTextDrawer::removeDialogue() {
 	sfDialogue.setString("");
 }
 
-void cTextDrawer::drawText(sf::RenderWindow* pWindow) {
+void cTextDrawer::drawText_MapMode(sf::RenderWindow* pWindow) {
 	pWindow->draw(sfDialogue);
 	pWindow->draw(sfHealth);
 }

@@ -52,7 +52,7 @@ void cDynamicMap::draw(sf::RenderWindow* pWindow) {
 		vDynamic[i]->draw(pWindow);
 	
 	vDynamic[0]->draw(pWindow);
-	cTextDrawer::get().drawText(pWindow);
+	cTextDrawer::get().drawText_MapMode(pWindow);
 }
 
 void cDynamicMap::handleInputs(sf::Event event) {
@@ -94,7 +94,7 @@ void cDynamicMap::handleInteraction() {
 		if (dynamic_cast<cItem*>(collided)) {
 			if (collided->OnInteraction(vDynamic[0])) {
 				// If an item returns true, is to add
-				vDynamic[0]->addItem(collided, 1);
+				vDynamic[0]->updateItemQuantity(collided, 1);
 			}
 			// REmove from the map, and add to the dynamic player
 			vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());

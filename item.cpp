@@ -8,6 +8,20 @@ cItem::cItem(string name, string asset, string desc, float px, float py, int iQu
 	this->iQuantity = iQuantity;
 }
 
+bool cItem::updateQuantity(int quantity) { 
+	this->iQuantity += quantity; 
+	return this->iQuantity > 0;
+}
+
+void cItem::drawBorder(sf::RenderWindow* pWindow) {
+	auto border = sf::RectangleShape(sf::Vector2f(this->getWidth(), this->getHeight()));
+	border.setPosition(this->getPosX(), this->getPosY());
+	border.setFillColor(sf::Color::Transparent);
+	border.setOutlineColor(sf::Color::White);
+	border.setOutlineThickness(5.f);
+	pWindow->draw(border);
+}
+
 
 // <------------------------------------------ Health Potion Item ------------------------------------------>
 cItem_HealthPotion::cItem_HealthPotion(int strength):cItem("Health Potion", "hearth", "Drink to regenerate health", -1, -1,1) {
@@ -20,7 +34,7 @@ cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem(
 
 bool cItem_HealthPotion::OnInteraction(Dynamic* dynamic) {
 	OnUse(dynamic);
-	return false;
+	return true;
 }
 
 void cItem_HealthPotion::OnUse(Dynamic* dynamic) {

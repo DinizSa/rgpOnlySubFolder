@@ -22,8 +22,15 @@ Entity::Entity(string sAsset, float px, float py) {
 }
 
 
+
 void Entity::setPartialTexture(int px, int py, int dx, int dy) {
 	this->shape.setTextureRect(sf::IntRect(px, py, dx, dy));
+}
+
+void Entity::updatePosition(float px, float py) {
+	setPosX(px);
+	setPosY(py);
+	this->shape.setPosition(sf::Vector2f(this->getPosX(), this->getPosY()));
 }
 
 void Entity::setDimensions(float width, float height) { 

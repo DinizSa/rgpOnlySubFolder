@@ -5,6 +5,7 @@ using namespace std;
 #include "maps.h"
 #include "timer.h"
 #include <memory>
+#include <vector>
 
 class Dynamic: public Entity {
 protected:
@@ -16,7 +17,7 @@ protected:
 	float maxSpeed;
 	enum FacingDirection{SOUTH = 0, WEST = 1, NORTH = 2, EAST = 3} facingDirection;
 	enum GraphicState {STANDING, WALKING, DEATH} graphicState;
-	map< Dynamic*, int> lInventory;
+	vector< Dynamic*> vInventory;
 
 public:
 	Dynamic();
@@ -40,9 +41,9 @@ public:
 	inline string getName() { return this->sName; }
 
 	// Inventory
-	void addItem(Dynamic* itemToAdd, int quantity);
-	void removeItem(Dynamic* itemToRemove, int quantity);
+	void updateItemQuantity(Dynamic* itemToAdd, int quantity);
 	bool hasItem(Dynamic* itemToCheck);
+	inline vector< Dynamic*>* getAllItems() { return &vInventory;  }
 
 private:
 	void move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);

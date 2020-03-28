@@ -57,6 +57,9 @@
     <ClInclude Include="textDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="creature.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="textDrawer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

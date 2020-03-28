@@ -16,6 +16,7 @@ public:
 	void setDimensions(float width, float height);
 
 	void setPartialTexture(int px, int py, int dx, int dy);
+	void updatePosition(float px, float py);
 	void draw(sf::RenderWindow* window);
 
 	// Getters
@@ -26,6 +27,7 @@ public:
 	inline float getWidth() { return this->width; }
 	inline float getHeight() { return this->height; }
 	inline string getAssetName() { return this->sAsset; }
+	
 
 protected:
 	sf::RectangleShape shape;
