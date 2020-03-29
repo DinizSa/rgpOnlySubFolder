@@ -237,7 +237,7 @@ void Dynamic::applyFriction() {
 // Inventory: Add
 void Dynamic::addItem(Dynamic* itemToAdd) {
 	for (unsigned i = 0; i < vInventory.size(); i++) {
-		if (((cItem*)vInventory[i])->getName() == itemToAdd->getName()) { // If same type of item
+		if (vInventory[i]->getName() == itemToAdd->getName() && ((cItem*)vInventory[i])->getStrength() == ((cItem*)itemToAdd)->getStrength()) { // If same type of item
 			((cItem*)vInventory[i])->updateQuantity(((cItem*)itemToAdd)->getQuantity()); // Adds to the existing item, the quantity of the incomming similar object
 			return;
 		}

@@ -26,11 +26,11 @@ void cItem::drawBorder(sf::RenderWindow* pWindow) {
 
 
 // <------------------------------------------ Health Potion Item ------------------------------------------>
-cItem_HealthPotion::cItem_HealthPotion(int strength):cItem("Health Potion", "hearth", "Regenerates health", -1, -1,1) {
+cItem_HealthPotion::cItem_HealthPotion(int strength):cItem("Health Potion", "hearth", "Regenerates " + to_string(strength) + " points of health", -1, -1,1) {
 	this->iStrength = strength;
 }
 
-cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem("Health Potion", "hearth", "Regenerates health", px, py, 1) {
+cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem("Health Potion", "hearth", "Regenerates " + to_string(strength) + " points of health", px, py, 1) {
 	this->iStrength = strength;
 }
 
@@ -49,11 +49,11 @@ void cItem_HealthPotion::OnUse(Dynamic* dynamic) {
 
 
 // <------------------------------------------ Max Health Potion Item ------------------------------------------>
-cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength):cItem("Max Health Potion", "shroom", "Increases maximum health", -1, -1,1) {
+cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength):cItem("Max Health Potion", "shroom", "Increases maximum health by " + to_string(strength) + " points", -1, -1,1) {
 	this->iStrength = strength;
 }
 
-cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength, float px, float py): cItem("Max Health Potion", "shroom", "Increases maximum health", px, py, 1) {
+cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength, float px, float py): cItem("Max Health Potion", "shroom", "Increases maximum health by " + to_string(strength) + " points", px, py, 1) {
 	this->iStrength = strength;
 }
 
@@ -63,4 +63,5 @@ bool cItem_MaxHealthPotion::OnInteraction(Dynamic* dynamic) {
 
 void cItem_MaxHealthPotion::OnUse(Dynamic* dynamic) {
 	((Creature*)dynamic)->increaseMaxHealth(this->iStrength);
+	((Creature*)dynamic)->heal(this->iStrength);
 }

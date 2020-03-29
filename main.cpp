@@ -95,13 +95,12 @@ int main()
                  else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
                      enumGameMode = EnumGameMode::MODE_LOCAL_MAP;
                  else {
-                     cItem* itemConsumed = inventory.handleInputs(event); // nullptr or pointer to item if some item was selected
+                     cItem* itemConsumed = inventory.handleInputs(event); // Get consumed item
                      if (itemConsumed) {
                          itemConsumed->OnUse(pPlayer);
                          pPlayer->subtractItem(itemConsumed, 1);
                          inventory.repositionElements();
                      }
-
                  }
              }
 

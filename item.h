@@ -12,6 +12,7 @@ public:
 	inline string getName() { return sName; };
 	inline string getAsset() { return sAsset; };
 	inline string getDescription() { return sDesc; };
+	inline int getStrength() { return this->iStrength; };
 	bool updateQuantity(int quantity);
 	inline int getQuantity() { return iQuantity; };
 	void drawBorder(sf::RenderWindow* pWindow);
@@ -21,6 +22,7 @@ protected:
 	string sName;
 	string sAsset;
 	string sDesc;
+	int iStrength;
 };
 
 // <------------------------------------------ Health Potion Item -> Heal ------------------------------------------>
@@ -31,8 +33,6 @@ public:
 	bool OnInteraction(Dynamic* dynamic) override;
 	void OnUse(Dynamic* dynamic) override;
 
-private:
-	int iStrength;
 };
 
 // <------------------------------------------ Max Health Potion Item -> Incleases Max Health ------------------------------------------>
@@ -42,7 +42,4 @@ public:
 	cItem_MaxHealthPotion(int strength, float px, float py); 
 	bool OnInteraction(Dynamic* dynamic) override;
 	void OnUse(Dynamic* dynamic) override;
-
-private:
-	int iStrength;
 };

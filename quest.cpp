@@ -2,6 +2,7 @@
 #include "creature.h"
 #include "assets.h"
 #include "scriptProcessor.h"
+#include "item.h"
 
 vector<shared_ptr<cQuest>> cQuest::vQuest;
 
@@ -79,7 +80,8 @@ bool cQuest_FindThePinkRabbit::OnInteraction(vector<Dynamic*> vDynamic, Dynamic*
 			return true;
 		}
 		else {
-			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Thank you so much sir!", 1500));
+			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Thank you so much sir! \n Take this potion, \n to keep you safe!", 1500));
+			vDynamic[0]->addItem(new cItem_MaxHealthPotion(20));
 			cQuest::removeQuest(this->getName());
 			return true;
 		}
