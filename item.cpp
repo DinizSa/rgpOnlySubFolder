@@ -1,11 +1,13 @@
 #include "item.h";
 #include "creature.h";
 
-cItem::cItem(string name, string asset, string desc, float px, float py, int iQuantity): Dynamic(name, asset, px, py, true, true, true, true, 1.f) {
+cItem::cItem(string name, string asset, string desc, float px, float py, int iQuantity, bool consumable): Dynamic(name, asset, px, py, true, true, true, true, 1.f) {
 	this->sName = name;
 	this->sAsset = asset;
 	this->sDesc = desc;
 	this->iQuantity = iQuantity;
+	this->iStrength = 0; // Not input becasue will not make sens to some
+	this->consumable = consumable;
 }
 
 // Returns true if has some after update
@@ -26,11 +28,11 @@ void cItem::drawBorder(sf::RenderWindow* pWindow) {
 
 
 // <------------------------------------------ Health Potion Item ------------------------------------------>
-cItem_HealthPotion::cItem_HealthPotion(int strength):cItem("Health Potion", "hearth", "Regenerates " + to_string(strength) + " points of health", -1, -1,1) {
+cItem_HealthPotion::cItem_HealthPotion(int strength):cItem("Health Potion", "hearth", "Regenerates " + to_string(strength) + " points of health", -1, -1,1, true) {
 	this->iStrength = strength;
 }
 
-cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem("Health Potion", "hearth", "Regenerates " + to_string(strength) + " points of health", px, py, 1) {
+cItem_HealthPotion::cItem_HealthPotion(int strength, float px, float py): cItem("Health Potion", "hearth", "Regenerates " + to_string(strength) + " points of health", px, py, 1, true) {
 	this->iStrength = strength;
 }
 
@@ -49,11 +51,11 @@ void cItem_HealthPotion::OnUse(Dynamic* dynamic) {
 
 
 // <------------------------------------------ Max Health Potion Item ------------------------------------------>
-cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength):cItem("Max Health Potion", "shroom", "Increases maximum health by " + to_string(strength) + " points", -1, -1,1) {
+cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength):cItem("Max Health Potion", "shroom", "Increases maximum health by " + to_string(strength) + " points", -1, -1,1, true) {
 	this->iStrength = strength;
 }
 
-cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength, float px, float py): cItem("Max Health Potion", "shroom", "Increases maximum health by " + to_string(strength) + " points", px, py, 1) {
+cItem_MaxHealthPotion::cItem_MaxHealthPotion(int strength, float px, float py): cItem("Max Health Potion", "shroom", "Increases maximum health by " + to_string(strength) + " points", px, py, 1, true) {
 	this->iStrength = strength;
 }
 
@@ -64,4 +66,20 @@ bool cItem_MaxHealthPotion::OnInteraction(Dynamic* dynamic) {
 void cItem_MaxHealthPotion::OnUse(Dynamic* dynamic) {
 	((Creature*)dynamic)->increaseMaxHealth(this->iStrength);
 	((Creature*)dynamic)->heal(this->iStrength);
+}
+
+// <------------------------------------------ Scroll Item ------------------------------------------>
+cItem_ScrollBandidosTruth::cItem_ScrollBandidosTruth() :cItem("Bandido's scroll of truth", "scroll", "Bandido is a lil punk - Aristoteles", -1, -1, 1, false) {
+
+}
+
+cItem_ScrollBandidosTruth::cItem_ScrollBandidosTruth(float px, float py) : cItem("Bandido's scroll of truth", "scroll", "Bandido is a lil punk - Aristoteles", px, py, 1, false) {
+}
+
+bool cItem_ScrollBandidosTruth::OnInteraction(Dynamic* dynamic) {
+	return true; // Add to the inventory
+}
+
+void cItem_ScrollBandidosTruth::OnUse(Dynamic* dynamic) {
+	// Maybe focus on scroll
 }

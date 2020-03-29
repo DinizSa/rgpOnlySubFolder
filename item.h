@@ -4,7 +4,7 @@
 
 class cItem : public Dynamic {
 public:
-	cItem(string name, string asset, string desc, float px, float py, int iQuantity);
+	cItem(string name, string asset, string desc, float px, float py, int iQuantity, bool consumable);
 	virtual bool OnInteraction(Dynamic* dynamic)=0;
 	virtual void OnUse(Dynamic* dynamic)=0;
 
@@ -13,8 +13,9 @@ public:
 	inline string getAsset() { return sAsset; };
 	inline string getDescription() { return sDesc; };
 	inline int getStrength() { return this->iStrength; };
-	bool updateQuantity(int quantity);
+	inline int isConsumable() { return this->consumable; };
 	inline int getQuantity() { return iQuantity; };
+	bool updateQuantity(int quantity);
 	void drawBorder(sf::RenderWindow* pWindow);
 
 protected:
@@ -23,6 +24,7 @@ protected:
 	string sAsset;
 	string sDesc;
 	int iStrength;
+	bool consumable;
 };
 
 // <------------------------------------------ Health Potion Item -> Heal ------------------------------------------>
@@ -40,6 +42,15 @@ class cItem_MaxHealthPotion : public cItem {
 public:
 	cItem_MaxHealthPotion(int strength); 
 	cItem_MaxHealthPotion(int strength, float px, float py); 
+	bool OnInteraction(Dynamic* dynamic) override;
+	void OnUse(Dynamic* dynamic) override;
+};
+
+// <------------------------------------------ Scroll of bandidos truth ------------------------------------------>
+class cItem_ScrollBandidosTruth : public cItem {
+public:
+	cItem_ScrollBandidosTruth();
+	cItem_ScrollBandidosTruth(float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
 	void OnUse(Dynamic* dynamic) override;
 };

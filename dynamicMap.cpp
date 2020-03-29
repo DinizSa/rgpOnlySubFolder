@@ -123,8 +123,6 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 	// Items
-	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 90.f, 400.f));
-	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 70.f, 350.f));
 	this->vDynamic.push_back(new cItem_HealthPotion(10, 50.f, 400.f));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
@@ -148,10 +146,14 @@ void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cCreature_EarthBender("Joseph brother", 150, 50));
 	// Map Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
+	// Items
+	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 90.f, 400.f));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
 
 	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Damm dog", 1500, sf::Color::Black));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi this world is the same as \nthe previous... ", 1500, sf::Color::Black));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("... but on drugs! ", 1500, sf::Color::Black));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must get out of this trip man! ", 1500, sf::Color::Black));
 }

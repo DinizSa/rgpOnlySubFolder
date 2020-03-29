@@ -80,8 +80,8 @@ bool cQuest_FindThePinkRabbit::OnInteraction(vector<Dynamic*> vDynamic, Dynamic*
 			return true;
 		}
 		else {
-			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Thank you so much sir! \n Take this potion, \n to keep you safe!", 1500));
-			vDynamic[0]->addItem(new cItem_MaxHealthPotion(20));
+			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Thank you so much sir! Take this  \n scroll and may it guide you!", 1500));
+			vDynamic[0]->addItem(new cItem_ScrollBandidosTruth());
 			cQuest::removeQuest(this->getName());
 			return true;
 		}
