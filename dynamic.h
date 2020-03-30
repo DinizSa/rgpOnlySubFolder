@@ -48,6 +48,9 @@ public:
 	inline float getVelX() { return this->vx; }
 	inline float getVelY() { return this->vy; }
 	inline bool isProjectile() { return bProjetile; }
+	bool isAttacking() { return this->bAttacking; }
+	void setAttacking(bool attacking) { this->bAttacking = attacking; }
+
 	// Weapons
 	inline void setWeapon(Dynamic* weapon) { this->weapon = weapon; }
 	inline bool hasWeaponEquiped() { return this->weapon != nullptr; };
@@ -67,4 +70,5 @@ private:
 	int msStartedMoving;
 	int msSinceStartedMoving;
 	string sName;
+	bool bAttacking;
 };

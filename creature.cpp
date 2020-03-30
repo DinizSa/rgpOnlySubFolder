@@ -3,6 +3,7 @@
 #include "assets.h"
 #include "quest.h"
 #include "textDrawer.h"
+#include "item.h"
 
 Creature::Creature(): Dynamic() {
 	hp = 0;
@@ -72,8 +73,8 @@ bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 // <------------------------------------ Evil Rabbit --------------------------------------------->
 cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, false, 50, 1.0f) {
 	this->iAttack = 5;
-	this->hasAtacked = false;
-};
+	this->setWeapon(new cItem_Sword(20));
+}
 
 bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
@@ -85,14 +86,11 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	float dx = this->getPosX() - pPlayer->getPosX();
 	float dy = this->getPosY() - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
+
+	this->setAttacking(false);
 	if (framesOfRest == 0) {
 		framesOfRest = 60 * 6;
-		this->hasAtacked = false;
-	}
-
-	if (!this->hasAtacked && this->isCollidingPlayer(pPlayer)) {
-		((Creature*)pPlayer)->defend(this->iAttack);
-		this->hasAtacked = true;
+		this->setAttacking(true);
 	}
 
 	if(framesOfRest > 60*4 && abs(delta) > Assets::get().GetSizeSprite())

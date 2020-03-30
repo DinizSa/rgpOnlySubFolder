@@ -54,8 +54,8 @@ public:
 	void updateAI(Dynamic* pPlayer);
 private:
 	int iAttack;
-	bool hasAtacked;
 	int framesOfRest = 60 * 4;
+	
 };
 
 // <------------------------------------ Pink Friendly Rabbit --------------------------------------------->

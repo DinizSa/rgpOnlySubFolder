@@ -45,6 +45,13 @@ void cDynamicMap::update() {
 					dynamic->OnInteraction(collided);
 				}
 			}
+			// Check for shots fired
+			if (dynamic->isAttacking()) {
+				auto projetile = dynamic->attackWeapon();
+				if (projetile) { // Defined if weapon pew pew
+					this->addProjectile(projetile);
+				}
+			}
 		}
 	}
 
@@ -60,6 +67,7 @@ void cDynamicMap::update() {
 			++it;
 		}
 	}
+
 
 
 	// Player movement
@@ -100,7 +108,7 @@ void cDynamicMap::handleInputs(sf::Event event) {
 		if (event.key.code == sf::Keyboard::Space)
 			handleInteraction();
 		if (event.key.code == sf::Keyboard::E) {
-			auto projectile = vDynamic[0]->attackWeapon(); // Receives shared pointer to the newly created projectile
+			auto projectile = vDynamic[0]->attackWeapon(); // Receives pointer to the newly created projectile
 			if (projectile != nullptr)
 				this->addProjectile(projectile);
 

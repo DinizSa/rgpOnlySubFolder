@@ -26,6 +26,7 @@ Dynamic::~Dynamic() {
 		delete item;
 	}
  }
+
 Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed, bool isProjetile) :
 	Entity(asset, px, py)	{
 	this->solidVsSolid = solidVsSolid;
@@ -49,6 +50,7 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 		updateAI((*vDynamic)[0]);
 	applyFriction();
 	SetGraphics(timer);
+
 }
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {
