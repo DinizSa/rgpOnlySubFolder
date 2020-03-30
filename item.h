@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "dynamic.h"
+#include "projectile.h"
 
 class cItem : public Dynamic {
 public:
@@ -27,7 +28,7 @@ protected:
 	bool consumable;
 };
 
-// <------------------------------------------ Health Potion Item -> Heal ------------------------------------------>
+// <------------------------------------------ Health Potion Item ------------------------------------------>
 class cItem_HealthPotion : public cItem {
 public:
 	cItem_HealthPotion(int strength); 
@@ -37,7 +38,7 @@ public:
 
 };
 
-// <------------------------------------------ Max Health Potion Item -> Incleases Max Health ------------------------------------------>
+// <------------------------------------------ Max Health Potion Item ------------------------------------------>
 class cItem_MaxHealthPotion : public cItem {
 public:
 	cItem_MaxHealthPotion(int strength); 
@@ -61,7 +62,9 @@ public:
 	cItem_Weapon(string name, string asset, string description, int strength);
 	cItem_Weapon(string name, string asset, string description, int strength, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
-	void OnUse(Dynamic* dynamic) override;
+	inline void OnUse(Dynamic* dynamic) override {};
+	virtual cProjectile* OnWeaponUse(Dynamic* dynamic)=0;
+
 };
 // <------------------------------------------ Sword item ------------------------------------------>
 class cItem_Sword : public cItem_Weapon {
@@ -69,5 +72,5 @@ public:
 	cItem_Sword(int strength);
 	cItem_Sword(int strength, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
-	void OnUse(Dynamic* dynamic) override;
+	cProjectile* OnWeaponUse(Dynamic* dynamic) override;
 };

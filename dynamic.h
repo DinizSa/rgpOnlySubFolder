@@ -28,6 +28,7 @@ public:
 	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
 	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed; }
+	inline void setVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx = deltaVx; this->vy = deltaVy; }
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual bool OnInteraction(Dynamic* secondDynamic) = 0;
 	Dynamic* getCollidingDynamic(vector<Dynamic*>* vDynamic);
@@ -41,10 +42,14 @@ public:
 	inline float isFriendly() { return this->friendly; }
 	inline float getMaxSpeed() { return this->maxSpeed; }
 	inline string getName() { return this->sName; }
+	inline int geFacingDirection() { return facingDirection; }
+	inline float getVelX() { return this->vx; }
+	inline float getVelY() { return this->vy; }
 
 	// Weapons
 	inline void setWeapon(Dynamic* weapon) { this->weapon = weapon; }
-	bool attackWeapon();
+	inline bool hasWeaponEquiped() { return this->weapon != nullptr; };
+	Dynamic* attackWeapon();
 
 	// Inventory
 	void consumeItem(Dynamic* itemToAdd, int quantity);

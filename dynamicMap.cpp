@@ -14,23 +14,26 @@ cDynamicMap::cDynamicMap() {
 	pTimer = new Timer;
 	pTimer->updateTimer();
 
-
+	vDynamic_Projectile.reserve(20);
+	vDynamic_Projectile.reserve(50);
 }
 
 cDynamicMap::~cDynamicMap() {
 	delete pTimer;
 	delete cMap;
-	for (unsigned i = 1; i < vDynamic.size(); i++)
-		delete vDynamic[i];
+
 	vDynamic.clear();
+	vDynamic_Projectile.clear();
 }
 
 void cDynamicMap::update() {
 	pTimer->updateTimer();
 	cScriptProcessor::Get().ProcessCommands(pTimer->getMsSinceLastFrame());
 
-	for (auto dynamic: vDynamic)
-		dynamic->update(pTimer, cMap, &vDynamic);
+	for (auto& source : { &vDynamic, &vDynamic_Projectile }) {
+		for (auto dynamic : *source)
+			dynamic->update(pTimer, cMap, &vDynamic);
+	}
 
 	// Player movement
 	if (bPressedLeft)
@@ -46,8 +49,11 @@ void cDynamicMap::update() {
 
 void cDynamicMap::draw(sf::RenderWindow* pWindow) {
 	cMap->draw(pWindow);
-	for (unsigned i = 1; i < vDynamic.size(); i++) 
-		vDynamic[i]->draw(pWindow);
+	for (auto& source : { &vDynamic, &vDynamic_Projectile }) {
+		for (auto dynamic : *source)
+			dynamic->draw(pWindow);
+	}
+
 	
 	vDynamic[0]->draw(pWindow);
 	cTextDrawer::get().drawText_MapMode(pWindow);
@@ -66,8 +72,12 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedDown = true;
 		if (event.key.code == sf::Keyboard::Space)
 			handleInteraction();
-		if (event.key.code == sf::Keyboard::E)
-			vDynamic[0]->attackWeapon();
+		if (event.key.code == sf::Keyboard::E) {
+			auto projectile = vDynamic[0]->attackWeapon(); // Receives shared pointer to the newly created projectile
+			if (projectile != nullptr)
+				this->addProjectile(projectile);
+
+		}
 	}
 
 	// Movement released

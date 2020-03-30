@@ -63,8 +63,8 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 	int blockYDown = (int)((py+ height * (1.f - marginEmptyY))/ heightLandscape) % (int)heightLandscape;
 
 	// Horizontal
-	if ((vx > 0 && px < windowW - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
-		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
+	if ((vx > 0/* && px < windowW - this->width*/ && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
+		(vx < 0 /*&& px > 0*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
 		px += vx;
 	}
 	else {
@@ -75,8 +75,8 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 			vx = 0;
 	}
 	// Vertical
-	if ((vy > 0 && py < windowH - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
-		(vy < 0 && py > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
+	if ((vy > 0 /*&& py < windowH - this->height*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
+		(vy < 0/* && py > 0*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
 		py += vy;
 	}
 	else {
@@ -277,12 +277,15 @@ bool Dynamic::hasItem(Dynamic* itemToCheck) {
 	return false;
 }
 
-// Weapons
-bool Dynamic::attackWeapon() {
+// Return true if attacked
+Dynamic* Dynamic::attackWeapon() {
 	if (this->weapon != nullptr) {
-		((cItem_Weapon*)this->weapon)->OnUse(this);
-		return true;
+		cProjectile* projectile = ((cItem_Weapon*)this->weapon)->OnWeaponUse(this);
+		if (projectile != nullptr) {
+			return projectile;
+		}
 	}
-	else
-		return false;
+	else {
+		return nullptr;
+	}
 }

@@ -25,6 +25,7 @@ bool Creature::OnInteraction(Dynamic* secondDynamic) {
 
 void Creature::defend(int damage) { 
 	this->hp -= damage; 
+	cout << this->getName() << " attacked by " << damage << ". Health left: " << this->getHealth() << endl;
 	if (hp < 0) {
 		hp = 0;
 		graphicState = GraphicState::DEATH;

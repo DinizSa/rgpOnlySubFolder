@@ -30,6 +30,7 @@
     <ClInclude Include="landscape.h" />
     <ClInclude Include="dynamicMap.h" />
     <ClInclude Include="maps.h" />
+    <ClInclude Include="projectile.h" />
     <ClInclude Include="quest.h" />
     <ClInclude Include="scriptProcessor.h" />
     <ClInclude Include="textDrawer.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="dynamicMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maps.cpp" />
+    <ClCompile Include="projectile.cpp" />
     <ClCompile Include="quest.cpp" />
     <ClCompile Include="scriptProcessor.cpp" />
     <ClCompile Include="textDrawer.cpp" />

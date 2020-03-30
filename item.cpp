@@ -95,10 +95,6 @@ bool cItem_Weapon::OnInteraction(Dynamic* dynamic) {
 	return true; // Add to the inventory
 }
 
-void cItem_Weapon::OnUse(Dynamic* dynamic) {
-	// Overriden by inherited classes
-}
-
 // <------------------------------------------ Sword item ------------------------------------------>
 cItem_Sword::cItem_Sword(int strength) :cItem_Weapon("Sword", "sword", "Steel sword, " + to_string(strength) + " attack", strength) {
 }
@@ -107,9 +103,44 @@ cItem_Sword::cItem_Sword(int strength, float px, float py) : cItem_Weapon("Sword
 }
 
 bool cItem_Sword::OnInteraction(Dynamic* dynamic) {
+	if (!dynamic->hasWeaponEquiped()) {
+		dynamic->setWeapon(this);
+	}
 	return true; // Add to the inventory
 }
 
-void cItem_Sword::OnUse(Dynamic* dynamic) {
+cProjectile* cItem_Sword::OnWeaponUse(Dynamic* dynamic) {
+	int direction = dynamic->geFacingDirection();
+
+	float momentumX;
+	float momentumY;
+	switch (dynamic->geFacingDirection())
+	{
+	case 0: // South
+		momentumX = 0.f;
+		momentumY = 1.f;
+		break;
+	case 1: // West
+		momentumX = -1.f;
+		momentumY = 0.f;
+		break;
+	case 2: // North
+		momentumX = 0.f;
+		momentumY = -1.f;
+		break;
+	case 3: // East
+		momentumX = 1.f;
+		momentumY = 0.f;
+		break;
+	default:
+		momentumX = 0.f;
+		momentumY = 0.f;
+		break;
+	}
+	//// Adds the momentum of the dynamic
+	//float velX = momentumX + dynamic->getVelX()/dynamic->getMaxSpeed();
+	//float velY = momentumY + dynamic->getVelY()/dynamic->getMaxSpeed();
+
 	// Emits an projectile
+	return new cProjectile_Fireball(dynamic->getPosX(), dynamic->getPosY(), momentumX, momentumY, true,this->iStrength);
 }

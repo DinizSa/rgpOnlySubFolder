@@ -17,12 +17,14 @@ public:
 	inline string getName() { return sName; }
 	//inline void setpPlayer(Creature* pPlayer) { this->vDynamic[0]=pPlayer; }
 	virtual void populateDynamics(Dynamic* pPlayer)=0;
+	inline void addProjectile(Dynamic* projectileToAdd) { vDynamic_Projectile.push_back(projectileToAdd);}
 
 protected:
 	string sName;
 	Timer* pTimer;
 	Maps* cMap;
 	vector<Dynamic*> vDynamic;
+	vector<Dynamic*> vDynamic_Projectile;
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
 
 	void handleInteraction();
