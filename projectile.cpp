@@ -2,18 +2,19 @@
 #include "creature.h"
 
 cProjectile::cProjectile(string name, string asset, float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float maxSpeed, float damage):
-	Dynamic(name, asset, px, py, false, false, friendly, false, maxSpeed) {
+	Dynamic(name, asset, px, py, false, false, friendly, false, maxSpeed, true) {
 	this->fVectorDirectionX = vectorDirectionX;
 	this->fVectorDirectionY = vectorDirectionY;
 	this->bEnergized = true;
 	this->fDamage = damage;
-	this->fired = false;
+	addVelocityNormalizedXY(this->fVectorDirectionX, this->fVectorDirectionY);
 }
 bool cProjectile::OnInteraction(Dynamic* secondDynamic) {
-	if (secondDynamic->isFriendly() != this->isFriendly()) { // If one is enemy of the other
+	if (secondDynamic->isFriendly() != this->isFriendly() ) { // If one is enemy of the other
 		if (dynamic_cast<Creature*>(secondDynamic)) { // Is creature
 			this->bEnergized = false;
 			((Creature*)secondDynamic)->defend(this->getDamage()); // Inflic damage
+			this->bEnergized = false;
 			return true;
 		}
 	}
@@ -21,10 +22,6 @@ bool cProjectile::OnInteraction(Dynamic* secondDynamic) {
 }
 
 void cProjectile::updateAI(Dynamic* pPlayer) {
-	if (!this->fired) {
-		addVelocityNormalizedXY(this->fVectorDirectionX, this->fVectorDirectionY);
-		this->fired = true;
-	}
 }
 
 // <--------------------------------------------- Fireball --------------------------------------------->

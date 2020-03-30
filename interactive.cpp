@@ -5,7 +5,7 @@ Interactive::Interactive():
 	Dynamic() {
 }
 Interactive::Interactive(string asset, float px, float py) :
-	Dynamic(asset, asset, px, py, true, true, true, true, 0) {
+	Dynamic(asset, asset, px, py, true, true, true, true, 0, false) {
 	// For simplicity, interactives name will be their assets name
 }
 

@@ -21,7 +21,11 @@ cDynamicMap::cDynamicMap() {
 cDynamicMap::~cDynamicMap() {
 	delete pTimer;
 	delete cMap;
-
+	for (auto& source : { &vDynamic, &vDynamic_Projectile }) {
+		for (auto dynamic : *source)
+			if (dynamic!=vDynamic[0])
+				delete dynamic;
+	}
 	vDynamic.clear();
 	vDynamic_Projectile.clear();
 }
@@ -31,9 +35,32 @@ void cDynamicMap::update() {
 	cScriptProcessor::Get().ProcessCommands(pTimer->getMsSinceLastFrame());
 
 	for (auto& source : { &vDynamic, &vDynamic_Projectile }) {
-		for (auto dynamic : *source)
+		for (auto dynamic : *source) {
 			dynamic->update(pTimer, cMap, &vDynamic);
+
+			// Check for projectile hits
+			if (dynamic->isProjectile()) {
+				auto collided = dynamic->getColliding(vDynamic);
+				if (collided) {
+					dynamic->OnInteraction(collided);
+				}
+			}
+		}
 	}
+
+	// Remove projectiles that lost their energy
+	auto it = vDynamic_Projectile.begin();
+	for (unsigned i = 0; i < vDynamic_Projectile.size(); i++)
+	{
+		if (!((cProjectile*)(vDynamic_Projectile[i]))->isEnergized()) {
+			delete vDynamic_Projectile[i];
+			vDynamic_Projectile.erase(it);
+		}
+		else {
+			++it;
+		}
+	}
+
 
 	// Player movement
 	if (bPressedLeft)
@@ -94,8 +121,8 @@ void cDynamicMap::handleInputs(sf::Event event) {
 }
 
 void cDynamicMap::handleInteraction() {
-	if (vDynamic[0]->getCollidingDynamic(&vDynamic) != nullptr) {
-		Dynamic* collided = vDynamic[0]->getCollidingDynamic(&vDynamic);
+	Dynamic* collided = vDynamic[0]->getCollidingFront(&vDynamic);
+	if (collided != nullptr) {
 		// Quests
 		for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 			if ((*cQuest::getQuestVector())[i]->OnInteraction(vDynamic, collided))

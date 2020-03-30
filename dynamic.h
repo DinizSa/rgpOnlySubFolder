@@ -19,11 +19,12 @@ protected:
 	enum GraphicState {STANDING, WALKING, DEATH} graphicState;
 	vector< Dynamic*> vInventory;
 	Dynamic* weapon;
+	bool bProjetile;
 	
 
 public:
 	Dynamic();
-	Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed);
+	Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed, bool isProjetile);
 	~Dynamic();
 	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
@@ -31,8 +32,9 @@ public:
 	inline void setVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx = deltaVx; this->vy = deltaVy; }
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual bool OnInteraction(Dynamic* secondDynamic) = 0;
-	Dynamic* getCollidingDynamic(vector<Dynamic*>* vDynamic);
+	Dynamic* getCollidingFront(vector<Dynamic*>* vDynamic);
 	bool isCollidingPlayer(Dynamic* pPlayer);
+	Dynamic* getColliding(vector<Dynamic*> dynamics);
 	void update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic);
 	virtual void updateAI(Dynamic* pPlayer) {};
 
@@ -45,7 +47,7 @@ public:
 	inline int geFacingDirection() { return facingDirection; }
 	inline float getVelX() { return this->vx; }
 	inline float getVelY() { return this->vy; }
-
+	inline bool isProjectile() { return bProjetile; }
 	// Weapons
 	inline void setWeapon(Dynamic* weapon) { this->weapon = weapon; }
 	inline bool hasWeaponEquiped() { return this->weapon != nullptr; };

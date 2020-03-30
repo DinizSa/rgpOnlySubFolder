@@ -1,7 +1,8 @@
 #include "item.h";
 #include "creature.h";
 
-cItem::cItem(string name, string asset, string desc, float px, float py, int iQuantity, bool consumable): Dynamic(name, asset, px, py, true, true, true, true, 1.f) {
+cItem::cItem(string name, string asset, string desc, float px, float py, int iQuantity, bool consumable): 
+	Dynamic(name, asset, px, py, true, true, true, true, 1.f, false) {
 	this->sName = name;
 	this->sAsset = asset;
 	this->sDesc = desc;
@@ -142,5 +143,5 @@ cProjectile* cItem_Sword::OnWeaponUse(Dynamic* dynamic) {
 	//float velY = momentumY + dynamic->getVelY()/dynamic->getMaxSpeed();
 
 	// Emits an projectile
-	return new cProjectile_Fireball(dynamic->getPosX(), dynamic->getPosY(), momentumX, momentumY, true,this->iStrength);
+	return new cProjectile_Fireball(dynamic->getPosX(), dynamic->getPosY(), momentumX, momentumY, dynamic->isFriendly(),this->iStrength);
 }

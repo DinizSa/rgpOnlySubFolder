@@ -14,7 +14,6 @@ protected:
 	float fVectorDirectionY;
 	bool bEnergized;
 	float fDamage;
-	bool fired;
 };
 
 // <--------------------------------------------- Fireball projectile --------------------------------------------->

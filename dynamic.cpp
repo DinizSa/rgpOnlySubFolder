@@ -19,13 +19,14 @@ Dynamic::Dynamic():
 	msSinceStartedMoving = 0;
 	this->sName = "";
 	this->weapon = nullptr;
+	this->bProjetile = false;
 }
 Dynamic::~Dynamic() {
 	for (auto item : vInventory) {
 		delete item;
 	}
  }
-Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed) :
+Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed, bool isProjetile) :
 	Entity(asset, px, py)	{
 	this->solidVsSolid = solidVsSolid;
 	this->solidVsDynamic = solidVsDynamic;
@@ -40,6 +41,7 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	msSinceStartedMoving = 0;
 	this->sName = name;
 	this->weapon = nullptr;
+	this->bProjetile = isProjetile;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	move(map, vDynamic, 800, 600);
@@ -128,7 +130,7 @@ void Dynamic::SetGraphics(Timer* timer) {
 
 
 // Return a pointer to the entity that is colliding or nullptr if not colliding 
-Dynamic* Dynamic::getCollidingDynamic(vector<Dynamic*>* vDynamic) {
+Dynamic* Dynamic::getCollidingFront(vector<Dynamic*>* vDynamic) {
 	for (unsigned i = 0; i < vDynamic->size(); i++)
 	{
 		if (this != (*vDynamic)[i]) {
@@ -196,11 +198,24 @@ bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, float posX, float p
 // Return true if it's colliding with the player
 bool Dynamic::isCollidingPlayer(Dynamic* pPlayer) {
 	if (this->getPosX() + this->getWidth() > pPlayer->getPosX() && this->getPosX() < pPlayer->getPosX() + pPlayer->getWidth()) {
-		if (this->getPosY() + this->getWidth() > pPlayer->getPosY() && this->getPosY() < pPlayer->getPosY() + pPlayer->getHeight()) {
+		if (this->getPosY() + this->getHeight() > pPlayer->getPosY() && this->getPosY() < pPlayer->getPosY() + pPlayer->getHeight()) {
 			return true;
 		}
 	}
 	return false;
+}
+
+// Return dynamic that's colliding with the player
+Dynamic* Dynamic::getColliding(vector<Dynamic*> dynamics) {
+	for (auto dynamic : dynamics) {
+		if(this != dynamic)
+		if (this->getPosX() + this->getWidth() > dynamic->getPosX() && this->getPosX() < dynamic->getPosX() + dynamic->getWidth()) {
+			if (this->getPosY() + this->getHeight() > dynamic->getPosY() && this->getPosY() < dynamic->getPosY() + dynamic->getHeight()) {
+				return dynamic;
+			}
+		}
+	}
+	return nullptr;
 }
 
 
