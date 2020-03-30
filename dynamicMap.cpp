@@ -124,6 +124,7 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
 	// Items
 	this->vDynamic.push_back(new cItem_HealthPotion(10, 50.f, 400.f));
+	this->vDynamic.push_back(new cItem_Sword(10, 550.f, 400.f));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);

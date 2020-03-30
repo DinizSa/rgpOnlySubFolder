@@ -28,6 +28,7 @@ void Assets::LoadTextures() {
 	load("hearth", "assets/tiles/hearth.png");
 	load("shroom", "assets/tiles/shroom.png");
 	load("scroll", "assets/tiles/scroll.png");
+	load("sword", "assets/tiles/sword.png");
 	   
 	//// B&W
 	//load("MapWildOne", "assets/tiles/MapWildOneBW.png");

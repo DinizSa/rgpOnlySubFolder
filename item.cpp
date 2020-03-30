@@ -69,9 +69,7 @@ void cItem_MaxHealthPotion::OnUse(Dynamic* dynamic) {
 }
 
 // <------------------------------------------ Scroll Item ------------------------------------------>
-cItem_ScrollBandidosTruth::cItem_ScrollBandidosTruth() :cItem("Bandido's scroll of truth", "scroll", "Bandido is a lil punk - Aristoteles", -1, -1, 1, false) {
-
-}
+cItem_ScrollBandidosTruth::cItem_ScrollBandidosTruth() :cItem("Bandido's scroll of truth", "scroll", "Bandido is a lil punk - Aristoteles", -1, -1, 1, false) {}
 
 cItem_ScrollBandidosTruth::cItem_ScrollBandidosTruth(float px, float py) : cItem("Bandido's scroll of truth", "scroll", "Bandido is a lil punk - Aristoteles", px, py, 1, false) {
 }
@@ -82,4 +80,36 @@ bool cItem_ScrollBandidosTruth::OnInteraction(Dynamic* dynamic) {
 
 void cItem_ScrollBandidosTruth::OnUse(Dynamic* dynamic) {
 	// Maybe focus on scroll
+}
+
+// <------------------------------------------ Weapon ------------------------------------------>
+cItem_Weapon::cItem_Weapon(string name, string asset, string description, int strength) :cItem(name, asset, description, -1, -1, 1, false) {
+	this->iStrength = strength;
+}
+
+cItem_Weapon::cItem_Weapon(string name, string asset, string description, int strength, float px, float py) : cItem(name, asset, description, px, py, 1, false) {
+	this->iStrength = strength;
+}
+
+bool cItem_Weapon::OnInteraction(Dynamic* dynamic) {
+	return true; // Add to the inventory
+}
+
+void cItem_Weapon::OnUse(Dynamic* dynamic) {
+	// Emits an projectile
+}
+
+// <------------------------------------------ Sword item ------------------------------------------>
+cItem_Sword::cItem_Sword(int strength) :cItem_Weapon("Sword", "sword", "Steel sword, " + to_string(strength) + " attack", strength) {
+}
+
+cItem_Sword::cItem_Sword(int strength, float px, float py) : cItem_Weapon("Sword", "sword", "Steel sword, " + to_string(strength) + " attack", strength, px, py) {
+}
+
+bool cItem_Sword::OnInteraction(Dynamic* dynamic) {
+	return true; // Add to the inventory
+}
+
+void cItem_Sword::OnUse(Dynamic* dynamic) {
+	// Emits an projectile
 }

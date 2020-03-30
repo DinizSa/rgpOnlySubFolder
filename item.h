@@ -54,3 +54,20 @@ public:
 	bool OnInteraction(Dynamic* dynamic) override;
 	void OnUse(Dynamic* dynamic) override;
 };
+
+// <------------------------------------------ Weapon ------------------------------------------>
+class cItem_Weapon : public cItem {
+public:
+	cItem_Weapon(string name, string asset, string description, int strength);
+	cItem_Weapon(string name, string asset, string description, int strength, float px, float py);
+	bool OnInteraction(Dynamic* dynamic) override;
+	void OnUse(Dynamic* dynamic) override;
+};
+// <------------------------------------------ Sword item ------------------------------------------>
+class cItem_Sword : public cItem_Weapon {
+public:
+	cItem_Sword(int strength);
+	cItem_Sword(int strength, float px, float py);
+	bool OnInteraction(Dynamic* dynamic) override;
+	void OnUse(Dynamic* dynamic) override;
+};
