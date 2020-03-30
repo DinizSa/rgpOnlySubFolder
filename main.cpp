@@ -98,7 +98,7 @@ int main()
                      cItem* itemConsumed = inventory.handleInputs(event); // Get consumed item
                      if (itemConsumed) {
                          itemConsumed->OnUse(pPlayer);
-                         pPlayer->subtractItem(itemConsumed, 1);
+                         pPlayer->consumeItem(itemConsumed, 1);
                          inventory.repositionElements();
                      }
                  }

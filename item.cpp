@@ -96,7 +96,7 @@ bool cItem_Weapon::OnInteraction(Dynamic* dynamic) {
 }
 
 void cItem_Weapon::OnUse(Dynamic* dynamic) {
-	// Emits an projectile
+	// Overriden by inherited classes
 }
 
 // <------------------------------------------ Sword item ------------------------------------------>

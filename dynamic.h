@@ -18,6 +18,8 @@ protected:
 	enum FacingDirection{SOUTH = 0, WEST = 1, NORTH = 2, EAST = 3} facingDirection;
 	enum GraphicState {STANDING, WALKING, DEATH} graphicState;
 	vector< Dynamic*> vInventory;
+	Dynamic* weapon;
+	
 
 public:
 	Dynamic();
@@ -40,8 +42,12 @@ public:
 	inline float getMaxSpeed() { return this->maxSpeed; }
 	inline string getName() { return this->sName; }
 
+	// Weapons
+	inline void setWeapon(Dynamic* weapon) { this->weapon = weapon; }
+	bool attackWeapon();
+
 	// Inventory
-	void subtractItem(Dynamic* itemToAdd, int quantity);
+	void consumeItem(Dynamic* itemToAdd, int quantity);
 	void addItem(Dynamic* itemToAdd);
 	bool hasItem(Dynamic* itemToCheck);
 	inline vector< Dynamic*>* getAllItems() { return &vInventory;  }

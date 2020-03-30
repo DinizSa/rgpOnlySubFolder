@@ -66,6 +66,8 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedDown = true;
 		if (event.key.code == sf::Keyboard::Space)
 			handleInteraction();
+		if (event.key.code == sf::Keyboard::E)
+			vDynamic[0]->attackWeapon();
 	}
 
 	// Movement released

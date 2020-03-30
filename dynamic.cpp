@@ -18,6 +18,7 @@ Dynamic::Dynamic():
 	msStartedMoving = 0;
 	msSinceStartedMoving = 0;
 	this->sName = "";
+	this->weapon = nullptr;
 }
 Dynamic::~Dynamic() {
 	for (auto item : vInventory) {
@@ -38,6 +39,7 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	msStartedMoving = 0;
 	msSinceStartedMoving = 0;
 	this->sName = name;
+	this->weapon = nullptr;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	move(map, vDynamic, 800, 600);
@@ -249,19 +251,22 @@ void Dynamic::addItem(Dynamic* itemToAdd) {
 }
 
 // Inventory: Subtract, or remove the item if quantity 0 (quantity should be positive)
-void Dynamic::subtractItem(Dynamic* itemToRemove, int quantity) {
+void Dynamic::consumeItem(Dynamic* itemToRemove, int quantity) {
 	for (unsigned i = 0; i < vInventory.size(); i++) {
-		if (((cItem*)vInventory[i])->getName() == itemToRemove->getName()) { // If same type of item
-			if (quantity==0 || !(((cItem*)vInventory[i])->updateQuantity(-quantity))) { // 0 to remove or Subtracts quantity
-				vInventory.erase(vInventory.begin() + i); // Removes item from vector if quantity in item is less than zero
-				// TODO: should delete here item?
-				return;
+		if (((cItem*)vInventory[i])->getName() == itemToRemove->getName() ) { // If same type of item
+			if (((cItem*)vInventory[i])->isConsumable()) { // If is consumable
+				if (quantity == 0 || !(((cItem*)vInventory[i])->updateQuantity(-quantity))) { // 0 to remove or Subtracts quantity
+					vInventory.erase(vInventory.begin() + i); // Removes item from vector if quantity in item is less than zero
+					// TODO: should delete here item?
+					return;
+				}
+			}
+			else if (dynamic_cast<cItem_Weapon *>(vInventory[i])) {
+				this->setWeapon(vInventory[i]);
 			}
 		}
 	}
 }
-
-
 
 bool Dynamic::hasItem(Dynamic* itemToCheck) {
 	for (auto item : vInventory) {
@@ -270,4 +275,14 @@ bool Dynamic::hasItem(Dynamic* itemToCheck) {
 		}
 	}
 	return false;
+}
+
+// Weapons
+bool Dynamic::attackWeapon() {
+	if (this->weapon != nullptr) {
+		((cItem_Weapon*)this->weapon)->OnUse(this);
+		return true;
+	}
+	else
+		return false;
 }
