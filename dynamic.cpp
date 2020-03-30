@@ -299,6 +299,7 @@ Dynamic* Dynamic::attackWeapon() {
 	if (this->weapon != nullptr) {
 		cProjectile* projectile = ((cItem_Weapon*)this->weapon)->OnWeaponUse(this);
 		if (projectile != nullptr) {
+			this->setAttacking(false);
 			return projectile;
 		}
 	}

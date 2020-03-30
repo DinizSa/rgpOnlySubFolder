@@ -15,9 +15,7 @@ public:
 	void draw(sf::RenderWindow* pWindow);
 
 	inline string getName() { return sName; }
-	//inline void setpPlayer(Creature* pPlayer) { this->vDynamic[0]=pPlayer; }
 	virtual void populateDynamics(Dynamic* pPlayer)=0;
-	inline void addProjectile(Dynamic* projectileToAdd) { vDynamic_Projectile.push_back(projectileToAdd);}
 
 protected:
 	string sName;

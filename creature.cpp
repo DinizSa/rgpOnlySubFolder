@@ -87,7 +87,6 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	float dy = this->getPosY() - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
 
-	this->setAttacking(false);
 	if (framesOfRest == 0) {
 		framesOfRest = 60 * 6;
 		this->setAttacking(true);
