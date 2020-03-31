@@ -34,8 +34,6 @@ int main()
 
     // Inventory mode
     cInventory inventory((vector<cItem*>*)(pPlayer->getAllItems()));
-
-
      while (window.isOpen())
     {
 
@@ -72,6 +70,7 @@ int main()
              // Display
              window.clear(sf::Color(0, 0, 0, 255));
              currentDynamicMap->draw(&window);
+             window.setView(sf::View(sf::Vector2f(pPlayer->getPosX(), pPlayer->getPosY()), sf::Vector2f(600.f, 450.f)));
              window.display();
              gameModePreviousFrame = EnumGameMode::MODE_LOCAL_MAP;
              break;
@@ -81,6 +80,7 @@ int main()
 
              // If comes from other game mode: Initialization
              if (gameModePreviousFrame != enumGameMode) {
+                 window.setView(sf::View(sf::Vector2f(400,300), sf::Vector2f(800.f, 600.f)));
                 gameModePreviousFrame = EnumGameMode::MODE_INVENTORY;
                 cTextDrawer::get().setTitleMode("INVENTORY");
                 inventory.repositionElements();

@@ -9,8 +9,7 @@ cTextDrawer::cTextDrawer(){
 	//sfDialogue.setOutlineColor({ 0,0,0,128 });
 	// Background of dialogue
 	sfRectText.setFillColor({ 0,0,0,0 });
-	sfRectText.setPosition(0.f, 500.f);
-	sfRectText.setSize(sf::Vector2f(800.f, 100.f));
+	sfRectText.setSize(sf::Vector2f(600.f, 100.f));
 	// Health
 	sfHealth.setFont(font);
 	sfHealth.setPosition(600.f,40.f);
@@ -24,19 +23,19 @@ cTextDrawer::cTextDrawer(){
 	// Name
 	sfItemName.setFont(font);
 	sfItemName.setString("");
-	sfItemName.setCharacterSize(20);
+	sfItemName.setCharacterSize(25);
 	sfItemName.setPosition(400.f,100.f);
 	sfItemName.setFillColor(sf::Color::White);
 	// Quantity
 	sfItemQuantity.setFont(font);
 	sfItemQuantity.setString("");
-	sfItemQuantity.setCharacterSize(20);
+	sfItemQuantity.setCharacterSize(25);
 	sfItemQuantity.setPosition(400.f, 200.f);
 	sfItemQuantity.setFillColor(sf::Color::White);
 	// Description
 	sfItemDescription.setFont(font);
 	sfItemDescription.setString("");
-	sfItemDescription.setCharacterSize(20);
+	sfItemDescription.setCharacterSize(25);
 	sfItemDescription.setPosition(400.f,300.f);
 	sfItemDescription.setFillColor(sf::Color::White);
 }
@@ -60,8 +59,10 @@ void cTextDrawer::removeDialogue() {
 	sfRectText.setFillColor({ 0,0,0,0 });
 }
 void cTextDrawer::drawText_MapMode(sf::RenderWindow* pWindow) {
+	sfRectText.setPosition(pWindow->getView().getCenter().x - (pWindow->getView().getSize().x/2), pWindow->getView().getCenter().y + (pWindow->getView().getSize().y / 2) - sfRectText.getSize().y);
 	pWindow->draw(sfRectText);
 	pWindow->draw(sfDialogue);
+	sfDialogue.setPosition(pWindow->getView().getCenter().x - (pWindow->getView().getSize().x / 2) + 50, pWindow->getView().getCenter().y + (pWindow->getView().getSize().y / 2) - 65);
 	pWindow->draw(sfHealth);
 }
 

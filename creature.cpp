@@ -38,7 +38,7 @@ void Creature::heal(int quantityToHeal) {
 }
 
 // <------------------------------------ Player --------------------------------------------->
-cCreature_Player::cCreature_Player(string name, float px, float py) : Creature(name, "PackMan", px, py, 1, 1, 1, 100, 2.0f) {
+cCreature_Player::cCreature_Player(string name, float px, float py) : Creature(name, "PackMan", px, py, 1, 1, 1, 100, 1.0f) {
 };
 
 

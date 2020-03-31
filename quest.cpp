@@ -49,12 +49,12 @@ bool cQuest_Base::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 			return true;
 		}
 		else {
-			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Good luck \n on your journey!", 1500));
+			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Good luck on your journey!", 1500));
 			return true;
 		}
 	}
 	if (target->getName() == "Joseph brother") {
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must ask my brother \n Joseph about your quests!", 1500));
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk("Ask my brother Joseph about your quests!", 1500));
 		return true;
 	}
 	return false;
@@ -80,7 +80,8 @@ bool cQuest_FindThePinkRabbit::OnInteraction(vector<Dynamic*> vDynamic, Dynamic*
 			return true;
 		}
 		else {
-			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Thank you so much sir! Take this  \n scroll and may it guide you!", 1500));
+			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Thank you so much sir!", 1500));
+			cScriptProcessor::Get().AddCommand(new cCommand_Talk("Take this scroll and may it guide you!", 1500));
 			vDynamic[0]->addItem(new cItem_ScrollBandidosTruth());
 			cQuest::removeQuest(this->getName());
 			return true;
