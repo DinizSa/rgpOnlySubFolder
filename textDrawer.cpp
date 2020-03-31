@@ -5,12 +5,16 @@ cTextDrawer::cTextDrawer(){
 		cout << "Error loading Font!" << endl;
 	// Dialogue
 	sfDialogue.setFont(font);
-	sfDialogue.setPosition(50.f, 40.f);
-	sfDialogue.setOutlineColor({ 0,0,0,128 });
+	sfDialogue.setPosition(50.f, 535.f);
+	//sfDialogue.setOutlineColor({ 0,0,0,128 });
+	// Background of dialogue
+	sfRectText.setFillColor({ 0,0,0,0 });
+	sfRectText.setPosition(0.f, 500.f);
+	sfRectText.setSize(sf::Vector2f(800.f, 100.f));
 	// Health
 	sfHealth.setFont(font);
 	sfHealth.setPosition(600.f,40.f);
-	sfHealth.setFillColor(sf::Color::Color({ 220,30,30,255}));
+	sfHealth.setFillColor(sf::Color::Color({ 230,30,30,255}));
 
 	//// Inventory
 	// Title
@@ -46,13 +50,17 @@ void cTextDrawer::setHealth(int health, int maxHealth) {
 }
 void cTextDrawer::setDialogue(string text, sf::Color color) {
 	sfDialogue.setString(text);
-	sfDialogue.setFillColor(color);
+	sfDialogue.setFillColor(sf::Color::White);
+	// Background of dialogue
+	sfRectText.setFillColor({ 20,20,20,155 });
 }
 
 void cTextDrawer::removeDialogue() {
 	sfDialogue.setString("");
+	sfRectText.setFillColor({ 0,0,0,0 });
 }
 void cTextDrawer::drawText_MapMode(sf::RenderWindow* pWindow) {
+	pWindow->draw(sfRectText);
 	pWindow->draw(sfDialogue);
 	pWindow->draw(sfHealth);
 }

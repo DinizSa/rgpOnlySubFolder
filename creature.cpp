@@ -76,7 +76,6 @@ cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Cr
 }
 
 bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Gonna fuck u up punk!", 1000, sf::Color::Red));
 	//this->attack(((Creature*)secondDynamic), this->iAttack);
 	return false;
 }

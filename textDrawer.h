@@ -32,6 +32,7 @@ private:
 	// Map mode
 	sf::Text sfDialogue;
 	sf::Text sfHealth;
+	sf::RectangleShape sfRectText;
 	// Inventary
 	sf::Text sfMode;
 	sf::Text sfItemName;
