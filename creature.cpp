@@ -25,10 +25,9 @@ bool Creature::OnInteraction(Dynamic* secondDynamic) {
 }
 
 void Creature::defend(int damage) { 
-	this->hp -= damage; 
+	this->hp -= max(damage, 0); 
 	cout << this->getName() << " attacked by " << damage << ". Health left: " << this->getHealth() << endl;
-	if (hp < 0) {
-		hp = 0;
+	if (hp == 0) {
 		graphicState = GraphicState::DEATH;
 	}
 
@@ -77,7 +76,7 @@ cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Cr
 }
 
 bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Cri Cri!", 1000, sf::Color::Red));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Gonna fuck u up punk!", 1000, sf::Color::Red));
 	//this->attack(((Creature*)secondDynamic), this->iAttack);
 	return false;
 }

@@ -2,7 +2,7 @@
 #include "creature.h"
 
 cProjectile::cProjectile(string name, string asset, float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float maxSpeed, float damage):
-	Dynamic(name, asset, px, py, false, false, friendly, false, maxSpeed, true) {
+	Dynamic(name, asset, px, py, true, false, friendly, false, maxSpeed, true) {
 	this->fVectorDirectionX = vectorDirectionX;
 	this->fVectorDirectionY = vectorDirectionY;
 	this->bEnergized = true;

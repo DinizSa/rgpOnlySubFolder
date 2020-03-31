@@ -71,7 +71,7 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 		(vx < 0 /*&& px > 0*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
 		px += vx;
 	}
-	else {
+	else{
 		if (vx < 0)
 			facingDirection = WEST;
 		else if (vx > 0)
@@ -83,13 +83,17 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windo
 		(vy < 0/* && py > 0*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
 		py += vy;
 	}
-	else {
+	else{
 		if (vy < 0)
 			facingDirection = NORTH;
 		else if (vy > 0)
 			facingDirection = SOUTH;
 		vy = 0;
 	}
+
+	// Check for solid projectiles that collided with the map
+	if (this->isProjectile() && this->solidVsSolid && vx == 0 && vy == 0)
+		((cProjectile*)this)->setEnergized(false);
 
 	this->shape.setPosition(px, py);
 }
@@ -297,9 +301,9 @@ bool Dynamic::hasItem(Dynamic* itemToCheck) {
 // Return true if attacked
 Dynamic* Dynamic::attackWeapon() {
 	if (this->weapon != nullptr) {
-		cProjectile* projectile = ((cItem_Weapon*)this->weapon)->OnWeaponUse(this);
+		cProjectile* projectile = ((cItem_Weapon*)this->weapon)->OnWeaponUse(this); 
 		if (projectile != nullptr) {
-			this->setAttacking(false);
+			this->setAttacking(false); // After attack, reset boolean
 			return projectile;
 		}
 	}

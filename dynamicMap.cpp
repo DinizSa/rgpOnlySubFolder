@@ -34,51 +34,56 @@ void cDynamicMap::update() {
 	pTimer->updateTimer();
 	cScriptProcessor::Get().ProcessCommands(pTimer->getMsSinceLastFrame());
 
-	for (auto& source : { &vDynamic, &vDynamic_Projectile }) {
-		for (auto dynamic : *source) {
-			dynamic->update(pTimer, cMap, &vDynamic);
+	if (cScriptProcessor::Get().getUserControlEnabled()) { // Freezes during commands
 
-			// Check for projectile hits
-			if (dynamic->isProjectile()) {
-				auto collided = dynamic->getColliding(vDynamic);
-				if (collided) {
-					dynamic->OnInteraction(collided);
+		for (auto& source : { &vDynamic, &vDynamic_Projectile }) {
+			for (auto dynamic : *source) {
+				dynamic->update(pTimer, cMap, &vDynamic);
+
+				// Check for projectile hits
+				if (dynamic->isProjectile()) {
+					auto collided = dynamic->getColliding(vDynamic);
+					if (collided) {
+						dynamic->OnInteraction(collided);
+					}
+				}
+				// Check for triggers gatilhados
+				if (dynamic->isAttacking()) {
+					auto projetile = dynamic->attackWeapon();
+					if (projetile) { // Defined if weapon pew pew
+						this->vDynamic_Projectile.push_back(projetile);
+					}
+					if (!dynamic->isFriendly()) // If is an enemy shooting, call interaction (might be usefull, to trigger a battle for example)
+						dynamic->OnInteraction(vDynamic[0]);
 				}
 			}
-			// Check for triggers gatilhados
-			if (dynamic->isAttacking()) {
-				auto projetile = dynamic->attackWeapon();
-				if (projetile) { // Defined if weapon pew pew
-					this->vDynamic_Projectile.push_back(projetile);
-				}
+		}
+
+		// Remove projectiles that lost their energy
+		auto it = vDynamic_Projectile.begin();
+		for (unsigned i = 0; i < vDynamic_Projectile.size(); i++)
+		{
+			if (!((cProjectile*)(vDynamic_Projectile[i]))->isEnergized()) {
+				delete vDynamic_Projectile[i];
+				vDynamic_Projectile.erase(it);
+			}
+			else {
+				++it;
 			}
 		}
+
+
+
+		// Player movement
+		if (bPressedLeft)
+			vDynamic[0]->addVelocityNormalizedX(-1.f);
+		if (bPressedRight)
+			vDynamic[0]->addVelocityNormalizedX(1.f);
+		if (bPressedUp)
+			vDynamic[0]->addVelocityNormalizedY(-1.f);
+		if (bPressedDown)
+			vDynamic[0]->addVelocityNormalizedY(1.f);
 	}
-
-	// Remove projectiles that lost their energy
-	auto it = vDynamic_Projectile.begin();
-	for (unsigned i = 0; i < vDynamic_Projectile.size(); i++)
-	{
-		if (!((cProjectile*)(vDynamic_Projectile[i]))->isEnergized()) {
-			delete vDynamic_Projectile[i];
-			vDynamic_Projectile.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
-
-
-
-	// Player movement
-	if (bPressedLeft)
-		vDynamic[0]->addVelocityNormalizedX(-1.f);
-	if (bPressedRight)
-		vDynamic[0]->addVelocityNormalizedX(1.f);
-	if (bPressedUp)
-		vDynamic[0]->addVelocityNormalizedY(-1.f);
-	if (bPressedDown)
-		vDynamic[0]->addVelocityNormalizedY(1.f);
 }
 
 
