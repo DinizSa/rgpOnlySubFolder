@@ -2,10 +2,11 @@
 #include "assets.h"
 #include <iostream>
 #include <fstream>
+#include "constants.h"
 
 Maps::Maps(string sName) {
-	int bgWidth = 800;
-	int bgHeight = 600;
+	int bgWidth = constants::WINDOW_WIDTH;
+	int bgHeight = constants::WINDOW_HEIGHT;
 	// Read map and settings from file and construct an array of landscapes
 	this->sName = sName;
 	ifstream data(sName + ".txt", ios::in | ios::binary);

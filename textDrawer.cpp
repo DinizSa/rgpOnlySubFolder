@@ -1,4 +1,5 @@
 #include "textDrawer.h"
+#include "constants.h"
 
 cTextDrawer::cTextDrawer(){
 	if (!font.loadFromFile("assets/fonts/JandaManateeSolid.ttf"))
@@ -9,34 +10,34 @@ cTextDrawer::cTextDrawer(){
 	//sfDialogue.setOutlineColor({ 0,0,0,128 });
 	// Background of dialogue
 	sfRectText.setFillColor({ 0,0,0,0 });
-	sfRectText.setSize(sf::Vector2f(600.f, 100.f));
+	sfRectText.setSize(sf::Vector2f(constants::VIEW_WIDTH, 100.f));
 	// Health
 	sfHealth.setFont(font);
-	sfHealth.setPosition(600.f,40.f);
-	sfHealth.setFillColor(sf::Color::Color({ 230,30,30,255}));
+	sfHealth.setPosition(constants::WINDOW_WIDTH*3/4,40.f);
+	sfHealth.setFillColor(sf::Color::Color({ 225,30,30,255}));
 
 	//// Inventory
 	// Title
 	sfMode.setFont(font);
 	sfMode.setPosition(320.f,30.f);
-	sfMode.setFillColor(sf::Color::Color({ 220,30,30,255}));
+	sfMode.setFillColor(sf::Color::Color({ 225,30,30,255}));
 	// Name
 	sfItemName.setFont(font);
 	sfItemName.setString("");
 	sfItemName.setCharacterSize(25);
-	sfItemName.setPosition(400.f,100.f);
+	sfItemName.setPosition(constants::WINDOW_WIDTH / 4,100.f);
 	sfItemName.setFillColor(sf::Color::White);
 	// Quantity
 	sfItemQuantity.setFont(font);
 	sfItemQuantity.setString("");
 	sfItemQuantity.setCharacterSize(25);
-	sfItemQuantity.setPosition(400.f, 200.f);
+	sfItemQuantity.setPosition(constants::WINDOW_WIDTH / 2, 200.f);
 	sfItemQuantity.setFillColor(sf::Color::White);
 	// Description
 	sfItemDescription.setFont(font);
 	sfItemDescription.setString("");
 	sfItemDescription.setCharacterSize(25);
-	sfItemDescription.setPosition(400.f,300.f);
+	sfItemDescription.setPosition(constants::WINDOW_WIDTH / 2,300.f);
 	sfItemDescription.setFillColor(sf::Color::White);
 }
 
@@ -59,10 +60,10 @@ void cTextDrawer::removeDialogue() {
 	sfRectText.setFillColor({ 0,0,0,0 });
 }
 void cTextDrawer::drawText_MapMode(sf::RenderWindow* pWindow) {
-	sfRectText.setPosition(pWindow->getView().getCenter().x - (pWindow->getView().getSize().x/2), pWindow->getView().getCenter().y + (pWindow->getView().getSize().y / 2) - sfRectText.getSize().y);
+	sfRectText.setPosition(pWindow->getView().getCenter().x - constants::VIEW_WIDTH / 2, pWindow->getView().getCenter().y + (constants::WINDOW_HEIGHT / 2) - sfRectText.getSize().y);
 	pWindow->draw(sfRectText);
 	pWindow->draw(sfDialogue);
-	sfDialogue.setPosition(pWindow->getView().getCenter().x - (pWindow->getView().getSize().x / 2) + 50, pWindow->getView().getCenter().y + (pWindow->getView().getSize().y / 2) - 65);
+	sfDialogue.setPosition(pWindow->getView().getCenter().x - (constants::VIEW_WIDTH / 2) + 50, pWindow->getView().getCenter().y + (constants::VIEW_HEIGHT / 2) - 65);
 	pWindow->draw(sfHealth);
 }
 

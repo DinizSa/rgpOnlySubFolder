@@ -63,7 +63,7 @@ public:
 	inline vector< Dynamic*>* getAllItems() { return &vInventory;  }
 
 private:
-	void move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH);
+	void move(Maps* map, vector<Dynamic*>* vDynamic);
 	bool isCollidingDynamic(vector<Dynamic*>* entitys, float posX, float posY);
 	void applyFriction();
 	void SetGraphics(Timer* timer);

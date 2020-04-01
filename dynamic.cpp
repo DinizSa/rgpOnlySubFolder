@@ -3,6 +3,7 @@
 #include "quest.h"
 #include "item.h"
 #include "scriptProcessor.h"
+#include "constants.h"
 
 Dynamic::Dynamic():
 	Entity(){
@@ -45,7 +46,7 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	this->bProjetile = isProjetile;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
-	move(map, vDynamic, 800, 600);
+	move(map, vDynamic);
 	if (cScriptProcessor::Get().getUserControlEnabled())
 		updateAI((*vDynamic)[0]);
 	applyFriction();
@@ -53,7 +54,10 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 
 }
 
-void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic, int windowW, int windowH) {
+void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
+	int windowW = constants::WINDOW_WIDTH;
+	int windowH = constants::WINDOW_HEIGHT;
+
 	// Margin around the rectangle that is not considered in the colision, so it looks smoother
 	float marginEmptyX = 0.30f;
 	float marginEmptyY = 0.10f;
