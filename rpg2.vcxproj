@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="assets.h" />
     <ClInclude Include="command.h" />
+    <ClInclude Include="constants.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="dynamic.h" />
     <ClInclude Include="entity.h" />

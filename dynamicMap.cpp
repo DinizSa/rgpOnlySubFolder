@@ -112,11 +112,8 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedDown = true;
 		if (event.key.code == sf::Keyboard::Space)
 			handleInteraction();
-		if (event.key.code == sf::Keyboard::E) {
-			vDynamic[0]->setAttacking(true); // Receives pointer to the newly created projectile
-			//auto projectile = vDynamic[0]->attackWeapon(); // Receives pointer to the newly created projectile
-			//if (projectile != nullptr)
-			//	this->addProjectile(projectile);
+		if (event.key.code == sf::Keyboard::E && vDynamic[0]->hasWeaponEquiped()) {
+			vDynamic[0]->setAttacking(true);
 
 		}
 	}
@@ -169,12 +166,12 @@ cDynamicMap_One::~cDynamicMap_One() {};
 void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(pPlayer);
 	// Map characters
-	this->vDynamic.push_back(new cCreature_FireLady("Matilda", 450, 500));
-	this->vDynamic.push_back(new cCreature_EarthBender("Joseph", 550, 350));
-	this->vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 700, 500));
-	this->vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit", 700, 350));
+	this->vDynamic.push_back(new cCreature_FireLady("Matilda", 11, 12));
+	this->vDynamic.push_back(new cCreature_EarthBender("Joseph", 12, 7));
+	this->vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 16, 13));
+	this->vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit", 16, 7));
 	// Map Interactives
-	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 460, 100));
+	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 11, 3));
 	// Items
 	this->vDynamic.push_back(new cItem_HealthPotion(10, 50.f, 400.f));
 	this->vDynamic.push_back(new cItem_Sword(10, 550.f, 400.f));

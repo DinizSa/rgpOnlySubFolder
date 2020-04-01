@@ -55,14 +55,12 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 }
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
-	int windowW = constants::WINDOW_WIDTH;
-	int windowH = constants::WINDOW_HEIGHT;
 
 	// Margin around the rectangle that is not considered in the colision, so it looks smoother
 	float marginEmptyX = 0.30f;
 	float marginEmptyY = 0.10f;
-	float widthLandscape = windowW / map->getNrHorizontal();
-	float heightLandscape = windowH / map->getNrVertical();
+	float widthLandscape = constants::WINDOW_WIDTH / map->getNrHorizontal();
+	float heightLandscape = constants::WINDOW_HEIGHT / map->getNrVertical();
 	int blockXOrigin = (int)((px + width * marginEmptyX)/ widthLandscape) % (int)widthLandscape;
 	int blockXCenter = (int)((px + width/2)/ widthLandscape) % (int)widthLandscape;
 	int blockXRight = (int)((px + width * (1.f- marginEmptyX))/ widthLandscape) % (int)widthLandscape;
@@ -71,8 +69,8 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 	int blockYDown = (int)((py+ height * (1.f - marginEmptyY))/ heightLandscape) % (int)heightLandscape;
 
 	// Horizontal
-	if ((vx > 0/* && px < windowW - this->width*/ && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
-		(vx < 0 /*&& px > 0*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
+	if ((vx > 0 && px < constants::WINDOW_WIDTH - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
+		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
 		px += vx;
 	}
 	else{
@@ -83,8 +81,8 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 			vx = 0;
 	}
 	// Vertical
-	if ((vy > 0 /*&& py < windowH - this->height*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
-		(vy < 0/* && py > 0*/ && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
+	if ((vy > 0 && py < constants::WINDOW_HEIGHT - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
+		(vy < 0 && py > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
 		py += vy;
 	}
 	else{
@@ -232,31 +230,35 @@ Dynamic* Dynamic::getColliding(vector<Dynamic*> dynamics) {
 
 void Dynamic::applyFriction() {
 	float friction = maxSpeed/20.f;
+	float factorMaxSpeed = 1.f;
+	if (vx != 0 && vy != 0)
+		factorMaxSpeed = 0.71; // Simplification of a trigonometric limitation, to keep diagonal max speed = maxSpeed
+
 	if (this->hasFriction) {
 		// Horizontal
 		if (abs(vx) < friction)
 			vx = 0.f;
 		if (vx > 0){
 			vx -= friction;
-			if (vx > this->maxSpeed)
-				vx = this->maxSpeed;
+			if (vx > this->maxSpeed * factorMaxSpeed)
+				vx = this->maxSpeed * factorMaxSpeed;
 		}else if (vx < 0) {
 			vx += friction;
-			if (vx < - this->maxSpeed)
-				vx = -this->maxSpeed;
+			if (vx < - this->maxSpeed * factorMaxSpeed)
+				vx = -this->maxSpeed * factorMaxSpeed;
 		}
 		// Vertical
 		if (abs(vy) < friction)
 			vy = 0.f;
 		if (vy > 0) {
 			vy -= friction;
-			if (vy > this->maxSpeed)
-				vy = this->maxSpeed;
+			if (vy > this->maxSpeed * factorMaxSpeed)
+				vy = this->maxSpeed * factorMaxSpeed;
 		}
 		else if (vy < 0) {
 			vy += friction;
-			if (vy < -this->maxSpeed)
-				vy = -this->maxSpeed;
+			if (vy < -this->maxSpeed * factorMaxSpeed)
+				vy = -this->maxSpeed * factorMaxSpeed;
 		}
 	}
 }

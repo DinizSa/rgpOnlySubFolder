@@ -20,13 +20,13 @@ int main()
     int gameModePreviousFrame = enumGameMode;
 
     // Initialization of shared ressources between levels
-    sf::RenderWindow window(sf::VideoMode(constants::WINDOW_WIDTH, constants::WINDOW_HEIGHT), "Window");
+    sf::RenderWindow window(sf::VideoMode(constants::VIEW_WIDTH, constants::VIEW_HEIGHT), "Window");
     window.setFramerateLimit(60);
     Assets::get().LoadTextures();
     Assets::get().SetNameDynamicMap("DynMap_WildOne");
 
 
-    Creature* pPlayer = new cCreature_Player("Bandido", 400, 450);
+    Creature* pPlayer = new cCreature_Player("Bandido", 9 ,10);
     cDynamicMap* currentDynamicMap = new cDynamicMap_One;
     currentDynamicMap->populateDynamics(pPlayer);
 
@@ -83,7 +83,7 @@ int main()
 
              // If comes from other game mode: Initialization
              if (gameModePreviousFrame != enumGameMode) {
-                 window.setView(sf::View(sf::Vector2f(400,300), sf::Vector2f((float)constants::WINDOW_WIDTH, (float)constants::VIEW_HEIGHT)));
+                 window.setView(sf::View(sf::Vector2f(constants::WINDOW_WIDTH/2, constants::VIEW_HEIGHT/2), sf::Vector2f((float)constants::WINDOW_WIDTH, (float)constants::VIEW_HEIGHT)));
                 gameModePreviousFrame = EnumGameMode::MODE_INVENTORY;
                 cTextDrawer::get().setTitleMode("INVENTORY");
                 inventory.repositionElements();

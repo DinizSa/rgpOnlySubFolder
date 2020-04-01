@@ -7,6 +7,7 @@
 Maps::Maps(string sName) {
 	int bgWidth = constants::WINDOW_WIDTH;
 	int bgHeight = constants::WINDOW_HEIGHT;
+	int assetsSize = Assets::get().GetSizeSprite();
 	// Read map and settings from file and construct an array of landscapes
 	this->sName = sName;
 	ifstream data(sName + ".txt", ios::in | ios::binary);
@@ -29,7 +30,7 @@ Maps::Maps(string sName) {
 			{
 				int ind = x + y * nrHorizontal;
 				data >> indicesMap[ind] >> solidMap[ind];
-				landscapes[ind] = Landscape(spriteAsset, x * widthLandscape, y * heightLandscape, (float)widthLandscape, (float)heightLandscape);
+				landscapes[ind] = Landscape(spriteAsset, x * assetsSize, y * assetsSize, (float)assetsSize, (float)assetsSize);
 				int posSpriteX = ((int)indicesMap[ind] % spriteNrX) * widthSpriteInd;
 				int posSpriteY = floor(indicesMap[ind] / spriteNrX) * heightSpriteInd;
 				landscapes[ind].setPartialTexture(posSpriteX, posSpriteY, widthSpriteInd, heightSpriteInd);
@@ -50,7 +51,5 @@ Maps::~Maps() {
 
 void Maps::draw(sf::RenderWindow* window) {
 	for (int i = 0; i < nrHorizontal * nrVertical; i++)
-	{
 		landscapes[i].draw(window);
-	}
 }

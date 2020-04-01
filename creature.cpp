@@ -4,6 +4,7 @@
 #include "quest.h"
 #include "textDrawer.h"
 #include "item.h"
+#include "constants.h"
 
 Creature::Creature(): Dynamic() {
 	hp = 0;
@@ -13,7 +14,7 @@ Creature::Creature(): Dynamic() {
 //Creature::~Creature() {
 //}
 Creature::Creature(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, int maxHp, float maxSpeed):
-	Dynamic(name, asset, px, py, solidVsSolid, solidVsDynamic, friendly, true, maxSpeed, false){
+	Dynamic(name, asset, px* constants::ASSET_SIZE, py* constants::ASSET_SIZE, solidVsSolid, solidVsDynamic, friendly, true, maxSpeed, false){
 	this->hp = maxHp;
 	this->maxHp = maxHp;
 	this->questAdded = false;
@@ -85,10 +86,11 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 	float dy = this->getPosY() - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
 
-	if (framesOfRest == 0) {
+	if (framesOfRest == 0) 
 		framesOfRest = 60 * 6;
+	
+	if(framesOfRest==60*4)
 		this->setAttacking(true);
-	}
 
 	if(framesOfRest > 60*4 && abs(delta) > Assets::get().GetSizeSprite())
 		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);

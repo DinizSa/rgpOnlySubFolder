@@ -6,38 +6,38 @@ cTextDrawer::cTextDrawer(){
 		cout << "Error loading Font!" << endl;
 	// Dialogue
 	sfDialogue.setFont(font);
-	sfDialogue.setPosition(50.f, 535.f);
+	//sfDialogue.setPosition(50.f, 535.f);
 	//sfDialogue.setOutlineColor({ 0,0,0,128 });
 	// Background of dialogue
 	sfRectText.setFillColor({ 0,0,0,0 });
 	sfRectText.setSize(sf::Vector2f(constants::VIEW_WIDTH, 100.f));
 	// Health
 	sfHealth.setFont(font);
-	sfHealth.setPosition(constants::WINDOW_WIDTH*3/4,40.f);
 	sfHealth.setFillColor(sf::Color::Color({ 225,30,30,255}));
+	sfHealth.setCharacterSize(25);
 
 	//// Inventory
 	// Title
 	sfMode.setFont(font);
-	sfMode.setPosition(320.f,30.f);
+	sfMode.setPosition(constants::VIEW_WIDTH / 2 - 50,30.f);
 	sfMode.setFillColor(sf::Color::Color({ 225,30,30,255}));
 	// Name
 	sfItemName.setFont(font);
 	sfItemName.setString("");
 	sfItemName.setCharacterSize(25);
-	sfItemName.setPosition(constants::WINDOW_WIDTH / 4,100.f);
+	sfItemName.setPosition(constants::VIEW_WIDTH / 2,100.f);
 	sfItemName.setFillColor(sf::Color::White);
 	// Quantity
 	sfItemQuantity.setFont(font);
 	sfItemQuantity.setString("");
 	sfItemQuantity.setCharacterSize(25);
-	sfItemQuantity.setPosition(constants::WINDOW_WIDTH / 2, 200.f);
+	sfItemQuantity.setPosition(constants::VIEW_WIDTH / 2, 200.f);
 	sfItemQuantity.setFillColor(sf::Color::White);
 	// Description
 	sfItemDescription.setFont(font);
 	sfItemDescription.setString("");
 	sfItemDescription.setCharacterSize(25);
-	sfItemDescription.setPosition(constants::WINDOW_WIDTH / 2,300.f);
+	sfItemDescription.setPosition(constants::VIEW_WIDTH / 2,300.f);
 	sfItemDescription.setFillColor(sf::Color::White);
 }
 
@@ -60,10 +60,13 @@ void cTextDrawer::removeDialogue() {
 	sfRectText.setFillColor({ 0,0,0,0 });
 }
 void cTextDrawer::drawText_MapMode(sf::RenderWindow* pWindow) {
-	sfRectText.setPosition(pWindow->getView().getCenter().x - constants::VIEW_WIDTH / 2, pWindow->getView().getCenter().y + (constants::WINDOW_HEIGHT / 2) - sfRectText.getSize().y);
+	float viewOriginX = pWindow->getView().getCenter().x - constants::VIEW_WIDTH / 2;
+	float viewOriginY = pWindow->getView().getCenter().y - constants::VIEW_HEIGHT / 2;
+	sfRectText.setPosition(viewOriginX, viewOriginY + constants::VIEW_HEIGHT - sfRectText.getSize().y);
 	pWindow->draw(sfRectText);
+	sfDialogue.setPosition(viewOriginX + 50, viewOriginY + constants::VIEW_HEIGHT - 65);
 	pWindow->draw(sfDialogue);
-	sfDialogue.setPosition(pWindow->getView().getCenter().x - (constants::VIEW_WIDTH / 2) + 50, pWindow->getView().getCenter().y + (constants::VIEW_HEIGHT / 2) - 65);
+	sfHealth.setPosition(viewOriginX - 150, viewOriginY + 20.f);
 	pWindow->draw(sfHealth);
 }
 

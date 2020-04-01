@@ -35,9 +35,9 @@ cQuest_Base::cQuest_Base():cQuest("Base quest") {  }
 cQuest_Base::~cQuest_Base() { }
 void cQuest_Base::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapName) {
 	if (dynMmapName == "DynMap_WildOne") {
-		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",100, 100));
+		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",3, 3));
 	}else if (dynMmapName == "DynMap_WildOneTrip") {
-		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",600, 100));
+		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",15, 3));
 	} 
 }
 
@@ -68,7 +68,7 @@ cQuest_FindThePinkRabbit::cQuest_FindThePinkRabbit() :cQuest("Find pink Rabbit")
 cQuest_FindThePinkRabbit::~cQuest_FindThePinkRabbit() { }
 void cQuest_FindThePinkRabbit::PopulateDynamics(vector<Dynamic*>& vDynamic, string dynMmapName) {
 	if (dynMmapName == "DynMap_WildOneTrip") {
-		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",750, 500));
+		vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit",19, 15));
 	} 
 }
 

@@ -28,7 +28,7 @@ public:
 	~Dynamic();
 	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
 	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
-	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed; }
+	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed /** ( 1 * sin(atan(deltaVy /deltaVx)))*/; this->vy += deltaVy * maxSpeed /** (1 * cos(atan(deltaVy / deltaVx)))*/; }
 	inline void setVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx = deltaVx; this->vy = deltaVy; }
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual bool OnInteraction(Dynamic* secondDynamic) = 0;
