@@ -1,5 +1,6 @@
 #include "projectile.h"
 #include "creature.h"
+#include "constants.h"
 
 cProjectile::cProjectile(string name, string asset, float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float maxSpeed, float damage):
 	Dynamic(name, asset, px, py, true, false, friendly, false, maxSpeed, true) {

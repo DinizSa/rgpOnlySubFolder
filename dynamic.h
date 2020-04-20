@@ -57,7 +57,7 @@ public:
 	Dynamic* attackWeapon();
 
 	// Inventory
-	void consumeItem(Dynamic* itemToAdd, int quantity);
+	void consumeItem(string itemName, int quantity);
 	void addItem(Dynamic* itemToAdd);
 	bool hasItem(Dynamic* itemToCheck);
 	inline vector< Dynamic*>* getAllItems() { return &vInventory;  }

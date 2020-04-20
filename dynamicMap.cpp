@@ -5,6 +5,7 @@
 #include "Interactive.h"
 #include "item.h"
 #include <algorithm>
+#include "constants.h"
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
@@ -71,8 +72,6 @@ void cDynamicMap::update() {
 				++it;
 			}
 		}
-
-
 
 		// Player movement
 		if (bPressedLeft)
@@ -167,14 +166,14 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(pPlayer);
 	// Map characters
 	this->vDynamic.push_back(new cCreature_FireLady("Matilda", 11, 12));
-	this->vDynamic.push_back(new cCreature_EarthBender("Joseph", 12, 7));
+	this->vDynamic.push_back(new cCreature_EarthBender("Gustavo Santos", 12, 7));
 	this->vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 16, 13));
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit", 16, 7));
 	// Map Interactives
-	this->vDynamic.push_back(new cInteractive_Teleport(700, 450, "DynMap_WildOneTrip", 11, 3));
+	this->vDynamic.push_back(new cInteractive_Teleport(18, 12, "DynMap_WildOneTrip", 11, 10 ));
 	// Items
-	this->vDynamic.push_back(new cItem_HealthPotion(10, 50.f, 400.f));
-	this->vDynamic.push_back(new cItem_Sword(10, 550.f, 400.f));
+	this->vDynamic.push_back(new cItem_HealthPotion(10, 2, 16));
+	this->vDynamic.push_back(new cItem_Sword(10, 14, 16));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
@@ -193,18 +192,18 @@ cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
 void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(pPlayer);
 	// Map characters
-	this->vDynamic.push_back(new cCreature_FireLady("Matilda sister", 350, 100));
-	this->vDynamic.push_back(new cCreature_EarthBender("Joseph brother", 150, 50));
+	this->vDynamic.push_back(new cCreature_FireLady("Matilda sister", 10, 6));
+	this->vDynamic.push_back(new cCreature_EarthBender("Joseph brother", 5, 12));
 	// Map Interactives
-	this->vDynamic.push_back(new cInteractive_Teleport(500, 100, "DynMap_WildOne", 660, 450));
+	this->vDynamic.push_back(new cInteractive_Teleport(12, 10, "DynMap_WildOne", 17 , 12 ));
 	// Items
-	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 90.f, 400.f));
+	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 3, 3));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
 
-	cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi this world is the same as \nthe previous... ", 1500, sf::Color::Black));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("... but on drugs! ", 1500, sf::Color::Black));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must get out of this trip man! ", 1500, sf::Color::Black));
+	//cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
+	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi this world is the same as \nthe previous... ", 1500, sf::Color::Black));
+	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("... but on drugs! ", 1500, sf::Color::Black));
+	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must get out of this trip man! ", 1500, sf::Color::Black));
 }

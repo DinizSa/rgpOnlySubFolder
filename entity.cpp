@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "assets.h"
+#include "constants.h"
 
 Entity::Entity() {
 	this->px = 0.f;
@@ -12,8 +13,8 @@ Entity::Entity() {
 
 Entity::Entity(string sAsset, float px, float py) {
 	this->sAsset = sAsset;
-	this->px = px;
-	this->py = py;
+	this->px = px * constants::ASSET_SIZE;
+	this->py = py * constants::ASSET_SIZE;
 	this->width = Assets::get().GetSizeSprite();
 	this->height = Assets::get().GetSizeSprite();
 	this->shape = sf::RectangleShape(sf::Vector2f(width, height));
@@ -25,6 +26,9 @@ Entity::Entity(string sAsset, float px, float py) {
 
 void Entity::setPartialTexture(int px, int py, int dx, int dy) {
 	this->shape.setTextureRect(sf::IntRect(px, py, dx, dy));
+}
+void Entity::setDeathGraphics() {
+	this->shape.setFillColor(sf::Color::Color(20,20,20,100));
 }
 
 void Entity::updatePosition(float px, float py) {

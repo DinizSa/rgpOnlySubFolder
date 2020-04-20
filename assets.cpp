@@ -30,6 +30,8 @@ void Assets::LoadTextures() {
 	load("scroll", "assets/tiles/scroll.png");
 	load("sword", "assets/tiles/sword.png");
 	load("fireball", "assets/tiles/fireball4.png");
+	load("sock", "assets/tiles/sock.png");
+	load("amate", "assets/tiles/amate.jpg");
 	   
 	//// B&W
 	//load("MapWildOne", "assets/tiles/MapWildOneBW.png");

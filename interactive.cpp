@@ -1,5 +1,6 @@
 #include "interactive.h"
 #include "assets.h"
+#include "constants.h"
 
 Interactive::Interactive():
 	Dynamic() {
@@ -18,11 +19,11 @@ bool Interactive::OnInteraction(Dynamic* secondDynamic) {
 
 // <---------------------------- cInteractive_Teleport ---------------------------->
 
-cInteractive_Teleport::cInteractive_Teleport(float posX, float posY, string sTargetDynamicMap, float targetX, float targetY)
+cInteractive_Teleport::cInteractive_Teleport(float posX, float posY, string sTargetDynamicMap, float targetX , float targetY)
  : Interactive("RedFlowers", posX, posY) {
 	this->sTargetDynamicMap = sTargetDynamicMap;
-	this->targetX = targetX;
-	this->targetY = targetY;
+	this->targetX = targetX * constants::ASSET_SIZE;
+	this->targetY = targetY * constants::ASSET_SIZE;
 }
 
 cInteractive_Teleport::~cInteractive_Teleport() {}

@@ -20,13 +20,13 @@ int main()
     int gameModePreviousFrame = enumGameMode;
 
     // Initialization of shared ressources between levels
-    sf::RenderWindow window(sf::VideoMode(constants::VIEW_WIDTH, constants::VIEW_HEIGHT), "Window");
+    sf::RenderWindow window(sf::VideoMode(constants::WINDOW_WIDTH, constants::WINDOW_WIDTH), "Window");
     window.setFramerateLimit(60);
     Assets::get().LoadTextures();
     Assets::get().SetNameDynamicMap("DynMap_WildOne");
 
 
-    Creature* pPlayer = new cCreature_Player("Bandido", 9 ,10);
+    Creature* pPlayer = new cCreature_Player("Trenk", 9 ,10);
     cDynamicMap* currentDynamicMap = new cDynamicMap_One;
     currentDynamicMap->populateDynamics(pPlayer);
 
@@ -71,8 +71,8 @@ int main()
              // Display
              window.clear(sf::Color(0, 0, 0, 255));
              currentDynamicMap->draw(&window);
-             auto centerX = pPlayer->getPosX() < (constants::VIEW_WIDTH / 2) ? max(constants::VIEW_WIDTH / 2, (int)pPlayer->getPosX()) : min((constants::WINDOW_WIDTH - constants::VIEW_WIDTH / 2) , (int)pPlayer->getPosX());
-             auto centerY = pPlayer->getPosY() < (constants::VIEW_HEIGHT / 2) ? max(constants::VIEW_HEIGHT / 2, (int)pPlayer->getPosY()) : min((constants::WINDOW_HEIGHT - constants::VIEW_HEIGHT / 2) , (int)pPlayer->getPosY());
+             auto centerX = pPlayer->getPosX() < (constants::VIEW_WIDTH / 2) ? max(constants::VIEW_WIDTH / 2, (int)pPlayer->getPosX()) : min((constants::MAP_WIDTH - constants::VIEW_WIDTH / 2) , (int)pPlayer->getPosX());
+             auto centerY = pPlayer->getPosY() < (constants::VIEW_HEIGHT / 2) ? max(constants::VIEW_HEIGHT / 2, (int)pPlayer->getPosY()) : min((constants::MAP_HEIGHT - constants::VIEW_HEIGHT / 2) , (int)pPlayer->getPosY());
              window.setView(sf::View(sf::Vector2f(centerX, centerY), sf::Vector2f((float)constants::VIEW_WIDTH, (float)constants::VIEW_HEIGHT)));
              window.display();
              gameModePreviousFrame = EnumGameMode::MODE_LOCAL_MAP;
@@ -83,9 +83,9 @@ int main()
 
              // If comes from other game mode: Initialization
              if (gameModePreviousFrame != enumGameMode) {
-                 window.setView(sf::View(sf::Vector2f(constants::WINDOW_WIDTH/2, constants::VIEW_HEIGHT/2), sf::Vector2f((float)constants::WINDOW_WIDTH, (float)constants::VIEW_HEIGHT)));
+                 window.setView(sf::View(sf::Vector2f(constants::MAP_WIDTH/2, constants::VIEW_HEIGHT/2), sf::Vector2f((float)constants::MAP_WIDTH, (float)constants::VIEW_HEIGHT)));
                 gameModePreviousFrame = EnumGameMode::MODE_INVENTORY;
-                cTextDrawer::get().setTitleMode("INVENTORY");
+                cTextDrawer::get().setTitleMode("Inventory");
                 inventory.repositionElements();
              }
 
@@ -101,7 +101,7 @@ int main()
                      cItem* itemConsumed = inventory.handleInputs(event); // Get consumed item
                      if (itemConsumed) {
                          itemConsumed->OnUse(pPlayer);
-                         pPlayer->consumeItem(itemConsumed, 1);
+                         pPlayer->consumeItem(itemConsumed->getName(), 1);
                          inventory.repositionElements();
                      }
                  }

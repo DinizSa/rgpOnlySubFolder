@@ -1,5 +1,6 @@
 #include "item.h";
 #include "creature.h";
+#include "constants.h"
 
 cItem::cItem(string name, string asset, string desc, float px, float py, int iQuantity, bool consumable): 
 	Dynamic(name, asset, px, py, true, true, true, true, 1.f, false) {
@@ -70,18 +71,33 @@ void cItem_MaxHealthPotion::OnUse(Dynamic* dynamic) {
 }
 
 // <------------------------------------------ Scroll Item ------------------------------------------>
-cItem_ScrollBandidosTruth::cItem_ScrollBandidosTruth() :cItem("Bandido's scroll of truth", "scroll", "Bandido is a lil punk - Aristoteles", -1, -1, 1, false) {}
+cItem_Scroll::cItem_Scroll() :cItem("Ama-te", "amate", "A mente cham-se mente, porque mente.", -1, -1, 1, false) {}
 
-cItem_ScrollBandidosTruth::cItem_ScrollBandidosTruth(float px, float py) : cItem("Bandido's scroll of truth", "scroll", "Bandido is a lil punk - Aristoteles", px, py, 1, false) {
+cItem_Scroll::cItem_Scroll(float px, float py) : cItem("Ama-te", "amate", "A mente chama-se mente, porque mente.", px, py, 1, false) {
 }
 
-bool cItem_ScrollBandidosTruth::OnInteraction(Dynamic* dynamic) {
+bool cItem_Scroll::OnInteraction(Dynamic* dynamic) {
 	return true; // Add to the inventory
 }
 
-void cItem_ScrollBandidosTruth::OnUse(Dynamic* dynamic) {
+void cItem_Scroll::OnUse(Dynamic* dynamic) {
 	// Maybe focus on scroll
 }
+
+// <------------------------------------------ Calcetine Item ------------------------------------------>
+cItem_Calcetine::cItem_Calcetine() :cItem("Meia", "sock", "Meia que chiera a erva", -1, -1, 1, false) {}
+
+cItem_Calcetine::cItem_Calcetine(float px, float py) : cItem("Meia", "scroll", "Meia que cheira a erva", px, py, 1, false) {
+}
+
+bool cItem_Calcetine::OnInteraction(Dynamic* dynamic) {
+	return true; // Add to the inventory
+}
+
+void cItem_Calcetine::OnUse(Dynamic* dynamic) {
+	// Maybe focus on scroll
+}
+
 
 // <------------------------------------------ Weapon ------------------------------------------>
 cItem_Weapon::cItem_Weapon(string name, string asset, string description, int strength) :cItem(name, asset, description, -1, -1, 1, false) {
@@ -143,5 +159,5 @@ cProjectile* cItem_Sword::OnWeaponUse(Dynamic* dynamic) {
 	//float velY = momentumY + dynamic->getVelY()/dynamic->getMaxSpeed();
 
 	// Emits an projectile
-	return new cProjectile_Fireball(dynamic->getPosX(), dynamic->getPosY(), momentumX, momentumY, dynamic->isFriendly(),this->iStrength);
+	return new cProjectile_Fireball(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, momentumX, momentumY, dynamic->isFriendly(),this->iStrength);
 }

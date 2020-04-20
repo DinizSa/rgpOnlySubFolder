@@ -9,11 +9,17 @@ cCommand::cCommand(){
 cCommand::~cCommand() {};
 
 // <------------------------------- Talk Command ------------------------------->
-cCommand_Talk::cCommand_Talk(string textToDisplay, int iMsDuration, sf::Color color) {
+cCommand_Talk::cCommand_Talk(string textToDisplay, int iMsDuration) {
 	iMsDisplaying = 0;
 	this->iMsDuration = iMsDuration;
-	this->textColor = color;
 	this->textToDisplay = textToDisplay;
+	bCompleted = false;
+	bStarted = false;
+};
+cCommand_Talk::cCommand_Talk(string name, string textToDisplay, int iMsDuration) {
+	iMsDisplaying = 0;
+	this->iMsDuration = iMsDuration;
+	this->textToDisplay = "[ " + name + " ]   " + textToDisplay;
 	bCompleted = false;
 	bStarted = false;
 };
@@ -24,7 +30,7 @@ cCommand_Talk::~cCommand_Talk() {
 void cCommand_Talk::Start() {
 	bCompleted = false;
 	bStarted = true;
-	cTextDrawer::get().setDialogue( textToDisplay, textColor);
+	cTextDrawer::get().setDialogue( textToDisplay);
 };
 
 void cCommand_Talk::Update(int msElapsed) {

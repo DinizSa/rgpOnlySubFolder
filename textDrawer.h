@@ -16,7 +16,7 @@ public:
 
 	// Map mode
 	void drawText_MapMode(sf::RenderWindow* window);
-	void setDialogue(string text, sf::Color color);
+	void setDialogue(string text);
 	void removeDialogue();
 	void setHealth(int health, int maxHealth);
 

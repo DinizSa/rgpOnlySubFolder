@@ -47,11 +47,19 @@ public:
 	void OnUse(Dynamic* dynamic) override;
 };
 
-// <------------------------------------------ Scroll of bandidos truth ------------------------------------------>
-class cItem_ScrollBandidosTruth : public cItem {
+// <------------------------------------------ Scroll of gustavus ------------------------------------------>
+class cItem_Scroll : public cItem {
 public:
-	cItem_ScrollBandidosTruth();
-	cItem_ScrollBandidosTruth(float px, float py);
+	cItem_Scroll();
+	cItem_Scroll(float px, float py);
+	bool OnInteraction(Dynamic* dynamic) override;
+	void OnUse(Dynamic* dynamic) override;
+};
+// <------------------------------------------ Calcetine sock ------------------------------------------>
+class cItem_Calcetine : public cItem {
+public:
+	cItem_Calcetine();
+	cItem_Calcetine(float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
 	void OnUse(Dynamic* dynamic) override;
 };

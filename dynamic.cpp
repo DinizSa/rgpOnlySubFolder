@@ -46,11 +46,18 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	this->bProjetile = isProjetile;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
-	move(map, vDynamic);
-	if (cScriptProcessor::Get().getUserControlEnabled())
-		updateAI((*vDynamic)[0]);
-	applyFriction();
-	SetGraphics(timer);
+	if (graphicState != GraphicState::DEATH) {
+		move(map, vDynamic);
+		if (cScriptProcessor::Get().getUserControlEnabled())
+			updateAI((*vDynamic)[0]);
+		applyFriction();
+		SetGraphics(timer);
+	}
+	else {
+		this->solidVsDynamic = false;
+		this->solidVsSolid = false;
+		setDeathGraphics();
+	}
 
 }
 
@@ -59,8 +66,8 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 	// Margin around the rectangle that is not considered in the colision, so it looks smoother
 	float marginEmptyX = 0.30f;
 	float marginEmptyY = 0.10f;
-	float widthLandscape = constants::WINDOW_WIDTH / map->getNrHorizontal();
-	float heightLandscape = constants::WINDOW_HEIGHT / map->getNrVertical();
+	float widthLandscape = constants::MAP_WIDTH / map->getNrHorizontal();
+	float heightLandscape = constants::MAP_HEIGHT / map->getNrVertical();
 	int blockXOrigin = (int)((px + width * marginEmptyX)/ widthLandscape) % (int)widthLandscape;
 	int blockXCenter = (int)((px + width/2)/ widthLandscape) % (int)widthLandscape;
 	int blockXRight = (int)((px + width * (1.f- marginEmptyX))/ widthLandscape) % (int)widthLandscape;
@@ -69,7 +76,7 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 	int blockYDown = (int)((py+ height * (1.f - marginEmptyY))/ heightLandscape) % (int)heightLandscape;
 
 	// Horizontal
-	if ((vx > 0 && px < constants::WINDOW_WIDTH - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
+	if ((vx > 0 && px < constants::MAP_WIDTH - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
 		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
 		px += vx;
 	}
@@ -81,7 +88,7 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 			vx = 0;
 	}
 	// Vertical
-	if ((vy > 0 && py < constants::WINDOW_HEIGHT - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
+	if ((vy > 0 && py < constants::MAP_HEIGHT - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
 		(vy < 0 && py > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
 		py += vy;
 	}
@@ -133,6 +140,8 @@ void Dynamic::SetGraphics(Timer* timer) {
 	int sizeSprite = Assets::get().GetSizeSprite();
 	// facingDirection represents the line of the sprite
 	setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
+
+		
 
 }
 
@@ -192,7 +201,7 @@ Dynamic* Dynamic::getCollidingFront(vector<Dynamic*>* vDynamic) {
 bool Dynamic::isCollidingDynamic(vector<Dynamic*>* vDynamic, float posX, float posY) {
 	for (unsigned i =0; i < vDynamic->size(); i++)
 	{
-		if (this != (*vDynamic)[i]) {
+		if (this != (*vDynamic)[i] && (*vDynamic)[i]->getSolidVsDynamic()) {
 			if (posX > (*vDynamic)[i]->getPosX() && posX < (*vDynamic)[i]->getPosX() + (*vDynamic)[i]->getWidth()) {
 				if (posY > (*vDynamic)[i]->getPosY() && posY < (*vDynamic)[i]->getPosY() + (*vDynamic)[i]->getHeight()) {
 					return true;
@@ -278,9 +287,9 @@ void Dynamic::addItem(Dynamic* itemToAdd) {
 }
 
 // Inventory: Subtract, or remove the item if quantity 0 (quantity should be positive)
-void Dynamic::consumeItem(Dynamic* itemToRemove, int quantity) {
+void Dynamic::consumeItem(string itemName, int quantity) {
 	for (unsigned i = 0; i < vInventory.size(); i++) {
-		if (((cItem*)vInventory[i])->getName() == itemToRemove->getName() ) { // If same type of item
+		if (((cItem*)vInventory[i])->getName() == itemName ) { // If same type of item
 			if (((cItem*)vInventory[i])->isConsumable()) { // If is consumable
 				if (quantity == 0 || !(((cItem*)vInventory[i])->updateQuantity(-quantity))) { // 0 to remove or Subtracts quantity
 					vInventory.erase(vInventory.begin() + i); // Removes item from vector if quantity in item is less than zero
