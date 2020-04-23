@@ -85,7 +85,9 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 			facingDirection = WEST;
 		else if (vx > 0)
 			facingDirection = EAST;
-			vx = 0;
+		if (this->isProjectile() && vx != 0)
+			vy = 0;
+		vx = 0;
 	}
 	// Vertical
 	if ((vy > 0 && py < constants::MAP_HEIGHT - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
@@ -97,6 +99,8 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 			facingDirection = NORTH;
 		else if (vy > 0)
 			facingDirection = SOUTH;
+		if (this->isProjectile() && vy != 0)
+			vx = 0;
 		vy = 0;
 	}
 
@@ -120,6 +124,7 @@ void Dynamic::SetGraphics(Timer* timer) {
 		}
 	};
 
+
 	if (vx > 0)
 		setTimeWalking(FacingDirection::EAST);
 	else if (vx < 0)
@@ -139,12 +144,47 @@ void Dynamic::SetGraphics(Timer* timer) {
 
 	int sizeSprite = Assets::get().GetSizeSprite();
 	// facingDirection represents the line of the sprite
+
+
 	setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
 
-		
+	
 
 }
 
+float Dynamic::getMomentumX() { 
+	float momentumX;
+	switch (this->geFacingDirection())
+	{
+	case 1: // West
+		momentumX = -1.f;
+		break;
+	case 3: // East
+		momentumX = 1.f;
+		break;
+	default:
+		momentumX = 0.f;
+		break;
+	}
+	return momentumX + (vx / maxSpeed) / 3;
+};
+
+float Dynamic::getMomentumY() {
+	float momentumY;
+	switch (this->geFacingDirection())
+	{
+	case 0: // South
+		momentumY = 1.f;
+		break;
+	case 2: // North
+		momentumY = -1.f;
+		break;
+	default:
+		momentumY = 0.f;
+		break;
+	}
+	return momentumY + (vy / maxSpeed) / 3;
+};
 
 // Return a pointer to the entity that is colliding or nullptr if not colliding 
 Dynamic* Dynamic::getCollidingFront(vector<Dynamic*>* vDynamic) {

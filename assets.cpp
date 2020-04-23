@@ -32,6 +32,7 @@ void Assets::LoadTextures() {
 	load("fireball", "assets/tiles/fireball4.png");
 	load("sock", "assets/tiles/sock.png");
 	load("amate", "assets/tiles/amate.jpg");
+	load("magicStaff", "assets/tiles/magicStaff.png");
 	   
 	//// B&W
 	//load("MapWildOne", "assets/tiles/MapWildOneBW.png");

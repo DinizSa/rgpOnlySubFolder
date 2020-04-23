@@ -9,6 +9,8 @@
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
+	this->bPressedE = false;
+	this->bPressedSpace = false;
 	this->bPressedRight = false;
 	this->bPressedUp = false;
 	this->bPressedDown = false;
@@ -82,6 +84,14 @@ void cDynamicMap::update() {
 			vDynamic[0]->addVelocityNormalizedY(-1.f);
 		if (bPressedDown)
 			vDynamic[0]->addVelocityNormalizedY(1.f);
+
+		// Interaction
+		if (bPressedSpace)
+			handleInteraction();
+
+		// Shot
+		if (this->bPressedE && vDynamic[0]->hasWeaponEquiped()) 
+			vDynamic[0]->setAttacking(true);
 	}
 }
 
@@ -109,15 +119,16 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedUp = true;
 		if (event.key.code == sf::Keyboard::S)
 			this->bPressedDown = true;
-		if (event.key.code == sf::Keyboard::Space)
-			handleInteraction();
-		if (event.key.code == sf::Keyboard::E && vDynamic[0]->hasWeaponEquiped()) {
-			vDynamic[0]->setAttacking(true);
+		if (event.key.code == sf::Keyboard::Space) {
+			this->bPressedSpace = true;
+		}
+		if (event.key.code == sf::Keyboard::E) {
+			this->bPressedE = true;
 
 		}
 	}
 
-	// Movement released
+	// Keys released
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::A)
 			this->bPressedLeft = false;
@@ -127,6 +138,10 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedUp = false;
 		if (event.key.code == sf::Keyboard::S)
 			this->bPressedDown = false;
+		if (event.key.code == sf::Keyboard::Space)
+			this->bPressedSpace = false;
+		if (event.key.code == sf::Keyboard::E)
+			this->bPressedE= false;
 	}
 }
 
@@ -143,7 +158,7 @@ void cDynamicMap::handleInteraction() {
 				// If an item returns true, is to add
 				vDynamic[0]->addItem(collided);
 			}
-			// REmove from the map, and add to the dynamic player
+			// Remove from the map, and add to the dynamic player
 			vDynamic.erase(remove(vDynamic.begin(), vDynamic.end(), collided), vDynamic.end());
 			return;
 		}

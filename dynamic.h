@@ -48,8 +48,10 @@ public:
 	inline float getVelX() { return this->vx; }
 	inline float getVelY() { return this->vy; }
 	inline bool isProjectile() { return bProjetile; }
-	bool isAttacking() { return this->bAttacking; }
-	void setAttacking(bool attacking) { this->bAttacking = attacking; }
+	inline bool isAttacking() { return this->bAttacking; }
+	inline void setAttacking(bool attacking) { this->bAttacking = attacking; }
+	float getMomentumX();
+	float getMomentumY();
 
 	// Weapons
 	inline void setWeapon(Dynamic* weapon) { this->weapon = weapon; }

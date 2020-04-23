@@ -23,7 +23,7 @@ protected:
 	Maps* cMap;
 	vector<Dynamic*> vDynamic;
 	vector<Dynamic*> vDynamic_Projectile;
-	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
+	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft, bPressedSpace, bPressedE;
 
 	void handleInteraction();
 };

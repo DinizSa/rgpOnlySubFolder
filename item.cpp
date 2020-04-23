@@ -1,6 +1,6 @@
 #include "item.h";
 #include "creature.h";
-#include "constants.h"
+#include "constants.h";
 
 cItem::cItem(string name, string asset, string desc, float px, float py, int iQuantity, bool consumable): 
 	Dynamic(name, asset, px, py, true, true, true, true, 1.f, false) {
@@ -100,23 +100,21 @@ void cItem_Calcetine::OnUse(Dynamic* dynamic) {
 
 
 // <------------------------------------------ Weapon ------------------------------------------>
-cItem_Weapon::cItem_Weapon(string name, string asset, string description, int strength) :cItem(name, asset, description, -1, -1, 1, false) {
+cItem_Weapon::cItem_Weapon(string name, string asset, string description, int strength, int rechargeTime, float px, float py) : cItem(name, asset, description, px, py, 1, false) {
 	this->iStrength = strength;
-}
-
-cItem_Weapon::cItem_Weapon(string name, string asset, string description, int strength, float px, float py) : cItem(name, asset, description, px, py, 1, false) {
-	this->iStrength = strength;
+	momentumX = 0.f;
+	momentumY = 0.f;
+	this->rechargeTime = rechargeTime;
+	timeSinceLastShoot = 0;
+	this->timer = Timer();
 }
 
 bool cItem_Weapon::OnInteraction(Dynamic* dynamic) {
 	return true; // Add to the inventory
 }
 
-// <------------------------------------------ Sword item ------------------------------------------>
-cItem_Sword::cItem_Sword(int strength) :cItem_Weapon("Sword", "sword", "Steel sword, " + to_string(strength) + " attack", strength) {
-}
-
-cItem_Sword::cItem_Sword(int strength, float px, float py) : cItem_Weapon("Sword", "sword", "Steel sword, " + to_string(strength) + " attack", strength, px, py) {
+// <------------------------------------------ Magic staff item ------------------------------------------>
+cItem_Sword::cItem_Sword(int strength, float px, float py) : cItem_Weapon("Sword", "magicStaff", "Steel sword, " + to_string(strength) + " attack", strength, 1000, px, py) {
 }
 
 bool cItem_Sword::OnInteraction(Dynamic* dynamic) {
@@ -127,37 +125,14 @@ bool cItem_Sword::OnInteraction(Dynamic* dynamic) {
 }
 
 cProjectile* cItem_Sword::OnWeaponUse(Dynamic* dynamic) {
-	int direction = dynamic->geFacingDirection();
-
-	float momentumX;
-	float momentumY;
-	switch (dynamic->geFacingDirection())
-	{
-	case 0: // South
-		momentumX = 0.f;
-		momentumY = 1.f;
-		break;
-	case 1: // West
-		momentumX = -1.f;
-		momentumY = 0.f;
-		break;
-	case 2: // North
-		momentumX = 0.f;
-		momentumY = -1.f;
-		break;
-	case 3: // East
-		momentumX = 1.f;
-		momentumY = 0.f;
-		break;
-	default:
-		momentumX = 0.f;
-		momentumY = 0.f;
-		break;
-	}
-	//// Adds the momentum of the dynamic
-	//float velX = momentumX + dynamic->getVelX()/dynamic->getMaxSpeed();
-	//float velY = momentumY + dynamic->getVelY()/dynamic->getMaxSpeed();
-
+	// TODO: passar isto pa função do pai
+	this->timer.updateTimer();
+	int timeSinceShoot = this->timer.getMsSinceStart();
 	// Emits an projectile
-	return new cProjectile_Fireball(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, momentumX, momentumY, dynamic->isFriendly(),this->iStrength);
+	if (timeSinceShoot > rechargeTime) {
+		this->timer.resetTime();
+		return new cProjectile_Fireball(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, dynamic->getMomentumX(), dynamic->getMomentumY(), dynamic->isFriendly(), this->iStrength);
+	}
+	else
+		return nullptr;
 }

@@ -70,7 +70,7 @@ bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 // <------------------------------------ Evil Rabbit --------------------------------------------->
 cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, false, 20, 1.0f) {
 	this->iAttack = 5;
-	this->setWeapon(new cItem_Sword(20));
+	this->setWeapon(new cItem_Sword(20, -1,-1));
 }
 
 bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {

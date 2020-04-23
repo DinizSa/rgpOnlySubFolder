@@ -2,6 +2,7 @@
 #include <memory>
 #include "dynamic.h"
 #include "projectile.h"
+#include "timer.h";
 
 class cItem : public Dynamic {
 public:
@@ -67,17 +68,20 @@ public:
 // <------------------------------------------ Weapon ------------------------------------------>
 class cItem_Weapon : public cItem {
 public:
-	cItem_Weapon(string name, string asset, string description, int strength);
-	cItem_Weapon(string name, string asset, string description, int strength, float px, float py);
+	cItem_Weapon(string name, string asset, string description, int strength, int rechargeTime, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
 	inline void OnUse(Dynamic* dynamic) override {};
 	virtual cProjectile* OnWeaponUse(Dynamic* dynamic)=0;
+protected:
+	float momentumX, momentumY;
+	int rechargeTime;
+	int timeSinceLastShoot;
+	Timer timer;
 
 };
 // <------------------------------------------ Sword item ------------------------------------------>
 class cItem_Sword : public cItem_Weapon {
 public:
-	cItem_Sword(int strength);
 	cItem_Sword(int strength, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
 	cProjectile* OnWeaponUse(Dynamic* dynamic) override;
