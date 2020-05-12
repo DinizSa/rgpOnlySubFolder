@@ -355,10 +355,10 @@ bool Dynamic::hasItem(Dynamic* itemToCheck) {
 
 // Return true if attacked
 Dynamic* Dynamic::attackWeapon() {
+	this->setAttacking(false); // After attack, reset boolean
 	if (this->weapon != nullptr) {
 		cProjectile* projectile = ((cItem_Weapon*)this->weapon)->OnWeaponUse(this); 
 		if (projectile != nullptr) {
-			this->setAttacking(false); // After attack, reset boolean
 			return projectile;
 		}
 	}

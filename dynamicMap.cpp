@@ -9,8 +9,6 @@
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
-	this->bPressedE = false;
-	this->bPressedSpace = false;
 	this->bPressedRight = false;
 	this->bPressedUp = false;
 	this->bPressedDown = false;
@@ -58,6 +56,7 @@ void cDynamicMap::update() {
 					}
 					if (!dynamic->isFriendly()) // If is an enemy shooting, call interaction (might be usefull, to trigger a battle for example)
 						dynamic->OnInteraction(vDynamic[0]);
+					dynamic->setAttacking(false);
 				}
 			}
 		}
@@ -85,13 +84,6 @@ void cDynamicMap::update() {
 		if (bPressedDown)
 			vDynamic[0]->addVelocityNormalizedY(1.f);
 
-		// Interaction
-		if (bPressedSpace)
-			handleInteraction();
-
-		// Shot
-		if (this->bPressedE && vDynamic[0]->hasWeaponEquiped()) 
-			vDynamic[0]->setAttacking(true);
 	}
 }
 
@@ -119,12 +111,10 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedUp = true;
 		if (event.key.code == sf::Keyboard::S)
 			this->bPressedDown = true;
-		if (event.key.code == sf::Keyboard::Space) {
-			this->bPressedSpace = true;
-		}
-		if (event.key.code == sf::Keyboard::E) {
-			this->bPressedE = true;
-
+		if (event.key.code == sf::Keyboard::Space)
+			handleInteraction();
+		if (event.key.code == sf::Keyboard::E && vDynamic[0]->hasWeaponEquiped()) {
+			vDynamic[0]->setAttacking(true);
 		}
 	}
 
@@ -138,10 +128,6 @@ void cDynamicMap::handleInputs(sf::Event event) {
 			this->bPressedUp = false;
 		if (event.key.code == sf::Keyboard::S)
 			this->bPressedDown = false;
-		if (event.key.code == sf::Keyboard::Space)
-			this->bPressedSpace = false;
-		if (event.key.code == sf::Keyboard::E)
-			this->bPressedE= false;
 	}
 }
 
@@ -221,4 +207,18 @@ void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
 	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi this world is the same as \nthe previous... ", 1500, sf::Color::Black));
 	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("... but on drugs! ", 1500, sf::Color::Black));
 	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must get out of this trip man! ", 1500, sf::Color::Black));
+}
+
+cDynamicMap_LevelOne::cDynamicMap_LevelOne() {
+	this->sName = "DynMap_LevelOne";
+	cMap = new Maps("MapLevelOne"); 
+
+}
+
+void cDynamicMap_LevelOne::populateDynamics(Dynamic* pPlayer) {
+	this->vDynamic.push_back(pPlayer);
+
+	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
+		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
+
 }

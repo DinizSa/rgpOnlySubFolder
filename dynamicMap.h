@@ -23,7 +23,7 @@ protected:
 	Maps* cMap;
 	vector<Dynamic*> vDynamic;
 	vector<Dynamic*> vDynamic_Projectile;
-	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft, bPressedSpace, bPressedE;
+	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
 
 	void handleInteraction();
 };
@@ -42,5 +42,13 @@ class cDynamicMap_OneTrip : public cDynamicMap {
 public:
 	cDynamicMap_OneTrip();
 	~cDynamicMap_OneTrip();
+	void populateDynamics(Dynamic* pPlayer) override;
+};
+
+// <--- Level One  --->
+class cDynamicMap_LevelOne : public cDynamicMap {
+public:
+	cDynamicMap_LevelOne();
+	~cDynamicMap_LevelOne();
 	void populateDynamics(Dynamic* pPlayer) override;
 };

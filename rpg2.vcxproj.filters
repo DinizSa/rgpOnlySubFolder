@@ -127,5 +127,8 @@
     <Text Include="MapWildOneTrip.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="MapLevelOne.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

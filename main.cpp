@@ -26,8 +26,9 @@ int main()
     Assets::get().SetNameDynamicMap("DynMap_WildOne");
 
 
-    Creature* pPlayer = new cCreature_Player("Trenk", 9 ,10);
-    cDynamicMap* currentDynamicMap = new cDynamicMap_One;
+    Creature* pPlayer = new cCreature_Player("John",2 ,4);
+    //cDynamicMap* currentDynamicMap = new cDynamicMap_One;
+    cDynamicMap* currentDynamicMap = new cDynamicMap_LevelOne;
     currentDynamicMap->populateDynamics(pPlayer);
 
     //cQuest::addQuest(new cQuest_Base);
@@ -42,13 +43,13 @@ int main()
          {
          case EnumGameMode::MODE_LOCAL_MAP: {
              // If dynamicMap changed
-             if (currentDynamicMap->getName() != Assets::get().GetNameDynamicMap()) {
-                 if ("DynMap_WildOne" == Assets::get().GetNameDynamicMap())
-                     currentDynamicMap = new cDynamicMap_One;
-                 else if ("DynMap_WildOneTrip" == Assets::get().GetNameDynamicMap())
-                     currentDynamicMap = new cDynamicMap_OneTrip;
-                 currentDynamicMap->populateDynamics(pPlayer);
-             }
+             //if (currentDynamicMap->getName() != Assets::get().GetNameDynamicMap()) {
+             //    if ("DynMap_WildOne" == Assets::get().GetNameDynamicMap())
+             //        currentDynamicMap = new cDynamicMap_One;
+             //    else if ("DynMap_WildOneTrip" == Assets::get().GetNameDynamicMap())
+             //        currentDynamicMap = new cDynamicMap_OneTrip;
+             //    currentDynamicMap->populateDynamics(pPlayer);
+             //}
 
              // Events
              sf::Event event;

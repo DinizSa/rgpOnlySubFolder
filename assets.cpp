@@ -17,6 +17,7 @@ void Assets::LoadTextures() {
 	};
 	// Color
 	load("MapWildOne", "assets/tiles/MapWildOne.png");
+	load("MapLevelOne", "assets/tiles/MapLevelOne.png");
 	load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
 	load("EarthBender", "assets/tiles/EarthBender4.png");
 	load("FireLady", "assets/tiles/FireLady4.png");
@@ -33,18 +34,4 @@ void Assets::LoadTextures() {
 	load("sock", "assets/tiles/sock.png");
 	load("amate", "assets/tiles/amate.jpg");
 	load("magicStaff", "assets/tiles/magicStaff.png");
-	   
-	//// B&W
-	//load("MapWildOne", "assets/tiles/MapWildOneBW.png");
-	//load("MapWildOneTrip", "assets/tiles/MapWildOneTripBW.png");
-	//load("EarthBender", "assets/tiles/EarthBender4BW.png");
-	//load("FireLady", "assets/tiles/FireLady4BW.png");
-	//load("PackMan", "assets/tiles/PackMan4BW.png");
-	//load("RedFlowers", "assets/tiles/RedFlowersBW.png");
-	//load("Portal", "assets/tiles/PortalBWY.png");
-	//load("EvilRabbit", "assets/tiles/EvilRabbit.png");
-	//load("PinkRabbit", "assets/tiles/PinkRabbit.png");
-	//load("hearth", "assets/tiles/hearth.png");
-	//load("shroom", "assets/tiles/shroom.png");
-
 }
