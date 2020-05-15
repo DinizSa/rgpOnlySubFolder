@@ -5,7 +5,7 @@ cTextDrawer::cTextDrawer(){
 	if (!font.loadFromFile("assets/fonts/JandaManateeSolid.ttf"))
 		cout << "Error loading Font!" << endl;
 
-	int fontSizeMedium = 15;
+	int fontSizeMedium = 11;
 	// Dialogue
 	sfDialogue.setFont(font);
 	sfDialogue.setCharacterSize(fontSizeMedium);
@@ -88,8 +88,8 @@ void cTextDrawer::drawText_InventaryMode(sf::RenderWindow* pWindow) {
 	pWindow->draw(sfMode);
 	sfItemName.setPosition(viewMidleX, 100.f);
 	pWindow->draw(sfItemName);
-	sfItemQuantity.setPosition(viewMidleX, 200.f);
+	sfItemQuantity.setPosition(viewMidleX, 150.f);
 	pWindow->draw(sfItemQuantity);
-	sfItemDescription.setPosition(viewMidleX, 300.f);
+	sfItemDescription.setPosition(viewMidleX, 200.f);
 	pWindow->draw(sfItemDescription);
 }

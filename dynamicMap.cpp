@@ -174,7 +174,7 @@ void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cInteractive_Teleport(18, 12, "DynMap_WildOneTrip", 11, 10 ));
 	// Items
 	this->vDynamic.push_back(new cItem_HealthPotion(10, 2, 16));
-	this->vDynamic.push_back(new cItem_Sword(10, 14, 16));
+	this->vDynamic.push_back(new cItem_EarthRing(10, 14, 16));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
@@ -203,22 +203,27 @@ void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
 
-	//cScriptProcessor::Get().AddCommand(new cCommand_MoveTo(vDynamic[1], vDynamic[0]->getPosX(), vDynamic[0]->getPosY()));
-	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("Hi this world is the same as \nthe previous... ", 1500, sf::Color::Black));
-	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("... but on drugs! ", 1500, sf::Color::Black));
-	//cScriptProcessor::Get().AddCommand(new cCommand_Talk("You must get out of this trip man! ", 1500, sf::Color::Black));
 }
 
+// <--------------------------- Populated Map: Level One --------------------------->
 cDynamicMap_LevelOne::cDynamicMap_LevelOne() {
 	this->sName = "DynMap_LevelOne";
 	cMap = new Maps("MapLevelOne"); 
-
+	
 }
 
 void cDynamicMap_LevelOne::populateDynamics(Dynamic* pPlayer) {
+	// Life
 	this->vDynamic.push_back(pPlayer);
+	this->vDynamic.push_back(new cCreature_EarthBender("Earth Bender", 10, 5));
+	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 10, 6));
+	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 12, 4));
+	// Interactives
+	this->vDynamic.push_back(new cInteractive_Info("Stone friend", 2, 4));
+	this->vDynamic.push_back(new cInteractive_Teleport(16, 6, "DynMap_WildOne", 5, 5));
 
-	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
+	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++) {
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
+	}
 
 }

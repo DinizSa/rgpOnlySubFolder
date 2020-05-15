@@ -23,12 +23,13 @@ int main()
     sf::RenderWindow window(sf::VideoMode(constants::WINDOW_WIDTH, constants::WINDOW_WIDTH), "Window");
     window.setFramerateLimit(60);
     Assets::get().LoadTextures();
-    Assets::get().SetNameDynamicMap("DynMap_WildOne");
 
 
-    Creature* pPlayer = new cCreature_Player("John",2 ,4);
+    Creature* pPlayer = new cCreature_Player("John",3 ,4);
     //cDynamicMap* currentDynamicMap = new cDynamicMap_One;
     cDynamicMap* currentDynamicMap = new cDynamicMap_LevelOne;
+    Assets::get().SetNameDynamicMap(currentDynamicMap->getName());
+    cout << "set map name: " << currentDynamicMap->getName() << endl;
     currentDynamicMap->populateDynamics(pPlayer);
 
     //cQuest::addQuest(new cQuest_Base);
@@ -42,14 +43,18 @@ int main()
          switch (enumGameMode)
          {
          case EnumGameMode::MODE_LOCAL_MAP: {
-             // If dynamicMap changed
-             //if (currentDynamicMap->getName() != Assets::get().GetNameDynamicMap()) {
-             //    if ("DynMap_WildOne" == Assets::get().GetNameDynamicMap())
-             //        currentDynamicMap = new cDynamicMap_One;
-             //    else if ("DynMap_WildOneTrip" == Assets::get().GetNameDynamicMap())
-             //        currentDynamicMap = new cDynamicMap_OneTrip;
-             //    currentDynamicMap->populateDynamics(pPlayer);
-             //}
+              //If dynamicMap changed
+             if (currentDynamicMap->getName() != Assets::get().GetNameDynamicMap()) {
+                 if (Assets::get().GetNameDynamicMap() == "DynMap_LevelOne") {
+                     currentDynamicMap = new cDynamicMap_LevelOne;
+                 }
+                 else if (Assets::get().GetNameDynamicMap() == "DynMap_WildOne") {
+                     currentDynamicMap = new cDynamicMap_One;
+                 }
+
+                 currentDynamicMap->populateDynamics(pPlayer);
+
+             }
 
              // Events
              sf::Event event;
@@ -70,10 +75,10 @@ int main()
              cTextDrawer::get().setHealth(pPlayer->getHealth(), pPlayer->getMaxHealth());
 
              // Display
-             window.clear(sf::Color(0, 0, 0, 255));
+             window.clear(sf::Color(200,200, 200, 255));
              currentDynamicMap->draw(&window);
-             auto centerX = pPlayer->getPosX() < (constants::VIEW_WIDTH / 2) ? max(constants::VIEW_WIDTH / 2, (int)pPlayer->getPosX()) : min((constants::MAP_WIDTH - constants::VIEW_WIDTH / 2) , (int)pPlayer->getPosX());
-             auto centerY = pPlayer->getPosY() < (constants::VIEW_HEIGHT / 2) ? max(constants::VIEW_HEIGHT / 2, (int)pPlayer->getPosY()) : min((constants::MAP_HEIGHT - constants::VIEW_HEIGHT / 2) , (int)pPlayer->getPosY());
+             auto centerX = pPlayer->getPosX() < (constants::VIEW_WIDTH / 2) ? max(constants::VIEW_WIDTH / 2, (int)pPlayer->getPosX()) : min((currentDynamicMap->getPixelsW() - constants::VIEW_WIDTH / 2) , (int)pPlayer->getPosX());
+             auto centerY = pPlayer->getPosY() < (constants::VIEW_HEIGHT / 2) ? max(constants::VIEW_HEIGHT / 2, (int)pPlayer->getPosY()) : min((currentDynamicMap->getPixelsH() - constants::VIEW_HEIGHT / 2) , (int)pPlayer->getPosY());
              window.setView(sf::View(sf::Vector2f(centerX, centerY), sf::Vector2f((float)constants::VIEW_WIDTH, (float)constants::VIEW_HEIGHT)));
              window.display();
              gameModePreviousFrame = EnumGameMode::MODE_LOCAL_MAP;
@@ -84,7 +89,7 @@ int main()
 
              // If comes from other game mode: Initialization
              if (gameModePreviousFrame != enumGameMode) {
-                 window.setView(sf::View(sf::Vector2f(constants::MAP_WIDTH/2, constants::VIEW_HEIGHT/2), sf::Vector2f((float)constants::MAP_WIDTH, (float)constants::VIEW_HEIGHT)));
+                 window.setView(sf::View(sf::Vector2f(currentDynamicMap->getPixelsW() /2, constants::VIEW_HEIGHT/2), sf::Vector2f((float)currentDynamicMap->getPixelsW(), (float)constants::VIEW_HEIGHT)));
                 gameModePreviousFrame = EnumGameMode::MODE_INVENTORY;
                 cTextDrawer::get().setTitleMode("Inventory");
                 inventory.repositionElements();

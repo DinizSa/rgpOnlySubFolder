@@ -34,4 +34,8 @@ void Assets::LoadTextures() {
 	load("sock", "assets/tiles/sock.png");
 	load("amate", "assets/tiles/amate.jpg");
 	load("magicStaff", "assets/tiles/magicStaff.png");
+	load("EarthRing", "assets/tiles/EarthRing.png");
+	load("Rings", "assets/tiles/rings.jpg");
+	load("rock", "assets/tiles/rock.png");
+	load("transparent", "assets/tiles/transparent.png");
 }

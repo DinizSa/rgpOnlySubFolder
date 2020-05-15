@@ -4,6 +4,7 @@
 #include "dynamic.h"
 #include "creature.h"
 #include "quest.h"
+#include "constants.h"
 
 // Responsible for putting together all life into the map
 class cDynamicMap {
@@ -13,7 +14,12 @@ public:
 	void handleInputs(sf::Event event);
 	void update();
 	void draw(sf::RenderWindow* pWindow);
-
+	inline int getPixelsW() {
+		return cMap->getNrHorizontal() * constants::ASSET_SIZE;
+	}
+	inline int getPixelsH() {
+		return cMap->getNrVertical() * constants::ASSET_SIZE;
+	}
 	inline string getName() { return sName; }
 	virtual void populateDynamics(Dynamic* pPlayer)=0;
 

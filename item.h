@@ -80,9 +80,9 @@ protected:
 
 };
 // <------------------------------------------ Sword item ------------------------------------------>
-class cItem_Sword : public cItem_Weapon {
+class cItem_EarthRing : public cItem_Weapon {
 public:
-	cItem_Sword(int strength, float px, float py);
+	cItem_EarthRing(int strength, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
 	cProjectile* OnWeaponUse(Dynamic* dynamic) override;
 };

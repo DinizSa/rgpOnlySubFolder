@@ -58,19 +58,24 @@ cCreature_EarthBender::cCreature_EarthBender(string name, float px, float py) : 
 
 bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 
-	if (!this->questAdded && this->getName() == "Gustavo Santos") {
-		cQuest::addQuest(make_shared<cQuest_FindThePinkRabbit>());
+	if (!this->questAdded && this->getName() == "Earth Bender") {
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Take this earth bending ring", 1500));
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and banish evil from this land", 1500));
+		secondDynamic->addItem(new cItem_EarthRing(10, 13, 4));
+		cQuest::addQuest(make_shared<cQuest_LearnEarthBending>());
 		this->questAdded = true;
+		return true;
 	}
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Olá", 1500));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Can you help me?", 1500));
 	return false;
 }
 
 
 // <------------------------------------ Evil Rabbit --------------------------------------------->
 cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, false, 20, 1.0f) {
+	cout << "rabit created" << endl;
 	this->iAttack = 5;
-	this->setWeapon(new cItem_Sword(20, -1,-1));
+	this->setWeapon(new cItem_EarthRing(20, -1,-1));
 }
 
 bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {

@@ -1,6 +1,7 @@
 #include "item.h";
 #include "creature.h";
 #include "constants.h";
+#include "scriptProcessor.h"
 
 cItem::cItem(string name, string asset, string desc, float px, float py, int iQuantity, bool consumable): 
 	Dynamic(name, asset, px, py, true, true, true, true, 1.f, false) {
@@ -71,12 +72,13 @@ void cItem_MaxHealthPotion::OnUse(Dynamic* dynamic) {
 }
 
 // <------------------------------------------ Scroll Item ------------------------------------------>
-cItem_Scroll::cItem_Scroll() :cItem("Ama-te", "amate", "A mente cham-se mente, porque mente.", -1, -1, 1, false) {}
+cItem_Scroll::cItem_Scroll() :cItem("Starting Scroll", "scroll", "", -1, -1, 1, false) {}
 
-cItem_Scroll::cItem_Scroll(float px, float py) : cItem("Ama-te", "amate", "A mente chama-se mente, porque mente.", px, py, 1, false) {
+cItem_Scroll::cItem_Scroll(float px, float py) : cItem("Starting Scroll", "scroll", "", px, py, 1, false) {
 }
 
 bool cItem_Scroll::OnInteraction(Dynamic* dynamic) {
+
 	return true; // Add to the inventory
 }
 
@@ -113,18 +115,19 @@ bool cItem_Weapon::OnInteraction(Dynamic* dynamic) {
 	return true; // Add to the inventory
 }
 
-// <------------------------------------------ Magic staff item ------------------------------------------>
-cItem_Sword::cItem_Sword(int strength, float px, float py) : cItem_Weapon("Sword", "magicStaff", "Steel sword, " + to_string(strength) + " attack", strength, 1000, px, py) {
+// <------------------------------------------ Earth Ring Item ------------------------------------------>
+cItem_EarthRing::cItem_EarthRing(int strength, float px, float py) : cItem_Weapon("Earth Ring", "Rings", "Earth bending ring, " + to_string(strength) + " power", strength, 2000, px, py) {
+	this->setPartialTexture(constants::ASSET_SIZE * 1, 0, constants::ASSET_SIZE, constants::ASSET_SIZE);
 }
 
-bool cItem_Sword::OnInteraction(Dynamic* dynamic) {
+bool cItem_EarthRing::OnInteraction(Dynamic* dynamic) {
 	if (!dynamic->hasWeaponEquiped()) {
 		dynamic->setWeapon(this);
 	}
 	return true; // Add to the inventory
 }
 
-cProjectile* cItem_Sword::OnWeaponUse(Dynamic* dynamic) {
+cProjectile* cItem_EarthRing::OnWeaponUse(Dynamic* dynamic) {
 	// TODO: passar isto pa função do pai
 	this->timer.updateTimer();
 	int timeSinceShoot = this->timer.getMsSinceStart();

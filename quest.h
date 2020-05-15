@@ -41,3 +41,16 @@ public:
 private:
 	bool rabbitFound;
 };
+
+// <------------------------------------ Earth bending quest ------------------------------------->
+class cQuest_LearnEarthBending : public cQuest {
+public:
+	cQuest_LearnEarthBending();
+	~cQuest_LearnEarthBending();
+	void PopulateDynamics(vector<Dynamic*>& vDynamic, string mapName) override;
+	bool OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) override;
+private:
+	int iCompleted;
+
+
+};

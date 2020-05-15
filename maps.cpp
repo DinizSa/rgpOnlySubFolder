@@ -5,8 +5,8 @@
 #include "constants.h"
 
 Maps::Maps(string sName) {
-	int bgWidth = constants::MAP_WIDTH;
-	int bgHeight = constants::MAP_HEIGHT;
+	int bgWidth = constants::ASSET_SIZE * 10;
+	int bgHeight = constants::ASSET_SIZE * 20;
 	int assetsSize = Assets::get().GetSizeSprite();
 	// Read map and settings from file and construct an array of landscapes
 	this->sName = sName;

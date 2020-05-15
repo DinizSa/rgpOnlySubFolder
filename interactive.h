@@ -4,7 +4,7 @@
 class Interactive : public Dynamic {
 public:
 	Interactive();
-	Interactive(string asset, float px, float py);
+	Interactive(string name, string asset, float px, float py);
 	~Interactive();
 	bool OnInteraction(Dynamic* secondDynamic);
 };
@@ -20,3 +20,15 @@ private:
 	float targetX, targetY;
 	string sTargetDynamicMap;
 };
+
+// <---------------------------- cInteractive_Teleport ---------------------------->
+class cInteractive_Info: public Interactive {
+public:
+	cInteractive_Info(string name, float posX, float posY);
+	~cInteractive_Info();
+	bool OnInteraction(Dynamic* secondDynamic) override;
+
+private:
+	float targetX, targetY;
+	string sTargetDynamicMap;
+};	

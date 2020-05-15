@@ -62,12 +62,13 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 }
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
-
+	const int mapPixelsW = map->getNrHorizontal() * constants::ASSET_SIZE;
+	const int mapPixelsH = map->getNrVertical() * constants::ASSET_SIZE;
 	// Margin around the rectangle that is not considered in the colision, so it looks smoother
 	float marginEmptyX = 0.30f;
 	float marginEmptyY = 0.10f;
-	float widthLandscape = constants::MAP_WIDTH / map->getNrHorizontal();
-	float heightLandscape = constants::MAP_HEIGHT / map->getNrVertical();
+	float widthLandscape = constants::ASSET_SIZE; // MAP_WIDTH / map->getNrHorizontal();
+	float heightLandscape = constants::ASSET_SIZE; //MAP_HEIGHT / map->getNrVertical();
 	int blockXOrigin = (int)((px + width * marginEmptyX)/ widthLandscape) % (int)widthLandscape;
 	int blockXCenter = (int)((px + width/2)/ widthLandscape) % (int)widthLandscape;
 	int blockXRight = (int)((px + width * (1.f- marginEmptyX))/ widthLandscape) % (int)widthLandscape;
@@ -76,7 +77,7 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 	int blockYDown = (int)((py+ height * (1.f - marginEmptyY))/ heightLandscape) % (int)heightLandscape;
 
 	// Horizontal
-	if ((vx > 0 && px < constants::MAP_WIDTH - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
+	if ((vx > 0 && px < mapPixelsW - this->width && ( !this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXRight, blockYCenter)))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width* (1.f - marginEmptyX)), (py + height/2)))) ||
 		(vx < 0 && px > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXOrigin, blockYCenter))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, px + width * marginEmptyX, (py+height/2) ))))) {
 		px += vx;
 	}
@@ -90,7 +91,7 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 		vx = 0;
 	}
 	// Vertical
-	if ((vy > 0 && py < constants::MAP_HEIGHT - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
+	if ((vy > 0 && py < mapPixelsH - this->height && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYDown ))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic,(px + width / 2), (py + height * (1.f - marginEmptyY)))))) ||
 		(vy < 0 && py > 0 && (!this->solidVsSolid || (this->solidVsSolid && !map->getSolid(blockXCenter, blockYOrigin))) && (!this->solidVsDynamic || (this->solidVsDynamic && !this->isCollidingDynamic(vDynamic, (px + width / 2), py + height * marginEmptyY) )))) {
 		py += vy;
 	}
