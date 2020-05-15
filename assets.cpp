@@ -38,4 +38,8 @@ void Assets::LoadTextures() {
 	load("Rings", "assets/tiles/rings.jpg");
 	load("rock", "assets/tiles/rock.png");
 	load("transparent", "assets/tiles/transparent.png");
+
+	// Backgrounds
+	load("bgpCloudsIsland", "assets/tiles/bgpCloudsIsland.jpg");
+	load("bgpCityFog", "assets/tiles/bgpCityFog.png.png");
 }

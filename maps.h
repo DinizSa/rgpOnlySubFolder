@@ -17,5 +17,7 @@ private:
 	bool* solidMap;
 	int nrHorizontal, nrVertical;
 	string sName;
+	Landscape background;
+	
 
 };

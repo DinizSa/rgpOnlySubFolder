@@ -5,8 +5,6 @@
 #include "constants.h"
 
 Maps::Maps(string sName) {
-	int bgWidth = constants::ASSET_SIZE * 10;
-	int bgHeight = constants::ASSET_SIZE * 20;
 	int assetsSize = Assets::get().GetSizeSprite();
 	// Read map and settings from file and construct an array of landscapes
 	this->sName = sName;
@@ -18,6 +16,9 @@ Maps::Maps(string sName) {
 		landscapes = new Landscape[nrHorizontal * nrVertical];
 		indicesMap = new int[nrHorizontal * nrVertical];
 		solidMap = new bool[nrHorizontal * nrVertical];
+		int bgWidth = constants::ASSET_SIZE * nrHorizontal;
+		int bgHeight = constants::ASSET_SIZE * nrVertical;
+		
 
 		int widthLandscape = bgWidth / nrHorizontal;
 		int heightLandscape = bgHeight / nrVertical;
@@ -36,6 +37,9 @@ Maps::Maps(string sName) {
 				landscapes[ind].setPartialTexture(posSpriteX, posSpriteY, widthSpriteInd, heightSpriteInd);
 			}
 		}
+
+		// Background
+		background = Landscape("bgpCloudsIsland", 0, 0, bgWidth, bgHeight);
 	}
 }
 
@@ -50,6 +54,7 @@ Maps::~Maps() {
 }
 
 void Maps::draw(sf::RenderWindow* window) {
+	background.draw(window);
 	for (int i = 0; i < nrHorizontal * nrVertical; i++)
 		landscapes[i].draw(window);
 }

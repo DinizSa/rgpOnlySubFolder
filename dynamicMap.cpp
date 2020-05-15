@@ -215,8 +215,8 @@ cDynamicMap_LevelOne::cDynamicMap_LevelOne() {
 void cDynamicMap_LevelOne::populateDynamics(Dynamic* pPlayer) {
 	// Life
 	this->vDynamic.push_back(pPlayer);
-	this->vDynamic.push_back(new cCreature_EarthBender("Earth Bender", 10, 5));
-	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 10, 6));
+	this->vDynamic.push_back(new cCreature_EarthBender("Earth Bender", 10, 4));
+	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 15, 6));
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 12, 4));
 	// Interactives
 	this->vDynamic.push_back(new cInteractive_Info("Stone friend", 2, 4));

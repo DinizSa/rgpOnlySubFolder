@@ -25,7 +25,7 @@ int main()
     Assets::get().LoadTextures();
 
 
-    Creature* pPlayer = new cCreature_Player("John",3 ,4);
+    Creature* pPlayer = new cCreature_Player("John",3 ,5);
     //cDynamicMap* currentDynamicMap = new cDynamicMap_One;
     cDynamicMap* currentDynamicMap = new cDynamicMap_LevelOne;
     Assets::get().SetNameDynamicMap(currentDynamicMap->getName());
