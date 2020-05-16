@@ -57,9 +57,8 @@
     <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="MapArenaOne.txt" />
     <Text Include="MapLevelOne.txt" />
-    <Text Include="MapWildOne.txt" />
-    <Text Include="MapWildOneTrip.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

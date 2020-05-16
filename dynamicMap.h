@@ -55,6 +55,12 @@ public:
 class cDynamicMap_LevelOne : public cDynamicMap {
 public:
 	cDynamicMap_LevelOne();
-	~cDynamicMap_LevelOne();
+	void populateDynamics(Dynamic* pPlayer) override;
+};
+
+// <--- Arena One  --->
+class cDynamicMap_ArenaOne : public cDynamicMap {
+public:
+	cDynamicMap_ArenaOne();
 	void populateDynamics(Dynamic* pPlayer) override;
 };

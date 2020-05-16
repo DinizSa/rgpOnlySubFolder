@@ -29,7 +29,6 @@ int main()
     //cDynamicMap* currentDynamicMap = new cDynamicMap_One;
     cDynamicMap* currentDynamicMap = new cDynamicMap_LevelOne;
     Assets::get().SetNameDynamicMap(currentDynamicMap->getName());
-    cout << "set map name: " << currentDynamicMap->getName() << endl;
     currentDynamicMap->populateDynamics(pPlayer);
 
     //cQuest::addQuest(new cQuest_Base);
@@ -48,8 +47,8 @@ int main()
                  if (Assets::get().GetNameDynamicMap() == "DynMap_LevelOne") {
                      currentDynamicMap = new cDynamicMap_LevelOne;
                  }
-                 else if (Assets::get().GetNameDynamicMap() == "DynMap_WildOne") {
-                     currentDynamicMap = new cDynamicMap_One;
+                 else if (Assets::get().GetNameDynamicMap() == "DynMap_ArenaOne") {
+                     currentDynamicMap = new cDynamicMap_ArenaOne;
                  }
 
                  currentDynamicMap->populateDynamics(pPlayer);

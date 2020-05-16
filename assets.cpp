@@ -16,8 +16,9 @@ void Assets::LoadTextures() {
 		m_mapsTextures[sName] = texture;
 	};
 	// Color
-	load("MapWildOne", "assets/tiles/MapWildOne.png");
 	load("MapLevelOne", "assets/tiles/MapLevelOne.png");
+	load("MapArenaOne", "assets/tiles/MapLevelOne.png");
+	load("MapWildOne", "assets/tiles/MapWildOne.png");
 	load("MapWildOneTrip", "assets/tiles/MapWildOneTrip.png");
 	load("EarthBender", "assets/tiles/EarthBender4.png");
 	load("FireLady", "assets/tiles/FireLady4.png");
@@ -34,12 +35,12 @@ void Assets::LoadTextures() {
 	load("sock", "assets/tiles/sock.png");
 	load("amate", "assets/tiles/amate.jpg");
 	load("magicStaff", "assets/tiles/magicStaff.png");
-	load("EarthRing", "assets/tiles/EarthRing.png");
 	load("Rings", "assets/tiles/rings.jpg");
 	load("rock", "assets/tiles/rock.png");
 	load("transparent", "assets/tiles/transparent.png");
 
 	// Backgrounds
 	load("bgpCloudsIsland", "assets/tiles/bgpCloudsIsland.jpg");
-	load("bgpCityFog", "assets/tiles/bgpCityFog.png.png");
+	load("bgpCityFog", "assets/tiles/bgpCityFog.png");
+	load("bgpSunset", "assets/tiles/bgpSunset.png");
 }

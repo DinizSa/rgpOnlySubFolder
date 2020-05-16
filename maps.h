@@ -5,11 +5,12 @@ class Maps {
 public:
 	Maps(string sName);
 	~Maps();
-	void draw(sf::RenderWindow* window);
+	void draw(sf::RenderWindow* window, float playerVx, float playerVy);
 	bool getSolid(int x, int y);
 	inline int getNrHorizontal() { return nrHorizontal; }
 	inline int getNrVertical() { return nrVertical; }
 	inline string getName() { return sName; }
+	void setBackground(float playerX, float playerY);
 
 private:
 	Landscape* landscapes;
@@ -18,6 +19,6 @@ private:
 	int nrHorizontal, nrVertical;
 	string sName;
 	Landscape background;
-	
+	bool bInitialized;
 
 };

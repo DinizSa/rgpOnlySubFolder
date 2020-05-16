@@ -89,7 +89,7 @@ void cDynamicMap::update() {
 
 
 void cDynamicMap::draw(sf::RenderWindow* pWindow) {
-	cMap->draw(pWindow);
+	cMap->draw(pWindow, vDynamic[0]->getVelX(), vDynamic[0]->getVelY());
 	for (auto& source : { &vDynamic, &vDynamic_Projectile }) {
 		for (auto dynamic : *source)
 			dynamic->draw(pWindow);
@@ -220,7 +220,32 @@ void cDynamicMap_LevelOne::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 12, 4));
 	// Interactives
 	this->vDynamic.push_back(new cInteractive_Info("Stone friend", 2, 4));
-	this->vDynamic.push_back(new cInteractive_Teleport(16, 6, "DynMap_WildOne", 5, 5));
+	this->vDynamic.push_back(new cInteractive_Teleport(16, 6, "DynMap_ArenaOne", 5, 5));
+
+	this->cMap->setBackground(vDynamic[0]->getPosX(), vDynamic[0]->getPosY());
+
+	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++) {
+		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
+	}
+
+}
+
+// <--------------------------- Populated Map: Arena One --------------------------->
+cDynamicMap_ArenaOne::cDynamicMap_ArenaOne() {
+	this->sName = "DynMap_ArenaOne";
+	cMap = new Maps("MapLevelOne");
+
+}
+
+void cDynamicMap_ArenaOne::populateDynamics(Dynamic* pPlayer) {
+	// Life
+	this->vDynamic.push_back(pPlayer);
+	this->vDynamic.push_back(new cCreature_EvilRabbit("Rabbit", 15, 6));
+	this->vDynamic.push_back(new cCreature_EvilRabbit("Rabbit", 16, 4));
+	this->vDynamic.push_back(new cCreature_EvilRabbit("Rabbit", 9, 6));
+	this->vDynamic.push_back(new cCreature_EvilRabbit("Rabbit", 7, 3));
+	// Interactives
+	this->vDynamic.push_back(new cInteractive_Teleport(5, 6, "DynMap_LevelOne", 16, 5));
 
 	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++) {
 		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);

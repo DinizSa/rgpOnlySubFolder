@@ -23,8 +23,8 @@ public:
 	// Getters
 	inline float getPosX() { return this->px; }
 	inline float getPosY() { return this->py; }
-	inline void setPosX(float px) { this->px = px; }
-	inline void setPosY(float py) { this->py = py; }
+	inline void setPosX(float px) { this->px = px; this->shape.setPosition(sf::Vector2f(px, py)); }
+	inline void setPosY(float py) { this->py = py; this->shape.setPosition(sf::Vector2f(px, py));}
 	inline float getWidth() { return this->width; }
 	inline float getHeight() { return this->height; }
 	inline string getAssetName() { return this->sAsset; }

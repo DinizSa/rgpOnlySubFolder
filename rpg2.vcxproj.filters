@@ -121,13 +121,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="MapWildOne.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="MapWildOneTrip.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="MapLevelOne.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MapArenaOne.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

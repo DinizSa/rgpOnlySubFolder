@@ -5,6 +5,7 @@
 #include "constants.h"
 
 Maps::Maps(string sName) {
+	bInitialized = false;
 	int assetsSize = Assets::get().GetSizeSprite();
 	// Read map and settings from file and construct an array of landscapes
 	this->sName = sName;
@@ -16,8 +17,9 @@ Maps::Maps(string sName) {
 		landscapes = new Landscape[nrHorizontal * nrVertical];
 		indicesMap = new int[nrHorizontal * nrVertical];
 		solidMap = new bool[nrHorizontal * nrVertical];
-		int bgWidth = constants::ASSET_SIZE * nrHorizontal;
-		int bgHeight = constants::ASSET_SIZE * nrVertical;
+		const int factorBg = 1.5;
+		int bgWidth = constants::ASSET_SIZE * nrHorizontal* factorBg;
+		int bgHeight = constants::ASSET_SIZE * nrVertical* factorBg;
 		
 
 		int widthLandscape = bgWidth / nrHorizontal;
@@ -38,9 +40,18 @@ Maps::Maps(string sName) {
 			}
 		}
 
-		// Background
-		background = Landscape("bgpCloudsIsland", 0, 0, bgWidth, bgHeight);
 	}
+}
+
+void Maps::setBackground(float playerX, float playerY) {
+	// Background
+	const int backgroundW = 1024;
+	const int backgroundH = 1024;
+	const float backgroundPosX = playerX - backgroundW / 2;
+	const float backgroundPosY = playerY - backgroundH / 2;
+	background = Landscape("bgpSunset", backgroundPosX, backgroundPosY, backgroundW, backgroundH);
+	background.setPosX(backgroundPosX);
+	background.setPosY(backgroundPosY);
 }
 
 bool Maps::getSolid(int x, int y) {
@@ -53,8 +64,13 @@ Maps::~Maps() {
 	delete[] solidMap;
 }
 
-void Maps::draw(sf::RenderWindow* window) {
+void Maps::draw(sf::RenderWindow* window, float playerVx, float playerVy) {
+	const float speedParalax = 3;
+	background.setPosX(background.getPosX() + playerVx / speedParalax);
+	background.setPosY(background.getPosY() + playerVy / speedParalax);
+
 	background.draw(window);
 	for (int i = 0; i < nrHorizontal * nrVertical; i++)
 		landscapes[i].draw(window);
+	
 }
