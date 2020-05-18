@@ -6,7 +6,7 @@
 
 Maps::Maps(string sName) {
 	bInitialized = false;
-	int assetsSize = Assets::get().GetSizeSprite();
+	int assetsSize = constants::ASSET_SIZE;
 	// Read map and settings from file and construct an array of landscapes
 	this->sName = sName;
 	ifstream data(sName + ".txt", ios::in | ios::binary);
@@ -43,16 +43,18 @@ Maps::Maps(string sName) {
 	}
 }
 
-void Maps::setBackground(float playerX, float playerY) {
+void Maps::setBackground(string asset, float backgroundWidth, float backgroundHeight, float playerX, float playerY) {
 	// Background
-	const int backgroundW = 1024;
-	const int backgroundH = 1024;
+	const int backgroundW = backgroundWidth;
+	const int backgroundH = backgroundHeight;
 	const float backgroundPosX = playerX - backgroundW / 2;
 	const float backgroundPosY = playerY - backgroundH / 2;
-	background = Landscape("bgpSunset", backgroundPosX, backgroundPosY, backgroundW, backgroundH);
+	background = Landscape(asset, backgroundPosX, backgroundPosY, backgroundW, backgroundH);
 	background.setPosX(backgroundPosX);
 	background.setPosY(backgroundPosY);
+
 }
+
 
 bool Maps::getSolid(int x, int y) {
 	return solidMap[x + nrHorizontal * y];
@@ -68,8 +70,8 @@ void Maps::draw(sf::RenderWindow* window, float playerVx, float playerVy) {
 	const float speedParalax = 3;
 	background.setPosX(background.getPosX() + playerVx / speedParalax);
 	background.setPosY(background.getPosY() + playerVy / speedParalax);
-
 	background.draw(window);
+
 	for (int i = 0; i < nrHorizontal * nrVertical; i++)
 		landscapes[i].draw(window);
 	

@@ -49,7 +49,7 @@ public:
 	inline float getVelY() { return this->vy; }
 	inline bool isProjectile() { return bProjetile; }
 	inline bool isAttacking() { return this->bAttacking; }
-	inline void setAttacking(bool attacking) { this->bAttacking = attacking; }
+	inline void setAttacking(bool attacking) { this->bAttacking = attacking;}
 	float getMomentumX();
 	float getMomentumY();
 

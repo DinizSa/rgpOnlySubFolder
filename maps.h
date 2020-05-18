@@ -10,7 +10,7 @@ public:
 	inline int getNrHorizontal() { return nrHorizontal; }
 	inline int getNrVertical() { return nrVertical; }
 	inline string getName() { return sName; }
-	void setBackground(float playerX, float playerY);
+	void setBackground(string asset, float backgroundWidth, float backgroundHeight, float playerX, float playerY);
 
 private:
 	Landscape* landscapes;

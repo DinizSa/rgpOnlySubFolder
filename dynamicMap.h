@@ -22,6 +22,7 @@ public:
 	}
 	inline string getName() { return sName; }
 	virtual void populateDynamics(Dynamic* pPlayer)=0;
+	void setFilter(sf::Color);
 
 protected:
 	string sName;
@@ -30,6 +31,7 @@ protected:
 	vector<Dynamic*> vDynamic;
 	vector<Dynamic*> vDynamic_Projectile;
 	bool bPressedUp, bPressedRight, bPressedDown, bPressedLeft;
+	sf::RectangleShape rectFilter;
 
 	void handleInteraction();
 };
