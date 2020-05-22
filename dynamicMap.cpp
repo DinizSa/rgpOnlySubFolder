@@ -17,7 +17,6 @@ cDynamicMap::cDynamicMap() {
 
 	setFilter(sf::Color(0, 0, 0, 0));
 	
-	vDynamic_Projectile.reserve(20);
 	vDynamic_Projectile.reserve(50);
 }
 
@@ -169,56 +168,6 @@ void cDynamicMap::handleInteraction() {
 }
 
 
-// <--------------------------- Populated Map: MapWildOne --------------------------->
-cDynamicMap_One::cDynamicMap_One() {
-	this->sName = "DynMap_WildOne";
-	cMap = new Maps("MapWildOne");
-
-};
-
-cDynamicMap_One::~cDynamicMap_One() {};
-
-void cDynamicMap_One::populateDynamics(Dynamic* pPlayer) {
-	this->vDynamic.push_back(pPlayer);
-	// Map characters
-	this->vDynamic.push_back(new cCreature_FireLady("Matilda", 11, 12));
-	this->vDynamic.push_back(new cCreature_EarthBender("Gustavo Santos", 12, 7));
-	this->vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 16, 13));
-	this->vDynamic.push_back(new cCreature_PinkRabbit("Pink Rabbit", 16, 7));
-	// Map Interactives
-	this->vDynamic.push_back(new cInteractive_Teleport(18, 12, "DynMap_WildOneTrip", 11, 10 ));
-	// Items
-	this->vDynamic.push_back(new cItem_HealthPotion(10, 2, 16));
-	this->vDynamic.push_back(new cItem_EarthRing(10, 14, 16));
-
-	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
-		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
-
-}
-
-// <--------------------------- Populated Map: MapWildTripOne --------------------------->
-cDynamicMap_OneTrip::cDynamicMap_OneTrip() {
-	this->sName = "DynMap_WildOneTrip";
-	cMap = new Maps("MapWildOneTrip");
-
-};
-
-cDynamicMap_OneTrip::~cDynamicMap_OneTrip() {};
-
-void cDynamicMap_OneTrip::populateDynamics(Dynamic* pPlayer) {
-	this->vDynamic.push_back(pPlayer);
-	// Map characters
-	this->vDynamic.push_back(new cCreature_FireLady("Matilda sister", 10, 6));
-	this->vDynamic.push_back(new cCreature_EarthBender("Joseph brother", 5, 12));
-	// Map Interactives
-	this->vDynamic.push_back(new cInteractive_Teleport(12, 10, "DynMap_WildOne", 17 , 12 ));
-	// Items
-	this->vDynamic.push_back(new cItem_MaxHealthPotion(5, 3, 3));
-
-	for (unsigned i = 0; i < cQuest::getQuestVector()->size(); i++)
-		(*cQuest::getQuestVector())[i]->PopulateDynamics(vDynamic, this->sName);
-
-}
 
 // <--------------------------- Populated Map: Level One --------------------------->
 cDynamicMap_LevelOne::cDynamicMap_LevelOne() {
@@ -247,7 +196,8 @@ void cDynamicMap_LevelOne::populateDynamics(Dynamic* pPlayer) {
 cDynamicMap_ArenaOne::cDynamicMap_ArenaOne() {
 	this->sName = "DynMap_ArenaOne";
 	cMap = new Maps("MapArenaOne");
-	this->setFilter(sf::Color(200, 100, 100, 80));
+	//this->setFilter(sf::Color(200, 100, 100, 80));
+	this->setFilter(sf::Color(0, 0, 0, 0));
 }
 
 void cDynamicMap_ArenaOne::populateDynamics(Dynamic* pPlayer) {

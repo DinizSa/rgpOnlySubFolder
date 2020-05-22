@@ -21,6 +21,8 @@ Dynamic::Dynamic():
 	this->sName = "";
 	this->weapon = nullptr;
 	this->bProjetile = false;
+	this->iFramesMoving = 0;
+	this->iFramesMovingMax = 30;
 }
 Dynamic::~Dynamic() {
 	for (auto item : vInventory) {
@@ -44,6 +46,8 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	this->sName = name;
 	this->weapon = nullptr;
 	this->bProjetile = isProjetile;
+	this->iFramesMoving = 0;
+	this->iFramesMovingMax = 30;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	if (graphicState != GraphicState::DEATH) {
@@ -51,7 +55,7 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 		if (cScriptProcessor::Get().getUserControlEnabled())
 			updateAI((*vDynamic)[0]);
 		applyFriction();
-		SetGraphics(timer);
+		SetGraphics();
 	}
 	else {
 		this->solidVsDynamic = false;
@@ -105,57 +109,67 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 		vy = 0;
 	}
 
-	// Check for solid projectiles that collided with the map
-	if (this->isProjectile() && this->solidVsSolid && vx == 0 && vy == 0)
-		((cProjectile*)this)->setEnergized(false);
 
 	this->shape.setPosition(px, py);
 }
 
-void Dynamic::SetGraphics(Timer* timer) {
-
-	auto setTimeWalking = [&](FacingDirection direction) {
-		if (facingDirection != direction) {
-			facingDirection = direction;
-			msStartedMoving = timer->getMsSinceStart();
-			msSinceStartedMoving = 0;
-		}
-		else {
-			msSinceStartedMoving = timer->getMsSinceStart() - msStartedMoving;
-		}
-	};
-
-
-	if (vx > 0)
-		setTimeWalking(FacingDirection::EAST);
-	else if (vx < 0)
-		setTimeWalking(FacingDirection::WEST);
-	else if (vy > 0)
-		setTimeWalking(FacingDirection::SOUTH);
-	else if (vy < 0)
-		setTimeWalking(FacingDirection::NORTH);
+void Dynamic::setFrame() {
 
 	if (vy == 0 && vx == 0)
-		msSinceStartedMoving = 0;
+		iFramesMoving == 0;
+	else
+		iFramesMoving++;
+	if ( iFramesMoving >= iFramesMovingMax)
+		iFramesMoving == 0;
+}
 
-	// phaseAnimation represents the collumn of the sprite
+void Dynamic::SetGraphics() {
+
+	setFrame();
+
 	int phaseAnimation = 0;
-	if(this->maxSpeed > 0)
-		phaseAnimation = ((int)(msSinceStartedMoving*(10 * maxSpeed) / (1000))) % 3;
+	if (this->maxSpeed > 0)
+		phaseAnimation = (int)((int)(iFramesMoving / (iFramesMovingMax / 3)) % 3);
 
-	int sizeSprite = Assets::get().GetSizeSprite();
 	// facingDirection represents the line of the sprite
+	if (vx > 0)
+		facingDirection = FacingDirection::EAST;
+	else if (vx < 0)
+		facingDirection = FacingDirection::WEST;
+	else if (vy > 0)
+		facingDirection = FacingDirection::SOUTH;
+	else if (vy < 0)
+		facingDirection = FacingDirection::NORTH;
 
+	int sizeSprite = constants::ASSET_SIZE;
 
 	setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
 
-	
+}
 
+void Dynamic::setFacingDirection(int facingDirection) {
+	switch (facingDirection)
+	{
+	case 0: // South
+		this->facingDirection = FacingDirection::SOUTH;
+		break;
+	case 1: // West
+		this->facingDirection = FacingDirection::WEST;
+		break;
+	case 2: // North
+		this->facingDirection = FacingDirection::NORTH;
+		break;
+	case 3: // East
+		this->facingDirection = FacingDirection::EAST;
+		break;
+	default:
+		break;
+	}
 }
 
 float Dynamic::getMomentumX() { 
 	float momentumX;
-	switch (this->geFacingDirection())
+	switch (this->getFacingDirection())
 	{
 	case 1: // West
 		momentumX = -1.f;
@@ -172,7 +186,7 @@ float Dynamic::getMomentumX() {
 
 float Dynamic::getMomentumY() {
 	float momentumY;
-	switch (this->geFacingDirection())
+	switch (this->getFacingDirection())
 	{
 	case 0: // South
 		momentumY = 1.f;
@@ -265,15 +279,18 @@ bool Dynamic::isCollidingPlayer(Dynamic* pPlayer) {
 
 // Return dynamic that's colliding with the player
 Dynamic* Dynamic::getColliding(vector<Dynamic*> dynamics) {
+	Dynamic* lastHit = nullptr;
 	for (auto dynamic : dynamics) {
-		if(this != dynamic)
+		if(this != dynamic && this->isFriendly() != dynamic->isFriendly())
 		if (this->getPosX() + this->getWidth() > dynamic->getPosX() && this->getPosX() < dynamic->getPosX() + dynamic->getWidth()) {
 			if (this->getPosY() + this->getHeight() > dynamic->getPosY() && this->getPosY() < dynamic->getPosY() + dynamic->getHeight()) {
-				return dynamic;
+				//return dynamic;
+				lastHit = dynamic;
 			}
 		}
 	}
-	return nullptr;
+	return lastHit;
+	//return nullptr;
 }
 
 

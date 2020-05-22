@@ -40,6 +40,8 @@ void Creature::heal(int quantityToHeal) {
 
 // <------------------------------------ Player --------------------------------------------->
 cCreature_Player::cCreature_Player(string name, float px, float py) : Creature(name, "PackMan", px, py, 1, 1, 1, 100, 1.0f) {
+	this->addItem(new cItem_Sword(10, 13, 4));
+	this->addItem(new cItem_EarthRing(10, 13, 4));
 };
 
 
@@ -61,6 +63,7 @@ bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 	if (!this->questAdded && this->getName() == "Earth Bender") {
 		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Take this earth bending ring", 1500));
 		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and banish evil from this land", 1500));
+		secondDynamic->addItem(new cItem_Sword(10, 13, 4));
 		secondDynamic->addItem(new cItem_EarthRing(10, 13, 4));
 		cQuest::addQuest(make_shared<cQuest_LearnEarthBending>());
 		this->questAdded = true;
@@ -73,7 +76,6 @@ bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 
 // <------------------------------------ Evil Rabbit --------------------------------------------->
 cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, false, 20, 1.0f) {
-	cout << "rabit created" << endl;
 	this->iAttack = 5;
 	this->setWeapon(new cItem_EarthRing(20, -1,-1));
 }

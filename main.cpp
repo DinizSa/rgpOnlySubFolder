@@ -21,7 +21,7 @@ int main()
 
     // Initialization of shared ressources between levels
     sf::RenderWindow window(sf::VideoMode(constants::WINDOW_WIDTH, constants::WINDOW_WIDTH), "Window");
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(constants::FPS);
     Assets::get().LoadTextures();
 
 

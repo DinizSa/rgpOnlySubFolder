@@ -37,22 +37,6 @@ protected:
 };
 
 
-// <--- Level One --->
-class cDynamicMap_One : public cDynamicMap {
-public:
-	cDynamicMap_One();
-	~cDynamicMap_One();
-	void populateDynamics(Dynamic* pPlayer) override;
-};
-
-// <--- Level One Trip --->
-class cDynamicMap_OneTrip : public cDynamicMap {
-public:
-	cDynamicMap_OneTrip();
-	~cDynamicMap_OneTrip();
-	void populateDynamics(Dynamic* pPlayer) override;
-};
-
 // <--- Level One  --->
 class cDynamicMap_LevelOne : public cDynamicMap {
 public:

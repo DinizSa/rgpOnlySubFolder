@@ -139,3 +139,27 @@ cProjectile* cItem_EarthRing::OnWeaponUse(Dynamic* dynamic) {
 	else
 		return nullptr;
 }
+
+// <------------------------------------------ Sword Item ------------------------------------------>
+cItem_Sword::cItem_Sword(int strength, float px, float py) : cItem_Weapon("Sword", "Sword", "Basic sword, " + to_string(strength) + " power", strength, 1000, px, py) {
+}
+
+bool cItem_Sword::OnInteraction(Dynamic* dynamic) {
+	if (!dynamic->hasWeaponEquiped()) {
+		dynamic->setWeapon(this);
+	}
+	return true; // Add to the inventory
+}
+
+cProjectile* cItem_Sword::OnWeaponUse(Dynamic* dynamic) {
+	// TODO: passar isto pa função do pai
+	this->timer.updateTimer();
+	int timeSinceShoot = this->timer.getMsSinceStart();
+	// Emits an projectile
+	if (timeSinceShoot > rechargeTime) {
+		this->timer.resetTime();
+		return new cProjectile_Sword(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, dynamic->getMomentumX()/100, dynamic->getMomentumY()/100, dynamic->isFriendly(), this->iStrength);
+	}
+	else
+		return nullptr;
+}

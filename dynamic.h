@@ -20,6 +20,8 @@ protected:
 	vector< Dynamic*> vInventory;
 	Dynamic* weapon;
 	bool bProjetile;
+	int iFramesMoving;
+	int iFramesMovingMax;
 	
 
 public:
@@ -44,7 +46,8 @@ public:
 	inline float isFriendly() { return this->friendly; }
 	inline float getMaxSpeed() { return this->maxSpeed; }
 	inline string getName() { return this->sName; }
-	inline int geFacingDirection() { return facingDirection; }
+	inline int getFacingDirection() { return facingDirection; }
+	void setFacingDirection(int facingDirection);
 	inline float getVelX() { return this->vx; }
 	inline float getVelY() { return this->vy; }
 	inline bool isProjectile() { return bProjetile; }
@@ -52,6 +55,8 @@ public:
 	inline void setAttacking(bool attacking) { this->bAttacking = attacking;}
 	float getMomentumX();
 	float getMomentumY();
+	virtual void SetGraphics();
+	virtual void setFrame();
 
 	// Weapons
 	inline void setWeapon(Dynamic* weapon) { this->weapon = weapon; }
@@ -68,7 +73,6 @@ private:
 	void move(Maps* map, vector<Dynamic*>* vDynamic);
 	bool isCollidingDynamic(vector<Dynamic*>* entitys, float posX, float posY);
 	void applyFriction();
-	void SetGraphics(Timer* timer);
 	int msStartedMoving;
 	int msSinceStartedMoving;
 	string sName;
