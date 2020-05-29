@@ -31,7 +31,7 @@ void Assets::LoadTextures() {
 	load("shroom", "assets/tiles/shroom.png");
 	load("scroll", "assets/tiles/scroll.png");
 	load("Sword", "assets/tiles/sword.png");
-	load("Sword4", "assets/tiles/sword4.png");
+	load("Sword4", "assets/tiles/sword444.png");
 	load("fireball", "assets/tiles/fireball4.png");
 	load("sock", "assets/tiles/sock.png");
 	load("amate", "assets/tiles/amate.jpg");

@@ -20,8 +20,8 @@ protected:
 	vector< Dynamic*> vInventory;
 	Dynamic* weapon;
 	bool bProjetile;
-	int iFramesMoving;
-	int iFramesMovingMax;
+	int iFramesPassed;
+	int iFramesCycle;
 	
 
 public:

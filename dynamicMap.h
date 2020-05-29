@@ -34,6 +34,7 @@ protected:
 	sf::RectangleShape rectFilter;
 
 	void handleInteraction();
+	void cleanProjectiles(vector<Dynamic*>&);
 };
 
 

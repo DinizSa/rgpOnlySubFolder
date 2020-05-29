@@ -69,18 +69,9 @@ void cDynamicMap::update() {
 			}
 		}
 
-		// Remove projectiles that lost their energy
-		auto it = vDynamic_Projectile.begin();
-		for (unsigned i = 0; i < vDynamic_Projectile.size(); i++)
-		{
-			if (!((cProjectile*)(vDynamic_Projectile[i]))->isEnergized()) {
-				delete vDynamic_Projectile[i];
-				vDynamic_Projectile.erase(it);
-			}
-			else {
-				++it;
-			}
-		}
+		cleanProjectiles(vDynamic_Projectile);
+
+
 
 		// Player movement
 		if (bPressedLeft)
@@ -92,6 +83,28 @@ void cDynamicMap::update() {
 		if (bPressedDown)
 			vDynamic[0]->addVelocityNormalizedY(1.f);
 
+	}
+}
+
+
+// Remove projectiles that lost their energy. Erase one each time to prevent crash.
+void cDynamicMap::cleanProjectiles(vector<Dynamic*>& vector) {
+
+	int indice = 0;
+	auto it = vector.begin();
+	for (unsigned i = 0; i < vector.size(); i++) {
+		if (!((cProjectile*)(vector[i]))->isEnergized()) {
+			cout << "AAAA size projectiles:" << vector.size() << ", indice: " << i << endl;
+			vector.erase(it);
+			cout << "AAAA" << endl;
+			return;
+		}
+		else {
+			indice++;
+			cout << "BBBB size projectiles:" << vector.size() << ", incrementing to: " << indice << endl;
+			it++;
+			cout << "BBBB" << endl;
+		}
 	}
 }
 

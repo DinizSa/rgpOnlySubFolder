@@ -9,8 +9,9 @@ cProjectile::cProjectile(string name, string asset, float px, float py, float ve
 	this->fVectorDirectionY = vectorDirectionY;
 	this->bEnergized = true;
 	this->fDamage = damage;
-	this->iFramesShow = constants::FPS * 10;
 	this->hasHitted = false;
+	this->iFramesDuration = 20;
+	iFramesCycle = 20;
 	addVelocityNormalizedXY(this->fVectorDirectionX, this->fVectorDirectionY);
 }
 bool cProjectile::OnInteraction(Dynamic* secondDynamic) {
@@ -29,16 +30,24 @@ bool cProjectile::OnInteraction(Dynamic* secondDynamic) {
 // Check if has projectile has expired
 void cProjectile::checkDurability()
 {
-	this->iFramesShow--;
-	if (this->iFramesShow < 0)
+	this->iFramesDuration--;
+	if (this->iFramesDuration < 3)
 		this->setEnergized(false);
 }
 
 
+void cProjectile::setFrame() {
+
+	if (iFramesPassed > iFramesCycle)
+		iFramesPassed == 0;
+	iFramesPassed++;
+}
+
 // <--------------------------------------------- Fireball --------------------------------------------->
 cProjectile_Fireball::cProjectile_Fireball(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage): 
 	cProjectile("Fireball", "fireball", px, py, vectorDirectionX, vectorDirectionY, friendly, 5.0f, damage) {
-	iFramesShow = constants::FPS / 2;
+	iFramesDuration = 40;
+	iFramesCycle = 3;
 }
 
 void cProjectile_Fireball::updateAI(Dynamic* pPlayer) {
@@ -51,7 +60,6 @@ void cProjectile_Fireball::updateAI(Dynamic* pPlayer) {
 // <--------------------------------------------- Sword --------------------------------------------->
 cProjectile_Sword::cProjectile_Sword(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage) :
 	cProjectile("Sword", "Sword4", px, py , vectorDirectionX, vectorDirectionY, friendly, 5.0f, damage) {
-	this->iFramesShow = constants::FPS / 2;
 }
 
 bool cProjectile_Sword::OnInteraction(Dynamic* secondDynamic) {
@@ -64,6 +72,7 @@ bool cProjectile_Sword::OnInteraction(Dynamic* secondDynamic) {
 	}
 	return false;
 }
+
 
 void cProjectile_Sword::updateAI(Dynamic* pPlayer) {
 	// Velocity setted just so the direction frame is setted

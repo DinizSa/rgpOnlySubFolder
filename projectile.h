@@ -11,6 +11,7 @@ public:
 	virtual bool OnInteraction(Dynamic* secondDynamic) override;
 	inline float getDamage() { return fDamage; };
 	void checkDurability();
+	void setFrame() override;
 
 
 protected:
@@ -18,7 +19,7 @@ protected:
 	float fVectorDirectionY;
 	bool bEnergized;
 	float fDamage;
-	int iFramesShow;
+	int iFramesDuration;
 	bool hasHitted;
 };
 

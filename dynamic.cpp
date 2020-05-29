@@ -21,8 +21,8 @@ Dynamic::Dynamic():
 	this->sName = "";
 	this->weapon = nullptr;
 	this->bProjetile = false;
-	this->iFramesMoving = 0;
-	this->iFramesMovingMax = 30;
+	this->iFramesPassed = 0;
+	this->iFramesCycle = 30;
 }
 Dynamic::~Dynamic() {
 	for (auto item : vInventory) {
@@ -46,8 +46,8 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	this->sName = name;
 	this->weapon = nullptr;
 	this->bProjetile = isProjetile;
-	this->iFramesMoving = 0;
-	this->iFramesMovingMax = 30;
+	this->iFramesPassed = 0;
+	this->iFramesCycle = 30;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	if (graphicState != GraphicState::DEATH) {
@@ -116,11 +116,11 @@ void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
 void Dynamic::setFrame() {
 
 	if (vy == 0 && vx == 0)
-		iFramesMoving == 0;
+		iFramesPassed == 0;
 	else
-		iFramesMoving++;
-	if ( iFramesMoving >= iFramesMovingMax)
-		iFramesMoving == 0;
+		iFramesPassed++;
+	if (iFramesPassed >= iFramesCycle)
+		iFramesPassed == 0;
 }
 
 void Dynamic::SetGraphics() {
@@ -129,7 +129,7 @@ void Dynamic::SetGraphics() {
 
 	int phaseAnimation = 0;
 	if (this->maxSpeed > 0)
-		phaseAnimation = (int)((int)(iFramesMoving / (iFramesMovingMax / 3)) % 3);
+		phaseAnimation = (int)((int)(iFramesPassed / (iFramesCycle / 3)) % 3);
 
 	// facingDirection represents the line of the sprite
 	if (vx > 0)

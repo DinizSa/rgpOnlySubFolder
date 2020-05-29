@@ -18,6 +18,7 @@ Creature::Creature(string name, string asset, float px, float py, bool solidVsSo
 	this->hp = maxHp;
 	this->maxHp = maxHp;
 	this->questAdded = false;
+	this->iFramesCycle = 20;
 }
 
 bool Creature::OnInteraction(Dynamic* secondDynamic) {
