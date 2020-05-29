@@ -45,7 +45,7 @@ void cProjectile::setFrame() {
 
 // <--------------------------------------------- Fireball --------------------------------------------->
 cProjectile_Fireball::cProjectile_Fireball(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage): 
-	cProjectile("Fireball", "fireball", px, py, vectorDirectionX, vectorDirectionY, friendly, 5.0f, damage) {
+	cProjectile("Fireball", "fireball", px, py, vectorDirectionX, vectorDirectionY, friendly, 3.0f, damage) {
 	iFramesDuration = 40;
 	iFramesCycle = 3;
 }
@@ -59,7 +59,7 @@ void cProjectile_Fireball::updateAI(Dynamic* pPlayer) {
 
 // <--------------------------------------------- Sword --------------------------------------------->
 cProjectile_Sword::cProjectile_Sword(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage) :
-	cProjectile("Sword", "Sword4", px, py , vectorDirectionX, vectorDirectionY, friendly, 5.0f, damage) {
+	cProjectile("Sword", "Sword4", px, py , vectorDirectionX, vectorDirectionY, friendly, 1.0f, damage) {
 }
 
 bool cProjectile_Sword::OnInteraction(Dynamic* secondDynamic) {

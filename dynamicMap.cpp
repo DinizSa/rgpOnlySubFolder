@@ -87,23 +87,17 @@ void cDynamicMap::update() {
 }
 
 
-// Remove projectiles that lost their energy. Erase one each time to prevent crash.
+// Remove projectiles that lost their energy. Erase one each time to prevent out of range crash.
 void cDynamicMap::cleanProjectiles(vector<Dynamic*>& vector) {
 
-	int indice = 0;
 	auto it = vector.begin();
 	for (unsigned i = 0; i < vector.size(); i++) {
 		if (!((cProjectile*)(vector[i]))->isEnergized()) {
-			cout << "AAAA size projectiles:" << vector.size() << ", indice: " << i << endl;
 			vector.erase(it);
-			cout << "AAAA" << endl;
 			return;
 		}
 		else {
-			indice++;
-			cout << "BBBB size projectiles:" << vector.size() << ", incrementing to: " << indice << endl;
 			it++;
-			cout << "BBBB" << endl;
 		}
 	}
 }
