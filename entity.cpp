@@ -27,8 +27,14 @@ Entity::Entity(string sAsset, float px, float py) {
 void Entity::setPartialTexture(int px, int py, int dx, int dy) {
 	this->shape.setTextureRect(sf::IntRect(px, py, dx, dy));
 }
-void Entity::setDeathGraphics() {
+void Entity::setDeathFilter() {
 	this->shape.setFillColor(sf::Color::Color(20,20,20,100));
+}
+void Entity::setInjuredFilter() {
+	this->shape.setFillColor(sf::Color::Color(220,10,10,150));
+}
+void Entity::resetFilters() {
+	this->shape.setFillColor(sf::Color::Color(255, 255, 255, 255));
 }
 
 void Entity::updatePosition(float px, float py) {

@@ -16,7 +16,9 @@ public:
 	void setDimensions(float width, float height);
 
 	void setPartialTexture(int px, int py, int dx, int dy);
-	void setDeathGraphics();
+	void setDeathFilter();
+	void setInjuredFilter();
+	void resetFilters();
 	void updatePosition(float px, float py);
 	void draw(sf::RenderWindow* window);
 

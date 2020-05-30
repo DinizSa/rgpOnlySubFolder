@@ -188,6 +188,7 @@ void cDynamicMap_LevelOne::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cCreature_EarthBender("Earth Bender", 10, 4));
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 13, 6));
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 12, 4));
+	this->vDynamic.push_back(new cCreature_EvilRabbit("Rabbit mthrfkr", 6, 3));
 	// Interactives
 	this->vDynamic.push_back(new cInteractive_Info("Stone friend", 2, 4));
 	this->vDynamic.push_back(new cInteractive_Teleport(16, 6, "DynMap_ArenaOne", 5, 5));

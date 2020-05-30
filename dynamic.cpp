@@ -56,6 +56,9 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	fWeight = 1.f;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
+	if (this->isBeingProjected()) {
+		this->setInjuredFilter();
+	}
 	if (graphicState != GraphicState::DEATH) {
 		move(map, vDynamic);
 		if (cScriptProcessor::Get().getUserControlEnabled())
@@ -66,7 +69,7 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	else {
 		this->solidVsDynamic = false;
 		this->solidVsSolid = false;
-		setDeathGraphics();
+		this->setDeathFilter();
 	}
 
 }
@@ -155,6 +158,7 @@ void Dynamic::setFrame() {
 bool Dynamic::isBeingProjected() {
 	if (bInertia && vy == 0 && vx == 0) {
 		bInertia = false;
+		this->resetFilters();
 	}
 	return bInertia;
 }
