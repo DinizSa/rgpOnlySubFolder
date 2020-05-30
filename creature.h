@@ -4,9 +4,8 @@
 
 class Creature : public Dynamic {
 protected:
-	int hp;
-	int maxHp;
-protected:
+	float hp;
+	float maxHp;
 	bool questAdded;
 public:
 	Creature();
@@ -16,7 +15,7 @@ public:
 	void updateAI(Creature* pPlayer) {};
 
 	// Health
-	void defend(int damage);
+	void defend(Dynamic* collider);
 	void heal(int quantityToHeal);
 	inline int getHealth() { return hp; };
 	inline int getMaxHealth() { return maxHp; };

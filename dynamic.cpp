@@ -23,6 +23,8 @@ Dynamic::Dynamic():
 	this->bProjetile = false;
 	this->iFramesPassed = 0;
 	this->iFramesCycle = 30;
+	bInertia = false;
+	phaseAnimation = 0;
 }
 Dynamic::~Dynamic() {
 	for (auto item : vInventory) {
@@ -48,6 +50,8 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	this->bProjetile = isProjetile;
 	this->iFramesPassed = 0;
 	this->iFramesCycle = 30;
+	bInertia = false;
+	phaseAnimation = 0;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	if (graphicState != GraphicState::DEATH) {
@@ -63,6 +67,28 @@ void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 		setDeathGraphics();
 	}
 
+}
+
+
+void Dynamic::addVelocityNormalizedX(float deltaVx) { 
+	if (!isBeingProjected()) {
+		this->vx += deltaVx; 
+	} 
+}
+void Dynamic::addVelocityNormalizedY(float deltaVy) { 
+	if (!isBeingProjected()) {
+		this->vy += deltaVy; 
+	} 
+}
+void Dynamic::addVelocityNormalizedXY(float deltaVx, float deltaVy) { 
+	if (!isBeingProjected()) {
+	this->vx += deltaVx * maxSpeed; this->vy += deltaVy * maxSpeed;
+	} 
+}
+void Dynamic::setVelocityNormalizedXY(float deltaVx, float deltaVy) { 
+	if (!isBeingProjected()) {
+		this->vx = deltaVx; this->vy = deltaVy; 
+	} 
 }
 
 void Dynamic::move(Maps* map, vector<Dynamic*>* vDynamic) {
@@ -121,29 +147,38 @@ void Dynamic::setFrame() {
 		iFramesPassed++;
 	if (iFramesPassed >= iFramesCycle)
 		iFramesPassed == 0;
+	
+}
+
+bool Dynamic::isBeingProjected() {
+	if (bInertia && vy == 0 && vx == 0) {
+		bInertia = false;
+	}
+	return bInertia;
 }
 
 void Dynamic::SetGraphics() {
 
 	setFrame();
 
-	int phaseAnimation = 0;
-	if (this->maxSpeed > 0)
-		phaseAnimation = (int)((int)(iFramesPassed / (iFramesCycle / 3)) % 3);
+	if (!isBeingProjected()) {
+		phaseAnimation = 0;
+		if (this->maxSpeed > 0)
+			phaseAnimation = (int)((int)(iFramesPassed / (iFramesCycle / 3)) % 3);
 
-	// facingDirection represents the line of the sprite
-	if (vx > 0)
-		facingDirection = FacingDirection::EAST;
-	else if (vx < 0)
-		facingDirection = FacingDirection::WEST;
-	else if (vy > 0)
-		facingDirection = FacingDirection::SOUTH;
-	else if (vy < 0)
-		facingDirection = FacingDirection::NORTH;
+		// facingDirection represents the line of the sprite
+		if (vx > 0)
+			facingDirection = FacingDirection::EAST;
+		else if (vx < 0)
+			facingDirection = FacingDirection::WEST;
+		else if (vy > 0)
+			facingDirection = FacingDirection::SOUTH;
+		else if (vy < 0)
+			facingDirection = FacingDirection::NORTH;
 
-	int sizeSprite = constants::ASSET_SIZE;
-
-	setPartialTexture(phaseAnimation * sizeSprite, facingDirection * sizeSprite, sizeSprite, sizeSprite);
+	}
+	
+	setPartialTexture(phaseAnimation * constants::ASSET_SIZE, facingDirection * constants::ASSET_SIZE, constants::ASSET_SIZE, constants::ASSET_SIZE);
 
 }
 

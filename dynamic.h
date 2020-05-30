@@ -9,6 +9,7 @@ using namespace std;
 
 class Dynamic: public Entity {
 protected:
+	bool isBeingProjected();
 	float vx, vy;
 	bool solidVsSolid;
 	bool solidVsDynamic;
@@ -16,22 +17,24 @@ protected:
 	bool hasFriction;
 	float maxSpeed;
 	enum FacingDirection{SOUTH = 0, WEST = 1, NORTH = 2, EAST = 3} facingDirection;
+	int phaseAnimation;
 	enum GraphicState {STANDING, WALKING, DEATH} graphicState;
 	vector< Dynamic*> vInventory;
 	Dynamic* weapon;
 	bool bProjetile;
 	int iFramesPassed;
 	int iFramesCycle;
+	bool bInertia;
 	
 
 public:
 	Dynamic();
 	Dynamic(string name, string asset, float px, float py, bool solidVsSolid, bool solidVsDynamic, bool friendly, bool hasFriction, float maxSpeed, bool isProjetile);
 	~Dynamic();
-	inline void addVelocityNormalizedX(float deltaVx) { this->vx += deltaVx; }
-	inline void addVelocityNormalizedY(float deltaVy) { this->vy += deltaVy; }
-	inline void addVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx += deltaVx * maxSpeed /** ( 1 * sin(atan(deltaVy /deltaVx)))*/; this->vy += deltaVy * maxSpeed /** (1 * cos(atan(deltaVy / deltaVx)))*/; }
-	inline void setVelocityNormalizedXY(float deltaVx, float deltaVy) { this->vx = deltaVx; this->vy = deltaVy; }
+	void addVelocityNormalizedX(float deltaVx);
+	void addVelocityNormalizedY(float deltaVy);
+	void addVelocityNormalizedXY(float deltaVx, float deltaVy);
+	void setVelocityNormalizedXY(float deltaVx, float deltaVy);
 	inline void resetVelocity() { this->vx = 0.f; this->vy = 0.f; }
 	virtual bool OnInteraction(Dynamic* secondDynamic) = 0;
 	Dynamic* getCollidingFront(vector<Dynamic*>* vDynamic);

@@ -20,7 +20,7 @@ bool cProjectile::OnInteraction(Dynamic* secondDynamic) {
 		hasHitted = true;
 		if (dynamic_cast<Creature*>(secondDynamic)) { // Is creature
 			this->bEnergized = false;
-			((Creature*)secondDynamic)->defend(this->getDamage()); // Inflic damage
+			((Creature*)secondDynamic)->defend(this); // Inflic damage
 			return true;
 		}
 	}
@@ -66,7 +66,7 @@ bool cProjectile_Sword::OnInteraction(Dynamic* secondDynamic) {
 	if (secondDynamic->isFriendly() != this->isFriendly() && !hasHitted) { // If one is enemy of the other
 		hasHitted = true;
 		if (dynamic_cast<Creature*>(secondDynamic) ) { // Is creature
-			((Creature*)secondDynamic)->defend(this->getDamage()); // Inflic damage
+			((Creature*)secondDynamic)->defend(this); // Inflic damage
 			return true;
 		}
 	}

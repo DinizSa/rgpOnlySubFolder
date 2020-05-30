@@ -5,6 +5,7 @@
 #include "textDrawer.h"
 #include "item.h"
 #include "constants.h"
+#include "projectile.h"
 
 Creature::Creature(): Dynamic() {
 	hp = 0;
@@ -22,13 +23,19 @@ Creature::Creature(string name, string asset, float px, float py, bool solidVsSo
 }
 
 bool Creature::OnInteraction(Dynamic* secondDynamic) {
-	cout << this->getName() << " interacting with " << secondDynamic->getName() << endl;
+	cout << "creature " << this->getName() << " interacting with " << secondDynamic->getName() << endl;
 	return false;
 }
 
-void Creature::defend(int damage) { 
-	this->hp -= max(damage, 0); 
-	cout << this->getName() << " attacked by " << damage << ". Health left: " << this->getHealth() << endl;
+void Creature::defend(Dynamic* collider) {
+	if (!this->isBeingProjected()) {
+		this->hp = max(this->hp - ((cProjectile*)collider)->getDamage(), 0.f);
+		cout << this->getName() << " attacked by " << ((cProjectile*)collider)->getDamage() << ". Health left: " << this->getHealth() << endl;
+
+		this->addVelocityNormalizedXY(collider->getMomentumX() * collider->getMaxSpeed(), collider->getMomentumY() * collider->getMaxSpeed());
+		this->bInertia = true;
+	}
+
 	if (hp == 0) {
 		graphicState = GraphicState::DEATH;
 	}
