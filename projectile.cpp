@@ -3,7 +3,7 @@
 #include "constants.h"
 #include <stdlib.h> 
 
-cProjectile::cProjectile(string name, string asset, float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float maxSpeed, float damage):
+cProjectile::cProjectile(string name, string asset, float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float maxSpeed, float weight, float damage):
 	Dynamic(name, asset, px, py, true, false, friendly, false, maxSpeed, true) {
 	this->fVectorDirectionX = vectorDirectionX;
 	this->fVectorDirectionY = vectorDirectionY;
@@ -13,6 +13,7 @@ cProjectile::cProjectile(string name, string asset, float px, float py, float ve
 	this->iFramesDuration = 20;
 	iFramesCycle = 20;
 	addVelocityNormalizedXY(this->fVectorDirectionX, this->fVectorDirectionY);
+	float fWeight = weight;
 }
 bool cProjectile::OnInteraction(Dynamic* secondDynamic) {
 
@@ -45,7 +46,7 @@ void cProjectile::setFrame() {
 
 // <--------------------------------------------- Fireball --------------------------------------------->
 cProjectile_Fireball::cProjectile_Fireball(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage): 
-	cProjectile("Fireball", "fireball", px, py, vectorDirectionX, vectorDirectionY, friendly, 3.0f, damage) {
+	cProjectile("Fireball", "fireball", px, py, vectorDirectionX, vectorDirectionY, friendly, 3.0f, 3, damage) {
 	iFramesDuration = 40;
 	iFramesCycle = 3;
 }
@@ -59,7 +60,7 @@ void cProjectile_Fireball::updateAI(Dynamic* pPlayer) {
 
 // <--------------------------------------------- Sword --------------------------------------------->
 cProjectile_Sword::cProjectile_Sword(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage) :
-	cProjectile("Sword", "Sword4", px, py , vectorDirectionX, vectorDirectionY, friendly, 1.0f, damage) {
+	cProjectile("Sword", "Sword4", px, py , vectorDirectionX, vectorDirectionY, friendly, 1.0f, 10, damage) {
 }
 
 bool cProjectile_Sword::OnInteraction(Dynamic* secondDynamic) {

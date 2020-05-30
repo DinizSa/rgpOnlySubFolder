@@ -32,7 +32,7 @@ void Creature::defend(Dynamic* collider) {
 		this->hp = max(this->hp - ((cProjectile*)collider)->getDamage(), 0.f);
 		cout << this->getName() << " attacked by " << ((cProjectile*)collider)->getDamage() << ". Health left: " << this->getHealth() << endl;
 
-		this->addVelocityNormalizedXY(collider->getMomentumX() * collider->getMaxSpeed(), collider->getMomentumY() * collider->getMaxSpeed());
+		this->addVelocityNormalizedXY(collider->getMomentumX() * collider->getMaxSpeed() * collider->getWeight(), collider->getMomentumY() * collider->getMaxSpeed() * collider->getWeight());
 		this->bInertia = true;
 	}
 

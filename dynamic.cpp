@@ -25,6 +25,7 @@ Dynamic::Dynamic():
 	this->iFramesCycle = 30;
 	bInertia = false;
 	phaseAnimation = 0;
+	fWeight = 0.f;
 }
 Dynamic::~Dynamic() {
 	for (auto item : vInventory) {
@@ -52,6 +53,7 @@ Dynamic::Dynamic(string name, string asset, float px, float py, bool solidVsSoli
 	this->iFramesCycle = 30;
 	bInertia = false;
 	phaseAnimation = 0;
+	fWeight = 1.f;
 }
 void Dynamic::update(Timer* timer, Maps* map, vector<Dynamic*>* vDynamic) {
 	if (graphicState != GraphicState::DEATH) {

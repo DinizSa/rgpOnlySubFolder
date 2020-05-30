@@ -10,6 +10,8 @@ using namespace std;
 class Dynamic: public Entity {
 protected:
 	bool isBeingProjected();
+
+protected:
 	float vx, vy;
 	bool solidVsSolid;
 	bool solidVsDynamic;
@@ -25,6 +27,7 @@ protected:
 	int iFramesPassed;
 	int iFramesCycle;
 	bool bInertia;
+	float fWeight;
 	
 
 public:
@@ -60,6 +63,8 @@ public:
 	float getMomentumY();
 	virtual void SetGraphics();
 	virtual void setFrame();
+	inline float getWeight() { return fWeight; };
+	inline void setWeight(float weight) { this->fWeight = weight; };
 
 	// Weapons
 	inline void setWeapon(Dynamic* weapon) { this->weapon = weapon; }

@@ -4,7 +4,7 @@
 
 class cProjectile : public Dynamic {
 public:
-	cProjectile(string name, string asset, float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float maxSpeed, float damage);
+	cProjectile(string name, string asset, float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float maxSpeed, float weight, float damage);
 	void updateAI(Dynamic* pPlayer) override = 0;
 	inline bool isEnergized() { return bEnergized; }
 	inline void setEnergized(bool energized) { this->bEnergized = energized; }
