@@ -15,10 +15,17 @@ public:
 	static inline vector<shared_ptr<cQuest>>* getQuestVector() { return &cQuest::vQuest; };
 	static void addQuest(shared_ptr<cQuest> questToAdd);
 	static void removeQuest(string questToRemove);
+	static inline bool hasNewQuest() { return cQuest::newQuest; };
+	static inline void setNewQuest(bool _newQuest) { cQuest::newQuest = _newQuest; };
+
+private:
+	static bool newQuest;
 
 protected:
 	string sName;
 	static vector<shared_ptr<cQuest>> vQuest;
+	bool bCompleted;
+	bool bAdded;
 };
 
 // <------------------------------------ Base quest ------------------------------------>
@@ -31,17 +38,6 @@ public:
 	
 };
 
-// <------------------------------------ Pink rabbit quest ------------------------------------>
-class cQuest_FindThePinkRabbit : public cQuest {
-public:
-	cQuest_FindThePinkRabbit();
-	~cQuest_FindThePinkRabbit();
-	void PopulateDynamics(vector<Dynamic*>& vDynamic, string mapName) override;
-	bool OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) override;
-private:
-	bool rabbitFound;
-};
-
 // <------------------------------------ Earth bending quest ------------------------------------->
 class cQuest_LearnEarthBending : public cQuest {
 public:
@@ -49,8 +45,6 @@ public:
 	~cQuest_LearnEarthBending();
 	void PopulateDynamics(vector<Dynamic*>& vDynamic, string mapName) override;
 	bool OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) override;
-private:
-	int iCompleted;
 
 
 };

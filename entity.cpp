@@ -33,6 +33,9 @@ void Entity::setDeathFilter() {
 void Entity::setInjuredFilter() {
 	this->shape.setFillColor(sf::Color::Color(220,10,10,150));
 }
+void Entity::setMaskedFilter(string asset) {
+
+}
 void Entity::resetFilters() {
 	this->shape.setFillColor(sf::Color::Color(255, 255, 255, 255));
 }

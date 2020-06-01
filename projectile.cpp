@@ -10,8 +10,8 @@ cProjectile::cProjectile(string name, string asset, float px, float py, float ve
 	this->bEnergized = true;
 	this->fDamage = damage;
 	this->hasHitted = false;
-	this->iFramesDuration = 20;
-	iFramesCycle = 20;
+	this->iFramesDuration = 12;
+	iFramesCycle = 12;
 	addVelocityNormalizedXY(this->fVectorDirectionX, this->fVectorDirectionY);
 	float fWeight = weight;
 }

@@ -6,14 +6,19 @@
 
 vector<shared_ptr<cQuest>> cQuest::vQuest;
 
+bool cQuest::newQuest = false;
+
 cQuest::cQuest(string sName) {
 	this->sName = sName;
+	this->bAdded = false;
+	this->bCompleted = false;
 }
 
 cQuest::~cQuest() {}
 
 
 void cQuest::addQuest(shared_ptr<cQuest> questToAdd) { 
+	cQuest::setNewQuest(true);
 	// Check if is already in vQuest
 	for (unsigned i = 0; i < cQuest::vQuest.size(); i++)
 		if (cQuest::vQuest[i]->getName() == questToAdd->getName())
@@ -35,7 +40,6 @@ void cQuest::removeQuest(string questName) {
 // <------------------------------------ Earth bending quest ------------------------------------->
 
 cQuest_LearnEarthBending::cQuest_LearnEarthBending():cQuest("Learn Earth Bending") {
-	this->iCompleted = false;
 };
 cQuest_LearnEarthBending::~cQuest_LearnEarthBending() {};
 void cQuest_LearnEarthBending::PopulateDynamics(vector<Dynamic*>& vDynamic, string mapName) {
@@ -43,8 +47,14 @@ void cQuest_LearnEarthBending::PopulateDynamics(vector<Dynamic*>& vDynamic, stri
 	vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 2, 5));
 };
 bool cQuest_LearnEarthBending::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
-	if (target->getName() == "Earth Bender" && !this->iCompleted) {
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Please help me", 1500));
+	if (target->getName() == "Earth Bender" && !this->bAdded) {
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Take my sword", 1500));
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and banish evil", 1500));
+		vDynamic[0]->addItem(new cItem_Sword(10, 0, 0));
+		this->bAdded = true;
+		return true;
+	}else if (target->getName() == "Earth Bender" && this->bAdded && !this->bCompleted) {
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Good luck", 1500));
 		return true;
 	}
 	return false;

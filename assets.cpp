@@ -46,10 +46,11 @@ void Assets::LoadTextures() {
 	load("bgpSunset", "assets/tiles/bgpSunset.png");
 	// Filter maps
 	load("mapCold", "assets/tiles/mapCold.png");
-	//load("mapMinado", "assets/tiles/mapInvert.jpg");
 	load("mapIllusion", "assets/tiles/mapIllusion.jpg");
 	load("mapDreaming", "assets/tiles/mapDreaming.jpg");
 	load("mapSmoke", "assets/tiles/mapSmoke.jpg");
 	load("mapPen", "assets/tiles/mapPen.png");
 	load("mapPolygons", "assets/tiles/mapPolygons.png");
+	// Filters people
+	load("EarthBenderPolygon", "assets/tiles/EarthBender4Polygons.jpg");
 }

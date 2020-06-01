@@ -48,8 +48,8 @@ void Creature::heal(int quantityToHeal) {
 
 // <------------------------------------ Player --------------------------------------------->
 cCreature_Player::cCreature_Player(string name, float px, float py) : Creature(name, "PackMan", px, py, 1, 1, 1, 100, 1.0f) {
-	this->addItem(new cItem_Sword(10, 13, 4));
-	this->addItem(new cItem_EarthRing(10, 13, 4));
+	//this->addItem(new cItem_Sword(10, 13, 4));
+	//this->addItem(new cItem_EarthRing(10, 13, 4));
 };
 
 
@@ -68,16 +68,13 @@ cCreature_EarthBender::cCreature_EarthBender(string name, float px, float py) : 
 
 bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 
-	if (!this->questAdded && this->getName() == "Earth Bender") {
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Take this earth bending ring", 1500));
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and banish evil from this land", 1500));
-		secondDynamic->addItem(new cItem_Sword(10, 13, 4));
-		secondDynamic->addItem(new cItem_EarthRing(10, 13, 4));
-		cQuest::addQuest(make_shared<cQuest_LearnEarthBending>());
+	if (!this->questAdded && this->getName() == this->getName()) {
+		auto quest = make_shared<cQuest_LearnEarthBending>();
+		cQuest::addQuest(quest);
 		this->questAdded = true;
 		return true;
 	}
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Can you help me?", 1500));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Hi", 1500));
 	return false;
 }
 

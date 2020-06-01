@@ -18,6 +18,7 @@ public:
 	void setPartialTexture(int px, int py, int dx, int dy);
 	void setDeathFilter();
 	void setInjuredFilter();
+	void setMaskedFilter(string asset);
 	void resetFilters();
 	void updatePosition(float px, float py);
 	void draw(sf::RenderWindow* window);
