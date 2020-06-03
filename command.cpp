@@ -9,16 +9,14 @@ cCommand::cCommand(){
 cCommand::~cCommand() {};
 
 // <------------------------------- Talk Command ------------------------------->
-cCommand_Talk::cCommand_Talk(string textToDisplay, int iMsDuration) {
-	iMsDisplaying = 0;
-	this->iMsDuration = iMsDuration;
+cCommand_Talk::cCommand_Talk(string textToDisplay, int framesDuration) {
+	this->iFramesDuration = framesDuration;
 	this->textToDisplay = textToDisplay;
 	bCompleted = false;
 	bStarted = false;
 };
-cCommand_Talk::cCommand_Talk(string name, string textToDisplay, int iMsDuration) {
-	iMsDisplaying = 0;
-	this->iMsDuration = iMsDuration;
+cCommand_Talk::cCommand_Talk(string name, string textToDisplay, int framesDuration) {
+	this->iFramesDuration = framesDuration;
 	this->textToDisplay = "[ " + name + " ]   " + textToDisplay;
 	bCompleted = false;
 	bStarted = false;
@@ -27,15 +25,12 @@ cCommand_Talk::cCommand_Talk(string name, string textToDisplay, int iMsDuration)
 cCommand_Talk::~cCommand_Talk() {
 };
 
-void cCommand_Talk::Start() {
-	bCompleted = false;
-	bStarted = true;
-	cTextDrawer::get().setDialogue( textToDisplay);
-};
 
-void cCommand_Talk::Update(int msElapsed) {
-	iMsDisplaying += msElapsed;
-	if (iMsDisplaying > iMsDuration) {
+void cCommand_Talk::Update() {
+	bStarted = true;
+	iFramesDuration--;
+	cTextDrawer::get().setDialogue(textToDisplay);
+	if (iFramesDuration < 0) {
 		this->bCompleted = true;
 		cTextDrawer::get().removeDialogue();
 	}
@@ -44,8 +39,8 @@ void cCommand_Talk::Update(int msElapsed) {
 // <------------------------------- Move Command ------------------------------->
 cCommand_MoveTo::cCommand_MoveTo(Dynamic* dynamic, float x, float y) {
 	this->dynamic = dynamic;
-	this->m_fStartPosX = 0.f;
-	this->m_fStartPosY = 0.f;
+	this->m_fStartPosX = dynamic->getPosX();
+	this->m_fStartPosY = dynamic->getPosY();
 	m_fTargetPosX = x;
 	m_fTargetPosY = y;
 	bCompleted = false;
@@ -55,15 +50,9 @@ cCommand_MoveTo::~cCommand_MoveTo() {
 
 }
 
-void cCommand_MoveTo::Start() {
-	this->m_fStartPosX = dynamic->getPosX();
-	this->m_fStartPosY = dynamic->getPosY();
+
+void cCommand_MoveTo::Update() {
 	bStarted = true;
-	bCompleted = false;
-
-}
-
-void cCommand_MoveTo::Update(int iElapsedTime) {
 	float currentPosX = dynamic->getPosX();
 	float currentPosY = dynamic->getPosY();
 	float m_fTotalDistance = sqrt(powf((m_fTargetPosX - currentPosX), 2) + powf((m_fTargetPosY - currentPosY), 2));

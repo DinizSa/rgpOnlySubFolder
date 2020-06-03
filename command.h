@@ -11,29 +11,27 @@ public:
 	cCommand();
 	virtual ~cCommand();
 
-	inline bool isCompleted() {  return bCompleted; }
+	inline bool getCompleted() {  return bCompleted; }
+	inline void setCompleted() { this->bCompleted = true; };
 	inline bool getStarted() { return this->bStarted; }
 	inline void setStarted() { this->bStarted = true; }
 
-	virtual void Start() {};
-	virtual void Update(int iElapsedTime) {};
+	virtual void Update() {};
 
 };
 
 // <------------------------------- Talk Command ------------------------------->
 class cCommand_Talk : public cCommand {
 public:
-	cCommand_Talk(string textToDisplay, int iMsDuration);
+	cCommand_Talk(string textToDisplay, int framesDuration);
 	cCommand_Talk(string character, string textToDisplay, int iMsDuration);
 	~cCommand_Talk();
 
-	inline void finish() { this->bCompleted = true; };
-	void Start() override;
-	void Update(int msElapsed) override;
+
+	void Update() override;
 
 private:
-	int iMsDisplaying;
-	int iMsDuration;
+	int iFramesDuration;
 	string textToDisplay;
 };
 
@@ -42,8 +40,8 @@ class cCommand_MoveTo : public cCommand {
 public:
 	cCommand_MoveTo(Dynamic* dynamic, float x, float y);
 	~cCommand_MoveTo();
-	void Start() override;
-	void Update(int iElapsedTime) override;
+
+	void Update() override;
 
 private:
 	Dynamic* dynamic;

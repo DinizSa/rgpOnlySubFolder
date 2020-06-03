@@ -19,14 +19,13 @@ void cScriptProcessor::ProcessCommands(int iElapsedTime) {
 	if (!m_listCommands.empty()) {
 
 		// Front command is not completed
-		if (!m_listCommands.front()->isCompleted()) {
+		if (!m_listCommands.front()->getCompleted()) {
 			if (!m_listCommands.front()->getStarted()) {
 				m_listCommands.front()->setStarted();
-				m_listCommands.front()->Start();
 
 			}
 			else {
-				m_listCommands.front()->Update(iElapsedTime);
+				m_listCommands.front()->Update();
 			}
 		}
 		else {

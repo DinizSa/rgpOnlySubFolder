@@ -51,11 +51,11 @@ cInteractive_Info::~cInteractive_Info() {}
 
 bool cInteractive_Info::OnInteraction(Dynamic* secondDynamic) {
 
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Use the keys W, A, S, D to move", 1500));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "SPACE to interact", 1500));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "M to acess the inventory", 1500));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and E do attack", 1500));
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Good luck", 1500));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Use the keys W, A, S, D to move", 120));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "SPACE to interact", 100));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "M to acess the inventory", 100));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and E do attack", 100));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Good luck", 100));
 	return false;
 }
 

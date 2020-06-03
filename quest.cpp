@@ -48,13 +48,13 @@ void cQuest_LearnEarthBending::PopulateDynamics(vector<Dynamic*>& vDynamic, stri
 };
 bool cQuest_LearnEarthBending::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 	if (target->getName() == "Earth Bender" && !this->bAdded) {
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Take my sword", 1500));
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and banish evil", 1500));
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Take my sword", 100));
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "and banish evil", 100));
 		vDynamic[0]->addItem(new cItem_Sword(10, 0, 0));
 		this->bAdded = true;
 		return true;
 	}else if (target->getName() == "Earth Bender" && this->bAdded && !this->bCompleted) {
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Good luck", 1500));
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Good luck", 100));
 		return true;
 	}
 	return false;
@@ -76,16 +76,16 @@ bool cQuest_Base::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 	cQuest::getQuestVector()->size();
 	if (target->getName() == "Joseph" ) {
 		if (cQuest::getQuestVector()->size() < 2) {
-			cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "You must find quests!", 1500));
+			cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "You must find quests!", 100));
 			return true;
 		}
 		else {
-			cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Good luck on your journey!", 1500));
+			cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Good luck on your journey!", 100));
 			return true;
 		}
 	}
 	if (target->getName() == "Joseph brother") {
-		cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Ask my brother Joseph about your quests!", 1500));
+		cScriptProcessor::Get().AddCommand(new cCommand_Talk(target->getName(), "Ask my brother Joseph about your quests!", 100));
 		return true;
 	}
 	return false;

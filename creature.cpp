@@ -59,7 +59,7 @@ cCreature_FireLady::cCreature_FireLady(string name, float px, float py) : Creatu
 
 bool cCreature_FireLady::OnInteraction(Dynamic* secondDynamic) {
 	//shared_ptr<cQuest> sharedQuest = make_shared<cQuest_FindThePinkRabbit>();
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Hi!", 1500));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Hi!", 120));
 	return false;
 }
 
@@ -74,7 +74,7 @@ bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 		this->questAdded = true;
 		return true;
 	}
-	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Hi", 1500));
+	cScriptProcessor::Get().AddCommand(new cCommand_Talk(this->getName(), "Hi", 120));
 	return false;
 }
 
@@ -111,7 +111,7 @@ void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
 cCreature_PinkRabbit::cCreature_PinkRabbit(string name, float px, float py) : Creature(name, "PinkRabbit", px, py, 1, 1, 1, 50, 1.0f) {};
 
 bool cCreature_PinkRabbit::OnInteraction(Dynamic* secondDynamic) {
-	cScriptProcessor::Get().AddCommand( new cCommand_Talk("Cri Cri!", 1000));
+	cScriptProcessor::Get().AddCommand( new cCommand_Talk("Cri Cri!", 100));
 	return false;
 }
 
