@@ -78,34 +78,47 @@ bool cCreature_EarthBender::OnInteraction(Dynamic* secondDynamic) {
 	return false;
 }
 
-
-// <------------------------------------ Evil Rabbit --------------------------------------------->
-cCreature_EvilRabbit::cCreature_EvilRabbit(string name, float px, float py) : Creature(name, "EvilRabbit", px, py, 1, 1, false, 20, 1.0f) {
-	this->iAttack = 5;
-	this->setWeapon(new cItem_EarthRing(20, -1,-1));
+// <------------------------------------ cCreature_Enemy --------------------------------------------->
+cCreature_Enemy::cCreature_Enemy(string name, string asset, float px, float py) : Creature(name, asset, px, py, 1, 1, false, 20, 1.0f) {
+	// Default values
+	this->setWeapon(new cItem_EarthRing(20, -1, -1));
+	framesOfRest = 60 * 2;
+	framesCount = 0;
 }
 
-bool cCreature_EvilRabbit::OnInteraction(Dynamic* secondDynamic) {
-	//this->attack(((Creature*)secondDynamic), this->iAttack);
+bool cCreature_Enemy::OnInteraction(Dynamic* secondDynamic) {
 	return false;
 }
 
-void cCreature_EvilRabbit::updateAI(Dynamic* pPlayer) {
+void cCreature_Enemy::updateAI(Dynamic* pPlayer) {
+	
+	// Shoot
 	float dx = this->getPosX() - pPlayer->getPosX();
 	float dy = this->getPosY() - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
 
-	if (framesOfRest == 0) 
-		framesOfRest = 60 * 6;
-	
-	if(framesOfRest==60*4)
-		this->setAttacking(true);
-
-	if(framesOfRest > 60*4 && abs(delta) > Assets::get().GetSizeSprite())
+	if (framesCount > framesOfRest / 2 && abs(delta) > constants::ASSET_SIZE)
 		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);
-
-	framesOfRest--;
+	if (framesCount == framesOfRest) {
+		this->setAttacking(true);
+		framesCount = 0;
+	}
+	framesCount++;
 }
+
+// <------------------------------------ Evil Rabbit --------------------------------------------->
+cCreature_Enemy_Rabbit::cCreature_Enemy_Rabbit(string name, float px, float py) : cCreature_Enemy(name, "EvilRabbit", px, py) {
+	this->setWeapon(new cItem_EarthRing(20, -1,-1));
+	framesOfRest = 60 * 2;
+}
+
+// <------------------------------------ Evil Swordsman --------------------------------------------->
+cCreature_Enemy_Duelist::cCreature_Enemy_Duelist(string name, float px, float py) : cCreature_Enemy(name, "EarthBender", px, py) {
+	this->setWeapon(new cItem_Sword(30, -1,-1));
+	framesOfRest = 60 * 2;
+}
+
+
 
 // <------------------------------------ Pink Friendly Rabbit --------------------------------------------->
 cCreature_PinkRabbit::cCreature_PinkRabbit(string name, float px, float py) : Creature(name, "PinkRabbit", px, py, 1, 1, 1, 50, 1.0f) {};
@@ -114,6 +127,7 @@ bool cCreature_PinkRabbit::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand( new cCommand_Talk("Cri Cri!", 100));
 	return false;
 }
+
 
 void cCreature_PinkRabbit::updateAI(Dynamic* pPlayer) {
 	float dx = this->px - pPlayer->getPosX();

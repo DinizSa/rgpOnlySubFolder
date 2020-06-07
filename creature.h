@@ -45,16 +45,28 @@ public:
 	bool OnInteraction(Dynamic* secondDynamic) override;
 };
 
-// <------------------------------------ Evil Rabbit --------------------------------------------->
-class cCreature_EvilRabbit : public Creature {
+// <------------------------------------ Creature Enemy --------------------------------------------->
+class cCreature_Enemy : public Creature {
 public:
-	cCreature_EvilRabbit(string name, float px, float py);
-	bool OnInteraction(Dynamic* secondDynamic) override;
-	void updateAI(Dynamic* pPlayer);
-private:
-	int iAttack;
-	int framesOfRest = 60 * 4;
+	cCreature_Enemy(string name, string asset, float px, float py);
+	virtual bool OnInteraction(Dynamic* secondDynamic) override;
+	virtual void updateAI(Dynamic* pPlayer);
+protected:
+	int framesOfRest;
+	int framesCount;
 	
+};
+
+// <------------------------------------ Evil Rabbit --------------------------------------------->
+class cCreature_Enemy_Rabbit : public cCreature_Enemy {
+public:
+	cCreature_Enemy_Rabbit(string name, float px, float py);
+};
+
+// <------------------------------------ Evil Rabbito --------------------------------------------->
+class cCreature_Enemy_Duelist : public cCreature_Enemy {
+public:
+	cCreature_Enemy_Duelist(string name, float px, float py);
 };
 
 // <------------------------------------ Pink Friendly Rabbit --------------------------------------------->

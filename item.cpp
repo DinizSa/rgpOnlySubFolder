@@ -107,9 +107,23 @@ cItem_Weapon::cItem_Weapon(string name, string asset, string description, int st
 	momentumX = 0.f;
 	momentumY = 0.f;
 	this->rechargeTime = rechargeTime;
-	timeSinceLastShoot = 0;
+	framesSinceLastShoot = 0;
 	this->timer = Timer();
 }
+
+
+cProjectile* cItem_Weapon::OnWeaponUse(Dynamic* dynamic) {
+	this->timer.updateTimer();
+	int timeSinceShoot = this->timer.getMsSinceStart();
+	// Emits an projectile
+	if (timeSinceShoot > rechargeTime) {
+		this->timer.resetTime();
+		return getProjectile(dynamic);
+	}
+	else
+		return nullptr;
+}
+
 
 bool cItem_Weapon::OnInteraction(Dynamic* dynamic) {
 	return true; // Add to the inventory
@@ -127,18 +141,10 @@ bool cItem_EarthRing::OnInteraction(Dynamic* dynamic) {
 	return true; // Add to the inventory
 }
 
-cProjectile* cItem_EarthRing::OnWeaponUse(Dynamic* dynamic) {
-	// TODO: passar isto pa função do pai
-	this->timer.updateTimer();
-	int timeSinceShoot = this->timer.getMsSinceStart();
-	// Emits an projectile
-	if (timeSinceShoot > rechargeTime) {
-		this->timer.resetTime();
-		return new cProjectile_Fireball(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, dynamic->getMomentumX(), dynamic->getMomentumY(), dynamic->isFriendly(), this->iStrength);
-	}
-	else
-		return nullptr;
+cProjectile* cItem_EarthRing::getProjectile(Dynamic* dynamic) {
+	return new cProjectile_Fireball(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, dynamic->getMomentumX(), dynamic->getMomentumY(), dynamic->isFriendly(), this->iStrength);
 }
+
 
 // <------------------------------------------ Sword Item ------------------------------------------>
 cItem_Sword::cItem_Sword(int strength, float px, float py) : cItem_Weapon("Sword", "Sword", "Basic sword, " + to_string(strength) + " power", strength, 1000, px, py) {
@@ -151,15 +157,7 @@ bool cItem_Sword::OnInteraction(Dynamic* dynamic) {
 	return true; // Add to the inventory
 }
 
-cProjectile* cItem_Sword::OnWeaponUse(Dynamic* dynamic) {
-	// TODO: passar isto pa função do pai
-	this->timer.updateTimer();
-	int timeSinceShoot = this->timer.getMsSinceStart();
-	// Emits an projectile
-	if (timeSinceShoot > rechargeTime) {
-		this->timer.resetTime();
-		return new cProjectile_Sword(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, dynamic->getMomentumX()/100, dynamic->getMomentumY()/100, dynamic->isFriendly(), this->iStrength);
-	}
-	else
-		return nullptr;
+
+cProjectile* cItem_Sword::getProjectile(Dynamic* dynamic) {
+	return new cProjectile_Sword(dynamic->getPosX() / constants::ASSET_SIZE, dynamic->getPosY() / constants::ASSET_SIZE, dynamic->getMomentumX() / 100, dynamic->getMomentumY() / 100, dynamic->isFriendly(), this->iStrength, dynamic);
 }

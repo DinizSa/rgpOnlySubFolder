@@ -71,20 +71,22 @@ public:
 	cItem_Weapon(string name, string asset, string description, int strength, int rechargeTime, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
 	inline void OnUse(Dynamic* dynamic) override {};
-	virtual cProjectile* OnWeaponUse(Dynamic* dynamic)=0;
+	cProjectile* OnWeaponUse(Dynamic* dynamic);
+	virtual cProjectile* getProjectile(Dynamic* dynamic)=0;
 protected:
 	float momentumX, momentumY;
 	int rechargeTime;
-	int timeSinceLastShoot;
+	int framesSinceLastShoot;
 	Timer timer;
 
 };
+
 // <------------------------------------------ Ring item ------------------------------------------>
 class cItem_EarthRing : public cItem_Weapon {
 public:
 	cItem_EarthRing(int strength, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
-	cProjectile* OnWeaponUse(Dynamic* dynamic) override;
+	cProjectile* getProjectile(Dynamic* dynamic) override;
 };
 
 // <------------------------------------------ Sword item ------------------------------------------>
@@ -92,5 +94,5 @@ class cItem_Sword : public cItem_Weapon {
 public:
 	cItem_Sword(int strength, float px, float py);
 	bool OnInteraction(Dynamic* dynamic) override;
-	cProjectile* OnWeaponUse(Dynamic* dynamic) override;
+	cProjectile* getProjectile(Dynamic* dynamic) override;
 };

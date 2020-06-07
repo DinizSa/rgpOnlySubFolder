@@ -44,7 +44,7 @@ cQuest_LearnEarthBending::cQuest_LearnEarthBending():cQuest("Learn Earth Bending
 cQuest_LearnEarthBending::~cQuest_LearnEarthBending() {};
 void cQuest_LearnEarthBending::PopulateDynamics(vector<Dynamic*>& vDynamic, string mapName) {
 	
-	vDynamic.push_back(new cCreature_EvilRabbit("Evil Rabbit", 2, 5));
+	vDynamic.push_back(new cCreature_Enemy_Rabbit("Evil Rabbit", 2, 5));
 };
 bool cQuest_LearnEarthBending::OnInteraction(vector<Dynamic*> vDynamic, Dynamic* target) {
 	if (target->getName() == "Earth Bender" && !this->bAdded) {

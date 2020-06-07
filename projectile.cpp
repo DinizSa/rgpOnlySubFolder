@@ -59,8 +59,9 @@ void cProjectile_Fireball::updateAI(Dynamic* pPlayer) {
 }
 
 // <--------------------------------------------- Sword --------------------------------------------->
-cProjectile_Sword::cProjectile_Sword(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage) :
+cProjectile_Sword::cProjectile_Sword(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage, Dynamic* dynamic) :
 	cProjectile("Sword", "Sword4", px, py , vectorDirectionX, vectorDirectionY, friendly, 1.0f, 10, damage) {
+	this->dynamicShooter = dynamic;
 }
 
 bool cProjectile_Sword::OnInteraction(Dynamic* secondDynamic) {
@@ -77,12 +78,12 @@ bool cProjectile_Sword::OnInteraction(Dynamic* secondDynamic) {
 
 void cProjectile_Sword::updateAI(Dynamic* pPlayer) {
 	// Velocity setted just so the direction frame is setted
-	this->setVelocityNormalizedXY(pPlayer->getVelX(), pPlayer->getVelY() );
-	this->setPosX(pPlayer->getPosX() + pPlayer->getMomentumX() * (float)constants::ASSET_SIZE * 0.5f);
-	this->setPosY(pPlayer->getPosY() + pPlayer->getMomentumY() * (float)constants::ASSET_SIZE * 0.5f);
+	this->setVelocityNormalizedXY(dynamicShooter->getVelX(), dynamicShooter->getVelY() );
+	this->setPosX(dynamicShooter->getPosX() + dynamicShooter->getMomentumX() * (float)constants::ASSET_SIZE * 0.5f);
+	this->setPosY(dynamicShooter->getPosY() + dynamicShooter->getMomentumY() * (float)constants::ASSET_SIZE * 0.5f);
 	
 	if (getVelX() == 0 && getVelY() == 0)
-		this->setFacingDirection(pPlayer->getFacingDirection());
+		this->setFacingDirection(dynamicShooter->getFacingDirection());
 
 	checkDurability();
 	

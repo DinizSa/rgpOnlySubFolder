@@ -33,8 +33,10 @@ public:
 // <--------------------------------------------- Sword projectile --------------------------------------------->
 class cProjectile_Sword : public cProjectile {
 public:
-	cProjectile_Sword(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage);
+	cProjectile_Sword(float px, float py, float vectorDirectionX, float vectorDirectionY, bool friendly, float damage, Dynamic* dynamicShooter);
 	void updateAI(Dynamic* pPlayer) override;
 	bool OnInteraction(Dynamic* secondDynamic) override;
+private:
+	Dynamic* dynamicShooter;
 };
 
