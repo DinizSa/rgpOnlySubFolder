@@ -25,6 +25,7 @@
     <ClInclude Include="creature.h" />
     <ClInclude Include="dynamic.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="enemyFactory.h" />
     <ClInclude Include="interactive.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="dynamic.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="enemyFactory.cpp" />
     <ClCompile Include="interactive.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />

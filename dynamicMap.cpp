@@ -6,6 +6,7 @@
 #include "item.h"
 #include <algorithm>
 #include "constants.h"
+#include "enemyFactory.h"
 
 cDynamicMap::cDynamicMap() {
 	this->bPressedLeft = false;
@@ -195,7 +196,7 @@ void cDynamicMap_LevelOne::populateDynamics(Dynamic* pPlayer) {
 	this->vDynamic.push_back(new cCreature_EarthBender("Earth Bender", 10, 4));
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 13, 6));
 	this->vDynamic.push_back(new cCreature_PinkRabbit("Rabbit", 12, 4));
-	this->vDynamic.push_back(new cCreature_Enemy_Duelist("Carlos", 8, 4));
+	this->vDynamic.push_back(enemyFactory::getEnemy(8, 4));
 	// Interactives
 	this->vDynamic.push_back(new cInteractive_Info("Stone friend", 2, 4));
 	this->vDynamic.push_back(new cInteractive_Teleport(16, 6, "DynMap_ArenaOne", 5, 5));
@@ -218,10 +219,10 @@ cDynamicMap_ArenaOne::cDynamicMap_ArenaOne() {
 void cDynamicMap_ArenaOne::populateDynamics(Dynamic* pPlayer) {
 	// Life
 	this->vDynamic.push_back(pPlayer);
-	this->vDynamic.push_back(new cCreature_Enemy_Rabbit("Rabbit", 15, 6));
-	this->vDynamic.push_back(new cCreature_Enemy_Rabbit("Rabbit", 16, 4));
-	this->vDynamic.push_back(new cCreature_Enemy_Rabbit("Rabbit", 9, 6));
-	this->vDynamic.push_back(new cCreature_Enemy_Rabbit("Rabbit", 7, 3));
+	this->vDynamic.push_back(enemyFactory::getEnemy(15, 6));
+	this->vDynamic.push_back(enemyFactory::getEnemy(16, 4));
+	this->vDynamic.push_back(enemyFactory::getEnemy(9, 6));
+	this->vDynamic.push_back(enemyFactory::getEnemy(7, 3));
 	// Interactives
 	this->vDynamic.push_back(new cInteractive_Teleport(5, 6, "DynMap_LevelOne", 16, 5));
 

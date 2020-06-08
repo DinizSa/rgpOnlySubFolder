@@ -90,19 +90,28 @@ bool cCreature_Enemy::OnInteraction(Dynamic* secondDynamic) {
 	return false;
 }
 
-void cCreature_Enemy::updateAI(Dynamic* pPlayer) {
-	
-	// Shoot
+void cCreature_Enemy::moveAI(Dynamic* pPlayer) {
+
 	float dx = this->getPosX() - pPlayer->getPosX();
 	float dy = this->getPosY() - pPlayer->getPosY();
 	float delta = sqrtf(dx * dx + dy * dy);
 
 	if (framesCount > framesOfRest / 2 && abs(delta) > constants::ASSET_SIZE)
 		this->addVelocityNormalizedXY(-dx / delta, -dy / delta);
+}
+
+void cCreature_Enemy::fireAI(Dynamic* pPlayer) {
+
 	if (framesCount == framesOfRest) {
 		this->setAttacking(true);
 		framesCount = 0;
 	}
+}
+
+void cCreature_Enemy::updateAI(Dynamic* pPlayer) {
+	moveAI(pPlayer);
+	fireAI(pPlayer);
+
 	framesCount++;
 }
 
@@ -127,7 +136,6 @@ bool cCreature_PinkRabbit::OnInteraction(Dynamic* secondDynamic) {
 	cScriptProcessor::Get().AddCommand( new cCommand_Talk("Cri Cri!", 100));
 	return false;
 }
-
 
 void cCreature_PinkRabbit::updateAI(Dynamic* pPlayer) {
 	float dx = this->px - pPlayer->getPosX();

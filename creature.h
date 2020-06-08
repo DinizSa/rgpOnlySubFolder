@@ -52,6 +52,10 @@ public:
 	virtual bool OnInteraction(Dynamic* secondDynamic) override;
 	virtual void updateAI(Dynamic* pPlayer);
 protected:
+	virtual void moveAI(Dynamic* pPlayer);
+	virtual void fireAI(Dynamic* pPlayer);
+
+protected:
 	int framesOfRest;
 	int framesCount;
 	
